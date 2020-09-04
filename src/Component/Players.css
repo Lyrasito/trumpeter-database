@@ -1,0 +1,12 @@
+#hiddenPlayer {
+  display: none;
+}
+
+#player {
+  display: inline-block;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+}
