@@ -3,7 +3,6 @@ import React from "react";
 import "./App.css";
 import Database from "../Database";
 import SearchBar from "./SearchBar";
-import SearchResults from "./SearchResults";
 import Player from "./Player";
 import PlayerList from "./PlayerList";
 
@@ -14,30 +13,39 @@ class App extends React.Component {
       searchResults: [],
     };
     this.allPlayers = this.allPlayers.bind(this);
-    this.searchPlayersByCity = this.searchPlayersByCity.bind(this);
+    this.searchPlayers = this.searchPlayers.bind(this);
   }
 
-  searchPlayersByCity(term) {
-    Database.searchPlayersByCity(term).then((response) => {
-      this.setState({ searchResults: response });
-    });
+  async searchPlayers(city, year, genre) {
+    if (!year) {
+      year = null;
+    } else if (!city) {
+      city = null;
+    } else if (!genre) {
+      genre = null;
+    }
+    const response = await Database.searchPlayers(city, year, genre);
+    this.setState({ searchResults: response });
   }
 
-  allPlayers() {
-    Database.getPlayers().then((response) => {
-      this.setState({ searchResults: response });
-    });
+  async allPlayers() {
+    const response = await Database.getPlayers();
+    this.setState({ searchResults: response });
   }
 
   render() {
     return (
       <div>
+        <h1>Jazz Trumpeteer Database</h1>
         <SearchBar
           searchResults={this.state.searchResults}
           searchPlayersByCity={this.searchPlayersByCity}
-          onClick={this.allPlayers}
+          searchPlayers={this.searchPlayers}
         />
-        <button onClick={this.allPlayers}>See All Players</button>
+        <div className="button-container">
+          <button onClick={this.allPlayers}>See All Players</button>
+        </div>
+
         <h1>Players</h1>
         <PlayerList players={this.state.searchResults} />
       </div>

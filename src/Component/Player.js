@@ -12,6 +12,14 @@ class Player extends React.Component {
             {this.props.player.endYear}
           </h2>
           <h2>Genres: {this.props.player.genres.join(", ")}</h2>
+          <h2>Albums: </h2>
+          {this.props.player.albums.map((album) => {
+            return (
+              <div key={album.id}>
+                <h4>Title: {album.title} </h4> <h4>Year: {album.year}</h4>
+              </div>
+            );
+          })}
         </div>
       );
     } else {

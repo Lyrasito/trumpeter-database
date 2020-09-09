@@ -14,12 +14,26 @@ const Database = {
       startYear: player.start_year,
       endYear: player.end_year,
     }));
-    console.log(players);
     return players;
   },
 
-  async searchPlayersByCity(city) {
-    const url = `${baseUrl}/players/search?city=${city}`;
+  async searchPlayers(city, year, genre) {
+    let url = "";
+    if (city && !year && !genre) {
+      url = `${baseUrl}/players/search?city=${city}`;
+    } else if (year && !city && !genre) {
+      url = `${baseUrl}/players/search?year=${year}`;
+    } else if (genre && !city && !year) {
+      url = `${baseUrl}/players/search?genre=${genre}`;
+    } else if (city && year && !genre) {
+      url = `${baseUrl}/players/search?city=${city}&year=${year}`;
+    } else if (city && genre && !year) {
+      url = `${baseUrl}/players/search?city=${city}&genre=${genre}`;
+    } else if (genre && year && !city) {
+      url = `${baseUrl}/players/search?genre=${genre}&year=${year}`;
+    } else if (city && year && genre) {
+      url = `${baseUrl}/players/search?city=${city}&year=${year}&genre=${genre}`;
+    }
     const response = await fetch(url);
     const jsonResponse = await response.json();
     const players = await jsonResponse.players.map((player) => ({
@@ -29,8 +43,19 @@ const Database = {
       startYear: player.start_year,
       endYear: player.end_year,
     }));
-    console.log(players);
     return players;
+  },
+
+  async getPlayerAlbums(player) {
+    const url = `${baseUrl}/players/${player.id}/albums`;
+    const response = await fetch(url);
+    const jsonResponse = await response.json();
+    const albums = await jsonResponse.albums.map((album) => ({
+      id: album.id,
+      title: album.title,
+      year: album.year,
+    }));
+    return albums;
   },
 
   async getPlayerGenres(player) {

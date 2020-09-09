@@ -92,7 +92,7 @@ playerRouter.get("/search", (req, res, next) => {
         }
       }
     );
-  } else if (req.query.city && req.query.year) {
+  } else if (req.query.city && req.query.year && !req.query.genre) {
     const numYear = Number(req.query.year);
     db.all(
       `SELECT * FROM 'Player' WHERE city LIKE '%${req.query.city}%' AND ${numYear} BETWEEN start_year AND end_year`,
@@ -104,7 +104,7 @@ playerRouter.get("/search", (req, res, next) => {
         }
       }
     );
-  } else if (req.query.city && req.query.genre) {
+  } else if (req.query.city && req.query.genre && !req.query.year) {
     db.all(
       `SELECT * FROM Album WHERE genre LIKE '%${req.query.genre}%'`,
       (err, albums) => {
@@ -117,6 +117,56 @@ playerRouter.get("/search", (req, res, next) => {
           const stringIds = ids.join(",");
 
           const sql = `SELECT * FROM Player WHERE Player.id IN (${stringIds}) AND Player.city LIKE '%${req.query.city}%'`;
+
+          db.all(sql, (err, players) => {
+            if (err) {
+              next(err);
+            } else {
+              res.send({ players: players });
+            }
+          });
+        }
+      }
+    );
+  } else if (req.query.genre && req.query.year && !req.query.city) {
+    const numYear = Number(req.query.year);
+    db.all(
+      `SELECT * FROM Album WHERE genre LIKE '%${req.query.genre}%'`,
+      (err, albums) => {
+        if (err) {
+          next(err);
+        } else {
+          const ids = albums.map((data) => {
+            return Number(data.player_id);
+          });
+          const stringIds = ids.join(",");
+
+          const sql = `SELECT * FROM Player WHERE Player.id IN (${stringIds}) AND ${numYear} BETWEEN start_year AND end_year`;
+
+          db.all(sql, (err, players) => {
+            if (err) {
+              next(err);
+            } else {
+              res.send({ players: players });
+            }
+          });
+        }
+      }
+    );
+  } else if (req.query.genre && req.query.year && req.query.city) {
+    const numYear = Number(req.query.year);
+    db.all(
+      `SELECT * FROM Album WHERE genre LIKE '%${req.query.genre}%'`,
+      (err, albums) => {
+        if (err) {
+          next(err);
+        } else {
+          const ids = albums.map((data) => {
+            return Number(data.player_id);
+          });
+          const stringIds = ids.join(",");
+
+          const sql = `SELECT * FROM Player WHERE Player.id IN (${stringIds}) AND ${numYear} BETWEEN start_year AND end_year AND Player.city LIKE '%${req.query.city}%'`;
 
           db.all(sql, (err, players) => {
             if (err) {

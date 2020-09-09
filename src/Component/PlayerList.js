@@ -7,15 +7,14 @@ class PlayerList extends React.Component {
     super(props);
     this.state = {
       clickedPlayer: null,
-      clickedPlayerGenres: null,
     };
   }
 
   async handleClick(player) {
     const response = await Database.getPlayerGenres(player);
     player.genres = response;
-    console.log(player);
-    console.log(player.genres);
+    const albumResponse = await Database.getPlayerAlbums(player);
+    player.albums = albumResponse;
     this.setState({
       clickedPlayer: player,
     });
@@ -26,19 +25,11 @@ class PlayerList extends React.Component {
       <div>
         {this.props.players.map((player) => {
           return (
-            <div>
+            <div key={player.id}>
               <p onClick={() => this.handleClick(player)} value="">
                 {player.name}
               </p>
             </div>
-            /* <Players
-              name={player.name}
-              city={player.city}
-              startYear={player.startYear}
-              endYear={player.endYear}
-              key={player.id}
-            />
-            */
           );
         })}
         <Player player={this.state.clickedPlayer} />

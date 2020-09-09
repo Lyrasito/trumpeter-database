@@ -1,0 +1,30 @@
+.searchbar {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+}
+
+.container {
+  text-align: center;
+}
+.button-container {
+  text-align: center;
+  width: 83%;
+}
+.submit {
+  margin: 50px 0 30px 0;
+  border: 2px solid white;
+  border-radius: 5px;
+  color: white;
+  background-color: navy;
+  text-align: center;
+  width: 100px;
+  height: 30px;
+  cursor: pointer;
+}
+
+.search {
+  height: 30px;
+  width: 150px;
+}
