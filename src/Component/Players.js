@@ -11,17 +11,10 @@ class Players extends React.Component {
     };
     this.handleClick = this.handleClick.bind(this);
   }
-  handleClick() {
-    this.setState({
-      playerHidden: false,
-    });
-  }
+
   render() {
     return (
       <div className="container">
-        <div>
-          <p onClick={this.handleClick}>{this.props.name}</p>
-        </div>
         <div id={this.state.playerHidden ? "hiddenPlayer" : "player"}>
           <Player
             name={this.props.name}

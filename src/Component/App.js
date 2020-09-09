@@ -5,13 +5,13 @@ import Database from "../Database";
 import SearchBar from "./SearchBar";
 import SearchResults from "./SearchResults";
 import Player from "./Player";
+import PlayerList from "./PlayerList";
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       searchResults: [],
-      allPlayers: [],
     };
     this.allPlayers = this.allPlayers.bind(this);
     this.searchPlayersByCity = this.searchPlayersByCity.bind(this);
@@ -37,8 +37,9 @@ class App extends React.Component {
           searchPlayersByCity={this.searchPlayersByCity}
           onClick={this.allPlayers}
         />
-        <SearchResults searchResults={this.state.searchResults} />
         <button onClick={this.allPlayers}>See All Players</button>
+        <h1>Players</h1>
+        <PlayerList players={this.state.searchResults} />
       </div>
     );
   }

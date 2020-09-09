@@ -35,10 +35,21 @@ playerRouter.get("/", (req, res, next) => {
 //Search players by queries
 playerRouter.get("/search", (req, res, next) => {
   console.log(req.query);
-  if (req.query.city && req.query.year) {
+  if (req.query.city && !req.query.year && !req.query.genre) {
+    db.all(
+      `SELECT * FROM 'Player' WHERE city LIKE '%${req.query.city}%'`,
+      (err, players) => {
+        if (err) {
+          next(err);
+        } else {
+          res.send({ players: players });
+        }
+      }
+    );
+  } else if (req.query.year && !req.query.city && !req.query.genre) {
     const numYear = Number(req.query.year);
     db.all(
-      `SELECT * FROM 'Player' WHERE city LIKE '%${req.query.city}%' AND ${numYear} BETWEEN start_year AND end_year`,
+      `SELECT * FROM 'Player' WHERE ${numYear} BETWEEN start_year AND end_year`,
       (err, players) => {
         if (err) {
           next(err);
@@ -58,9 +69,33 @@ playerRouter.get("/search", (req, res, next) => {
         }
       }
     );
-  } else if (req.query.city && !req.query.year) {
+  } else if (req.query.genre && !req.query.city && !req.query.year) {
     db.all(
-      `SELECT * FROM 'Player' WHERE city LIKE '%${req.query.city}%'`,
+      `SELECT * FROM Album WHERE genre LIKE '%${req.query.genre}%'`,
+      (err, albums) => {
+        if (err) {
+          next(err);
+        } else {
+          const ids = albums.map((data) => {
+            return Number(data.player_id);
+          });
+          const stringIds = ids.join(",");
+          console.log(typeof stringIds);
+          const sql = `SELECT * FROM Player WHERE Player.id IN (${stringIds})`;
+          db.all(sql, (err, players) => {
+            if (err) {
+              next(err);
+            } else {
+              res.send({ players: players });
+            }
+          });
+        }
+      }
+    );
+  } else if (req.query.city && req.query.year) {
+    const numYear = Number(req.query.year);
+    db.all(
+      `SELECT * FROM 'Player' WHERE city LIKE '%${req.query.city}%' AND ${numYear} BETWEEN start_year AND end_year`,
       (err, players) => {
         if (err) {
           next(err);
@@ -69,15 +104,27 @@ playerRouter.get("/search", (req, res, next) => {
         }
       }
     );
-  } else if (!req.query.city && req.query.year) {
-    const numYear = Number(req.query.year);
+  } else if (req.query.city && req.query.genre) {
     db.all(
-      `SELECT * FROM 'Player' WHERE ${numYear} BETWEEN start_year AND end_year`,
-      (err, players) => {
+      `SELECT * FROM Album WHERE genre LIKE '%${req.query.genre}%'`,
+      (err, albums) => {
         if (err) {
           next(err);
         } else {
-          res.send({ players: players });
+          const ids = albums.map((data) => {
+            return Number(data.player_id);
+          });
+          const stringIds = ids.join(",");
+
+          const sql = `SELECT * FROM Player WHERE Player.id IN (${stringIds}) AND Player.city LIKE '%${req.query.city}%'`;
+
+          db.all(sql, (err, players) => {
+            if (err) {
+              next(err);
+            } else {
+              res.send({ players: players });
+            }
+          });
         }
       }
     );
@@ -96,7 +143,7 @@ playerRouter.get("/genres", (req, res, next) => {
           return Number(data.player_id);
         });
         const stringIds = ids.join(",");
-        console.log(typeof stringIds);
+
         const sql = `SELECT * FROM Player WHERE Player.id IN (${stringIds})`;
         db.all(sql, (err, players) => {
           if (err) {

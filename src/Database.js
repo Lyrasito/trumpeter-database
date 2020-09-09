@@ -32,9 +32,14 @@ const Database = {
     console.log(players);
     return players;
   },
-};
 
-Database.searchPlayersByCity("York");
+  async getPlayerGenres(player) {
+    const url = `${baseUrl}/players/${player.id}/albums/genres`;
+    const response = await fetch(url);
+    const jsonResponse = await response.json();
+    return jsonResponse.genre;
+  },
+};
 
 module.exports = Database;
 

@@ -16,5 +16,24 @@ albumsRouter.get("/", (req, res, next) => {
     }
   );
 });
+//get all genres from one Player
+albumsRouter.get("/genres", (req, res, next) => {
+  db.all(
+    `SELECT * FROM 'Album' WHERE Album.player_id = ${req.player.id}`,
+    (err, albums) => {
+      if (err) {
+        next(err);
+      } else {
+        const genres = albums.map((album) => {
+          return album.genre;
+        });
+        uniqueArray = genres.filter(function (item, pos, self) {
+          return self.indexOf(item) == pos;
+        });
+        res.send({ genre: uniqueArray });
+      }
+    }
+  );
+});
 
 module.exports = albumsRouter;
