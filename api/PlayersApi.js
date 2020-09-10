@@ -2,7 +2,7 @@ const express = require("express");
 const playerRouter = express.Router();
 const sqlite3 = require("sqlite3");
 const db = new sqlite3.Database("./database.sqlite");
-const albumsRouter = require("./Albums");
+const albumsRouter = require("./AlbumsApi");
 
 playerRouter.param("playerId", (req, res, next, playerId) => {
   db.get(`SELECT * FROM 'Player' WHERE id = ${playerId}`, (err, player) => {
@@ -23,7 +23,7 @@ playerRouter.use("/:playerId/albums", albumsRouter);
 
 //Get all players
 playerRouter.get("/", (req, res, next) => {
-  db.all("SELECT * FROM 'Player'", (err, players) => {
+  db.all("SELECT * FROM 'Player' ORDER BY name", (err, players) => {
     if (err) {
       next(err);
     } else {

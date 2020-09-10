@@ -1,6 +1,7 @@
 import React from "react";
 import Player from "./Player";
 import Database from "../Database";
+import "./PlayerList.css";
 
 class PlayerList extends React.Component {
   constructor(props) {
@@ -8,6 +9,7 @@ class PlayerList extends React.Component {
     this.state = {
       clickedPlayer: null,
     };
+    this.hidePlayer = this.hidePlayer.bind(this);
   }
 
   async handleClick(player) {
@@ -20,19 +22,32 @@ class PlayerList extends React.Component {
     });
   }
 
+  hidePlayer() {
+    this.setState({
+      clickedPlayer: null,
+    });
+  }
+
   render() {
     return (
       <div>
         {this.props.players.map((player) => {
           return (
             <div key={player.id}>
-              <p onClick={() => this.handleClick(player)} value="">
+              <p
+                onClick={() => this.handleClick(player)}
+                value=""
+                id="playerList"
+              >
                 {player.name}
               </p>
             </div>
           );
         })}
-        <Player player={this.state.clickedPlayer} />
+        <Player
+          player={this.state.clickedPlayer}
+          hidePlayer={this.hidePlayer}
+        />
       </div>
     );
   }

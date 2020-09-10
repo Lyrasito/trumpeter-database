@@ -74,6 +74,10 @@ class SearchBar extends React.Component {
           <button className="submit" onClick={this.search}>
             Submit
           </button>
+          <br />
+          <button onClick={this.props.allPlayers} className="allPlayers">
+            See All Players
+          </button>
         </div>
       </div>
     );

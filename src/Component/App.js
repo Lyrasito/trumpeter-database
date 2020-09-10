@@ -41,10 +41,8 @@ class App extends React.Component {
           searchResults={this.state.searchResults}
           searchPlayersByCity={this.searchPlayersByCity}
           searchPlayers={this.searchPlayers}
+          allPlayers={this.allPlayers}
         />
-        <div className="button-container">
-          <button onClick={this.allPlayers}>See All Players</button>
-        </div>
 
         <h1>Players</h1>
         <PlayerList players={this.state.searchResults} />

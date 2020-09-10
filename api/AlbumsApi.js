@@ -6,7 +6,7 @@ const db = new sqlite3.Database("./database.sqlite");
 //Get all albums by one Player
 albumsRouter.get("/", (req, res, next) => {
   db.all(
-    `SELECT * FROM 'Album' WHERE Album.player_id = ${req.player.id}`,
+    `SELECT * FROM 'Album' WHERE Album.player_id = ${req.player.id} ORDER BY year`,
     (err, albums) => {
       if (err) {
         next(err);
