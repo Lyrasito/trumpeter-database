@@ -13,6 +13,7 @@ const Database = {
       city: player.city,
       startYear: player.start_year,
       endYear: player.end_year,
+      image: player.image,
     }));
     return players;
   },
@@ -42,6 +43,22 @@ const Database = {
       city: player.city,
       startYear: player.start_year,
       endYear: player.end_year,
+      image: player.image,
+    }));
+    return players;
+  },
+
+  async searchByName(name) {
+    const url = `${baseUrl}/players/search?name=${name}`;
+    const response = await fetch(url);
+    const jsonResponse = await response.json();
+    const players = await jsonResponse.players.map((player) => ({
+      id: player.id,
+      name: player.name,
+      city: player.city,
+      startYear: player.start_year,
+      endYear: player.end_year,
+      image: player.image,
     }));
     return players;
   },
@@ -66,6 +83,7 @@ const Database = {
   },
 };
 
+Database.searchByName("a");
 module.exports = Database;
 
 /*  */

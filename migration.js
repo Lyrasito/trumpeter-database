@@ -8,6 +8,7 @@ db.run(
     "`city` TEXT NOT NULL, " +
     "`start_year` INTEGER NOT NULL, " +
     "`end_year` INTEGER NOT NULL, " +
+    "`image` TEXT, " +
     "PRIMARY KEY(`id`) )"
 );
 

@@ -1,7 +1,7 @@
 import React from "react";
 
 import "./App.css";
-import Database from "../Database";
+import Database from "../../Database";
 import SearchBar from "./SearchBar";
 import Player from "./Player";
 import PlayerList from "./PlayerList";
@@ -14,6 +14,7 @@ class App extends React.Component {
     };
     this.allPlayers = this.allPlayers.bind(this);
     this.searchPlayers = this.searchPlayers.bind(this);
+    this.searchByName = this.searchByName.bind(this);
   }
 
   async searchPlayers(city, year, genre) {
@@ -33,19 +34,25 @@ class App extends React.Component {
     this.setState({ searchResults: response });
   }
 
+  async searchByName(name) {
+    const response = await Database.searchByName(name);
+    this.setState({ searchResults: response });
+  }
+
   render() {
     return (
       <div>
         <h1>Jazz Trumpeteer Database</h1>
         <SearchBar
           searchResults={this.state.searchResults}
-          searchPlayersByCity={this.searchPlayersByCity}
           searchPlayers={this.searchPlayers}
+          searchByName={this.searchByName}
           allPlayers={this.allPlayers}
         />
 
         <h1>Players</h1>
         <PlayerList players={this.state.searchResults} />
+        <a href="./edit.html">Edit</a>
       </div>
     );
   }

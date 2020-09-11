@@ -43,5 +43,14 @@
   height: 30px;
   width: 150px;
   text-align: center;
-  margin-top: 80px;
+  margin-top: 40px;
+}
+
+#nameSearch {
+  margin-top: 50px;
+}
+
+.nameSearch {
+  text-align: center;
+  width: 83%;
 }

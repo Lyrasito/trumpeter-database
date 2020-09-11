@@ -1,6 +1,6 @@
 import React from "react";
 import Player from "./Player";
-import Database from "../Database";
+import Database from "../../Database";
 import "./PlayerList.css";
 
 class PlayerList extends React.Component {
