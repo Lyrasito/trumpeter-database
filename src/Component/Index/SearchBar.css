@@ -13,7 +13,6 @@
 }
 .button-container {
   text-align: center;
-  width: 83%;
 }
 .submit {
   margin: 50px 0 30px 0;
@@ -52,5 +51,4 @@
 
 .nameSearch {
   text-align: center;
-  width: 83%;
 }

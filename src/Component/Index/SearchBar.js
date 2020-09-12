@@ -93,14 +93,11 @@ class SearchBar extends React.Component {
             placeholder="Search by Genre"
             onChange={this.handleGenreChange}
           ></input>
-          <br />
         </div>
         <div className="button-container">
           <button className="submit" onClick={this.search}>
             Submit
           </button>
-          <br />
-
           <br />
           <button onClick={this.props.allPlayers} className="allPlayers">
             See All Players

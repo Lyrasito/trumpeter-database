@@ -83,7 +83,6 @@ const Database = {
   },
 };
 
-Database.searchByName("a");
 module.exports = Database;
 
 /*  */
