@@ -1,11 +1,9 @@
 const fetch = require("node-fetch");
-//let accessToken;
-let userID;
-const request = require("request");
-const clientID = "41f9f787eaca48aaa2423f8e9cba760b";
-const clientSecret = "61cb6f8f1529418ab9ec65985d02c840";
+const keys = require("../keys.json");
+
+const clientID = keys.clientID;
+const clientSecret = keys.clientSecret;
 const redirectURI = "http://localhost:3000/";
-const FormData = require("form-data");
 
 /*async getAccessToken() {
     console.log("getaccesstoken");
@@ -66,4 +64,4 @@ const Spotify = {
   },
 };
 
-export default Spotify;
+//export default Spotify;
