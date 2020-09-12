@@ -43,7 +43,7 @@ class Player extends React.Component {
       return (
         <div>
           <h1>Name: {this.props.player.name}</h1>
-          <img src={this.props.player.image} />
+          <img src={this.props.player.image} alt="No image" />
           <h2>City: {this.props.player.city}</h2>
           <h2>
             Career Span: {this.props.player.startYear}-
