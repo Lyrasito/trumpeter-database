@@ -29,27 +29,32 @@ class PlayerList extends React.Component {
   }
 
   render() {
-    return (
-      <div>
-        {this.props.players.map((player) => {
-          return (
-            <div key={player.id}>
-              <p
-                onClick={() => this.handleClick(player)}
-                value=""
-                id="playerList"
-              >
-                {player.name}
-              </p>
-            </div>
-          );
-        })}
-        <Player
-          player={this.state.clickedPlayer}
-          hidePlayer={this.hidePlayer}
-        />
-      </div>
-    );
+    if (this.props.players.length > 0) {
+      return (
+        <div className="player-list">
+          <h2>Players</h2>
+          {this.props.players.map((player) => {
+            return (
+              <div key={player.id}>
+                <h5
+                  onClick={() => this.handleClick(player)}
+                  value=""
+                  id="playerList"
+                >
+                  {player.name}
+                </h5>
+              </div>
+            );
+          })}
+          <Player
+            player={this.state.clickedPlayer}
+            hidePlayer={this.hidePlayer}
+          />
+        </div>
+      );
+    } else {
+      return null;
+    }
   }
 }
 

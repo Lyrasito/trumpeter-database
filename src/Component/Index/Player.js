@@ -42,40 +42,47 @@ class Player extends React.Component {
     if (this.props.player) {
       return (
         <div>
-          <h1>Name: {this.props.player.name}</h1>
-          <img src={this.props.player.image} alt="No image" />
-          <h2>City: {this.props.player.city}</h2>
-          <h2>
-            Career Span: {this.props.player.startYear}-
-            {this.props.player.endYear}
-          </h2>
-          <h2>Genres: {this.props.player.genres.join(", ")}</h2>
-          <h2 onClick={this.showAlbums} className="clickButton">
-            Show/Hide Albums
-          </h2>
+          <h1>{this.props.player.name}</h1>
+          <div className="player-container">
+            <img src={this.props.player.image} alt="No image" className="img" />
+            <div className="career-span">
+              <h5 className="small-title">Career Span:</h5>
+              <h3>
+                {this.props.player.startYear}-{this.props.player.endYear}
+              </h3>
+            </div>
+            <div className="city-genres">
+              <h5 className="small-title">City: </h5>
+              <h3>{this.props.player.city}</h3>
+
+              <h5 className="small-title">Genres:</h5>
+              <h3>{this.props.player.genres.join(", ")}</h3>
+            </div>
+          </div>
+          <div className="albumsHeader">
+            <h5 className="small-title">Albums</h5>
+            <p onClick={this.showAlbums} className="clickButton">
+              Show/Hide
+            </p>
+          </div>
           <div id={this.state.albumsHidden ? "hidden" : "shown"}>
             {this.props.player.albums.map((album, index) => {
               return (
-                <div key={album.id}>
-                  <h4>Title: {album.title} </h4> <h4>Year: {album.year}</h4>
+                <div key={album.id} className="album">
+                  <img src="./img/album-default.png" className="album-image" />
+                  <h5 className="album-title">{album.title} </h5>{" "}
+                  <label>{album.year}</label>
                   <a
                     href={this.state.albumLink[index]}
                     className="link"
                     target="_blank"
                   >
-                    <h4>Search on Spotify</h4>
+                    <p>Search on Spotify</p>
                   </a>
                 </div>
               );
             })}
           </div>
-          <h2
-            onClick={this.showAlbums}
-            className="clickButton"
-            id={this.state.albumsHidden ? "hidden" : "shown"}
-          >
-            Hide Albums
-          </h2>
           <h3 onClick={this.props.hidePlayer} className="clickButton">
             Hide Player
           </h3>

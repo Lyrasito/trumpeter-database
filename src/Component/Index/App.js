@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import "./Landing.css";
 import {
   Link,
   HashRouter as Router,

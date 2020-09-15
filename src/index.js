@@ -3,6 +3,10 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./Component/Index/App";
 import * as serviceWorker from "./serviceWorker";
+import "./fonts/WorkSans-Bold.ttf";
+import "./fonts/WorkSans-Medium.ttf";
+import "./fonts/WorkSans-Regular.ttf";
+import "./fonts/WorkSans-SemiBold.ttf";
 
 ReactDOM.render(
   <React.StrictMode>

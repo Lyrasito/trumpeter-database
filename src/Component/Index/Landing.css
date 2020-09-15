@@ -1,0 +1,49 @@
+.intro-search-container {
+  background-image: url("./BG-Image.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 1600px;
+  height: 965px;
+  padding-top: 1px;
+}
+
+.intro {
+  height: 200px;
+  width: 926px;
+  margin-top: 80px;
+  margin-left: 80px;
+  margin-bottom: 80px;
+}
+
+.title {
+  letter-spacing: 0;
+  line-height: 81px;
+}
+
+.intro-paragraph {
+  letter-spacing: 0;
+  width: 700px;
+}
+
+footer {
+  height: 304px;
+  width: 100%;
+  background-color: black;
+  text-align: center;
+}
+.add {
+  box-sizing: border-box;
+  height: 64px;
+  width: 283px;
+  color: #ffeeb4;
+  background-color: black;
+  border: 4px solid #ffeeb4;
+  border-radius: 30px;
+  font-family: "Work Sans";
+  font-size: 24px;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 35px;
+  margin-top: 100px;
+  cursor: pointer;
+}
