@@ -59,8 +59,12 @@ const Spotify = {
       }
     );
     const jsonResponse = await response.json();
-    const id = jsonResponse.albums.items[0].id;
-    return `https://open.spotify.com/album/${id}`;
+    if (!jsonResponse.albums.items.id) {
+      return new Error("There is an error");
+    } else {
+      const id = jsonResponse.albums.items[0].id;
+      return `https://open.spotify.com/album/${id}`;
+    }
   },
 };
 

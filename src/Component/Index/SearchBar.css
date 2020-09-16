@@ -25,6 +25,9 @@
   letter-spacing: 0;
   line-height: 35px;
 }
+.submit:hover {
+  background-color: #ffeeb4;
+}
 
 .allPlayers {
   text-decoration: underline;
@@ -41,6 +44,10 @@
   margin-top: 10px;
 }
 
+.search:focus {
+  border: 3px solid #ffc600;
+}
+
 #nameSearch {
   box-sizing: border-box;
   height: 63px;
@@ -49,6 +56,10 @@
   border-radius: 30px;
   background-color: #ffffff;
   margin-bottom: 20px;
+}
+
+#nameSearch:focus {
+  border: 3px solid #ffc600;
 }
 
 .click-container {
@@ -63,4 +74,10 @@
   color: #aaaaaa;
   cursor: pointer;
   margin-right: 25px;
+}
+svg {
+  width: 20px;
+  height: 20px;
+  margin-left: 10px;
+  margin-bottom: -2px;
 }

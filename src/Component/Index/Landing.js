@@ -4,6 +4,7 @@ import "./Landing.css";
 import Database from "../../Database";
 import SearchBar from "./SearchBar";
 import PlayerList from "./PlayerList";
+import { ReactComponent as AddLogo } from "../../svg/AddToDatabase.svg";
 
 class Landing extends React.Component {
   constructor(props) {
@@ -62,7 +63,10 @@ class Landing extends React.Component {
         <footer>
           <Router>
             <Link to="/edit">
-              <button className="add">Add to Database</button>
+              <button className="add">
+                Add to Database
+                <AddLogo id="addLogo" />
+              </button>
             </Link>
           </Router>
         </footer>

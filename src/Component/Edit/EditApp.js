@@ -1,8 +1,15 @@
 import React from "react";
-
+import Database from "../../Database";
+import AddPlayer from "./AddPlayer";
+import AddAlbum from "./AddAlbum";
 class EditApp extends React.Component {
   render() {
-    return <p>Hello</p>;
+    return (
+      <div>
+        <AddPlayer />
+        <AddAlbum />
+      </div>
+    );
   }
 }
 

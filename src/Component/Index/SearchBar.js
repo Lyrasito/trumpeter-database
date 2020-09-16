@@ -1,5 +1,6 @@
 import React from "react";
 import "./SearchBar.css";
+import { ReactComponent as SearchLogo } from "../../svg/Search.svg";
 
 class SearchBar extends React.Component {
   constructor(props) {
@@ -87,6 +88,7 @@ class SearchBar extends React.Component {
             <br />
             <button className="submit" onClick={this.nameSearch}>
               Search
+              <SearchLogo />
             </button>
             <br />
           </div>
@@ -133,6 +135,7 @@ class SearchBar extends React.Component {
           <div className="button-container">
             <button className="submit" onClick={this.search}>
               Search
+              <SearchLogo />
             </button>
             <br />
             <h5 onClick={this.props.allPlayers} className="allPlayers">

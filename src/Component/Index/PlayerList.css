@@ -1,9 +1,16 @@
-#playerList {
-  cursor: pointer;
-  border-bottom: 4px solid #ffeeb4;
-  padding-bottom: 33px;
-}
 .player-list {
   margin-left: 80px;
   width: 1280px;
+}
+
+.player-line {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 4px solid #ffeeb4;
+  cursor: pointer;
+}
+
+#caret-down {
+  width: 50px;
+  margin-top: 40px;
 }

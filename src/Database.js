@@ -81,6 +81,47 @@ const Database = {
     const jsonResponse = await response.json();
     return jsonResponse.genre;
   },
+
+  async addPlayer(name, city, startYear, endYear) {
+    const url = `${baseUrl}/players`;
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        player: {
+          name: name,
+          city: city,
+          startYear: startYear,
+          endYear: endYear,
+        },
+      }),
+    });
+
+    const jsonResponse = await response.json();
+    return jsonResponse.player;
+  },
+
+  async addAlbum(playerId, title, year, genre) {
+    const url = `${baseUrl}/players/${playerId}/albums`;
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        album: {
+          title: title,
+          year: year,
+          genre: genre,
+          playerId: playerId,
+        },
+      }),
+    });
+    const jsonResponse = await response.json();
+    console.log(jsonResponse);
+  },
 };
 
 module.exports = Database;
