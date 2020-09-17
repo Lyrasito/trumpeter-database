@@ -1,13 +1,57 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-family: "WorkSans";
+  color: white;
+  background-color: #333;
+}
+@font-face {
+  font-family: "WorkSans";
+  src: local("WorkSans"), url(./fonts/WorkSans-Regular.ttf) format("truetype");
 }
 
+@font-face {
+  font-family: "WorkSans-Medium";
+  src: local("WorkSans-Medium"),
+    url(./fonts/WorkSans-Medium.ttf) format("truetype");
+}
+@font-face {
+  font-family: "WorkSans-Bold";
+  src: local("WorkSans-Bold"), url(./fonts/WorkSans-Bold.ttf) format("truetype");
+}
+@font-face {
+  font-family: "WorkSans-SemiBold";
+  src: local("WorkSans-SemiBold"),
+    url(./fonts/WorkSans-SemiBold.ttf) format("truetype");
+}
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+h1 {
+  font-weight: 500;
+  font-size: 56px;
+  font-family: "WorkSans-Medium";
+}
+h2 {
+  font-weight: 500;
+  font-size: 48px;
+}
+h3 {
+  font-size: 36px;
+}
+h4 {
+  font-size: 32px;
+  font-weight: 500;
+  font-family: "WorkSans-Medium";
+}
+h5 {
+  font-size: 24px;
+  font-weight: 500;
+  font-family: "WorkSans-Medium";
+}
+
+p {
+  font-size: 20px;
+  font-weight: 400;
+  font-family: "WorkSans";
 }

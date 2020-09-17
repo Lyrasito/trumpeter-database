@@ -1,5 +1,6 @@
 import React from "react";
 import "./SearchBar.css";
+import { ReactComponent as SearchLogo } from "../../svg/Search.svg";
 
 class SearchBar extends React.Component {
   constructor(props) {
@@ -10,6 +11,7 @@ class SearchBar extends React.Component {
       year: "",
       genre: "",
       name: "",
+      searchBy: "name",
     };
     this.allPlayersButton = this.allPlayersButton.bind(this);
     this.handleCityChange = this.handleCityChange.bind(this);
@@ -18,6 +20,7 @@ class SearchBar extends React.Component {
     this.handleNameChange = this.handleNameChange.bind(this);
     this.search = this.search.bind(this);
     this.nameSearch = this.nameSearch.bind(this);
+    this.changeSearch = this.changeSearch.bind(this);
   }
   allPlayersButton() {
     this.setState({
@@ -58,53 +61,90 @@ class SearchBar extends React.Component {
   nameSearch() {
     this.props.searchByName(this.state.name);
   }
+  changeSearch() {
+    if (this.state.searchBy === "name") {
+      this.setState({
+        searchBy: "cityGenreYear",
+      });
+    } else {
+      this.setState({
+        searchBy: "name",
+      });
+    }
+  }
 
   render() {
-    return (
-      <div className="container">
-        <div className="nameSearch">
-          <input
-            className="search"
-            id="nameSearch"
-            placeholder="Search by Name"
-            onChange={this.handleNameChange}
-          ></input>
-          <br />
-          <button className="submit" onClick={this.nameSearch}>
-            Submit
-          </button>
+    if (this.state.searchBy === "name") {
+      return (
+        <div className="container">
+          <div className="click-container">
+            <h4 className="clicked">Search by name</h4>
+            <h4 onClick={this.changeSearch} className="clickable">
+              Search by genre, year, city
+            </h4>
+          </div>
+          <div className="nameSearch">
+            <input id="nameSearch" onChange={this.handleNameChange}></input>
+            <br />
+            <button className="submit" onClick={this.nameSearch}>
+              Search
+              <SearchLogo />
+            </button>
+            <br />
+          </div>
+          <h5 onClick={this.props.allPlayers} className="allPlayers">
+            Or, see all players
+          </h5>
         </div>
-        <div className="searchbar">
-          <input
-            className="search"
-            id="citySearch"
-            placeholder="Search by City"
-            onChange={this.handleCityChange}
-          ></input>
-          <input
-            className="search"
-            id="yearSearch"
-            placeholder="Search by Year"
-            onChange={this.handleYearChange}
-          ></input>
-          <input
-            className="search"
-            id="genreSearch"
-            placeholder="Search by Genre"
-            onChange={this.handleGenreChange}
-          ></input>
+      );
+    } else if (this.state.searchBy === "cityGenreYear") {
+      return (
+        <div className="container">
+          <div className="click-container">
+            <h4 onClick={this.changeSearch} className="clickable">
+              Search by name
+            </h4>
+            <h4 className="clicked">Search by city, year, genre</h4>
+          </div>
+          <div className="searchbar">
+            <label>
+              City
+              <input
+                className="search"
+                id="citySearch"
+                onChange={this.handleCityChange}
+              ></input>
+            </label>
+            <label>
+              Year
+              <input
+                className="search"
+                id="yearSearch"
+                onChange={this.handleYearChange}
+              ></input>
+            </label>
+            <label>
+              Genre
+              <input
+                className="search"
+                id="genreSearch"
+                onChange={this.handleGenreChange}
+              ></input>
+            </label>
+          </div>
+          <div className="button-container">
+            <button className="submit" onClick={this.search}>
+              Search
+              <SearchLogo />
+            </button>
+            <br />
+            <h5 onClick={this.props.allPlayers} className="allPlayers">
+              Or, see all players
+            </h5>
+          </div>
         </div>
-        <div className="button-container">
-          <button className="submit" onClick={this.search}>
-            Submit
-          </button>
-          <br />
-          <button onClick={this.props.allPlayers} className="allPlayers">
-            See All Players
-          </button>
-        </div>
-      </div>
-    );
+      );
+    }
   }
 }
 

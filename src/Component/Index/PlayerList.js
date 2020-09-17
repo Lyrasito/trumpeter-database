@@ -2,6 +2,8 @@ import React from "react";
 import Player from "./Player";
 import Database from "../../Database";
 import "./PlayerList.css";
+import { ReactComponent as CaretDown } from "../../svg/Caret-Down-2.svg";
+import { ReactComponent as CaretUp } from "../../svg/Caret-Up.svg";
 
 class PlayerList extends React.Component {
   constructor(props) {
@@ -10,6 +12,7 @@ class PlayerList extends React.Component {
       clickedPlayer: null,
     };
     this.hidePlayer = this.hidePlayer.bind(this);
+    this.renderHeader = this.renderHeader.bind(this);
   }
 
   async handleClick(player) {
@@ -28,19 +31,25 @@ class PlayerList extends React.Component {
     });
   }
 
+  renderHeader() {
+    if (this.props.players.length > 0) {
+      return <h2>Players</h2>;
+    }
+  }
+
   render() {
     return (
-      <div>
+      <div className="player-list">
+        {this.renderHeader()}
         {this.props.players.map((player) => {
           return (
-            <div key={player.id}>
-              <p
-                onClick={() => this.handleClick(player)}
-                value=""
-                id="playerList"
-              >
-                {player.name}
-              </p>
+            <div
+              key={player.id}
+              className="player-line"
+              onClick={() => this.handleClick(player)}
+            >
+              <h5 value="">{player.name}</h5>
+              <CaretDown id="caret-down" />
             </div>
           );
         })}

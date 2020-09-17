@@ -1,9 +1,10 @@
 import React from "react";
 import { Link, HashRouter as Router } from "react-router-dom";
-import "./App.css";
+import "./Landing.css";
 import Database from "../../Database";
 import SearchBar from "./SearchBar";
 import PlayerList from "./PlayerList";
+import { ReactComponent as AddLogo } from "../../svg/AddToDatabase.svg";
 
 class Landing extends React.Component {
   constructor(props) {
@@ -40,20 +41,35 @@ class Landing extends React.Component {
 
   render() {
     return (
-      <div>
-        <h1>Jazz Trumpeteer Database</h1>
-        <SearchBar
-          searchResults={this.state.searchResults}
-          searchPlayers={this.searchPlayers}
-          searchByName={this.searchByName}
-          allPlayers={this.allPlayers}
-        />
-
-        <h1>Players</h1>
+      <div className="all">
+        <div className="intro-search-container">
+          <div className="intro">
+            <h1 className="title">Jazz Trumpeteer Database</h1>
+            <p className="intro-paragraph">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+              enim ad minim veniam, quis nostrud exercitation ullamco laboris
+              nisi ut aliquip ex ea commodo consequat.
+            </p>
+          </div>
+          <SearchBar
+            searchResults={this.state.searchResults}
+            searchPlayers={this.searchPlayers}
+            searchByName={this.searchByName}
+            allPlayers={this.allPlayers}
+          />
+        </div>
         <PlayerList players={this.state.searchResults} />
-        <Router>
-          <Link to="/edit">EDIT</Link>
-        </Router>
+        <footer>
+          <Router>
+            <Link to="/edit">
+              <button className="add">
+                Add to Database
+                <AddLogo id="addLogo" />
+              </button>
+            </Link>
+          </Router>
+        </footer>
       </div>
     );
   }

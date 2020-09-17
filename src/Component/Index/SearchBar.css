@@ -1,54 +1,83 @@
 .searchbar {
   display: flex;
-  justify-content: space-around;
-  align-items: center;
+  justify-content: space-between;
+  align-items: left;
   width: 100%;
+  margin-bottom: 20px;
 }
 
 .container {
-  text-align: center;
-  background-image: url("https://cdn.pixabay.com/photo/2012/04/18/20/36/pipe-37816_960_720.png");
-  background-position: center;
-  background-color: black;
+  height: 230px;
+  width: 1280px;
+  margin-left: 80px;
 }
-.button-container {
-  text-align: center;
-}
+
 .submit {
-  margin: 50px 0 30px 0;
-  border: 2px solid white;
-  border-radius: 5px;
-  color: white;
-  background-color: navy;
-  text-align: center;
-  width: 100px;
-  height: 30px;
+  height: 60px;
+  width: 162px;
+  border-radius: 30px;
+  background-color: #ffc600;
   cursor: pointer;
+  color: #000000;
+  font-family: "WorkSans";
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 35px;
+}
+.submit:hover {
+  background-color: #ffeeb4;
 }
 
 .allPlayers {
-  margin: 20px 0 50px 0;
-  border: 2px solid white;
-  border-radius: 5px;
-  color: white;
-  background-color: navy;
-  text-align: center;
-  width: 100px;
-  height: 50px;
+  text-decoration: underline;
   cursor: pointer;
 }
-
 .search {
-  height: 30px;
-  width: 150px;
-  text-align: center;
-  margin-top: 40px;
+  box-sizing: border-box;
+  height: 63px;
+  width: 300px;
+  border: 3px solid #666666;
+  border-radius: 30px;
+  background-color: #ffffff;
+  display: block;
+  margin-top: 10px;
+}
+
+.search:focus {
+  border: 3px solid #ffc600;
 }
 
 #nameSearch {
-  margin-top: 50px;
+  box-sizing: border-box;
+  height: 63px;
+  width: 767px;
+  border: 3px solid #666666;
+  border-radius: 30px;
+  background-color: #ffffff;
+  margin-bottom: 20px;
 }
 
-.nameSearch {
-  text-align: center;
+#nameSearch:focus {
+  border: 3px solid #ffc600;
+}
+
+.click-container {
+  display: flex;
+}
+.clicked {
+  text-decoration: underline;
+  margin-right: 25px;
+}
+
+.clickable {
+  color: #aaaaaa;
+  cursor: pointer;
+  margin-right: 25px;
+}
+svg {
+  width: 20px;
+  height: 20px;
+  margin-left: 10px;
+  margin-bottom: -2px;
 }

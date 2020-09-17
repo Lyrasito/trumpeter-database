@@ -35,5 +35,31 @@ albumsRouter.get("/genres", (req, res, next) => {
     }
   );
 });
+//Add an album
+const validateAlbum = (req, res, next) => {
+  const newAlbum = req.body.album;
+  if (!newAlbum.title || !newAlbum.year || !newAlbum.genre) {
+    res.sendStatus(400);
+  } else {
+    next();
+  }
+};
 
+albumsRouter.post("/", validateAlbum, (req, res, next) => {
+  const newAlbum = req.body.album;
+  const sql = `INSERT INTO 'Album' (title, year, genre, player_id) VALUES ("${newAlbum.title}", ${newAlbum.year}, "${newAlbum.genre}", ${req.player.id})`;
+  console.log(sql);
+  db.run(sql, function (err) {
+    if (err) {
+      next(err);
+    } else {
+      db.get(
+        `SELECT * FROM 'Album' WHERE Album.id = ${this.lastID}`,
+        (err, album) => {
+          res.status(201).send({ album: album });
+        }
+      );
+    }
+  });
+});
 module.exports = albumsRouter;
