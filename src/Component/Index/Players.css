@@ -1,0 +1,10 @@
+#hiddenPlayer {
+  display: none;
+}
+#shownPlayer {
+  display: block;
+}
+
+.container {
+  display: inline;
+}

@@ -1,8 +1,8 @@
-#hidden {
+#hiddenAlbums {
   display: none;
 }
 
-#shown {
+#shownAlbums {
   display: flex;
   flex-wrap: wrap;
   width: 1270px;

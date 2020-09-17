@@ -65,7 +65,7 @@ class Player extends React.Component {
               Show/Hide
             </p>
           </div>
-          <div id={this.state.albumsHidden ? "hidden" : "shown"}>
+          <div id={this.state.albumsHidden ? "hiddenAlbums" : "shownAlbums"}>
             {this.props.player.albums.map((album, index) => {
               return (
                 <div key={album.id} className="album">
@@ -83,9 +83,6 @@ class Player extends React.Component {
               );
             })}
           </div>
-          <h3 onClick={this.props.hidePlayer} className="clickButton">
-            Hide Player
-          </h3>
         </div>
       );
     } else {
