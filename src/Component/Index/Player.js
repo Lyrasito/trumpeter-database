@@ -2,7 +2,6 @@ import React from "react";
 import "./Player.css";
 import Spotify from "../../Spotify";
 import PlayerPlaceholder from "../../svg/PlayerPlaceholder.svg";
-import Database from "../../Database";
 
 class Player extends React.Component {
   constructor(props) {
@@ -53,7 +52,7 @@ class Player extends React.Component {
                   ? this.props.player.image
                   : PlayerPlaceholder
               }
-              alt="No image"
+              alt=""
               className="img"
             />
             <div className="career-span">
@@ -71,12 +70,14 @@ class Player extends React.Component {
             </div>
           </div>
           <div className="albumsHeader">
-            <p className="small-title" id="album-header">
-              Albums
-            </p>
-            <p onClick={this.showAlbums} className="clickButton">
-              Show/Hide
-            </p>
+            <div className="showHide">
+              <p className="small-title" id="album-header">
+                Albums
+              </p>
+              <p onClick={this.showAlbums} className="clickButton">
+                Show/Hide
+              </p>
+            </div>
             <div id={this.state.albumsHidden ? "hiddenAlbums" : "genreFilter"}>
               <label>Filter by genre:</label>
               <select className="genreSelect" onChange={this.props.getGenre}>
@@ -102,7 +103,11 @@ class Player extends React.Component {
             {this.props.albums.map((album, index) => {
               return (
                 <div key={album.id} className="album">
-                  <img src="./img/album-default.png" className="album-image" />
+                  <img
+                    src="./img/album-default.png"
+                    className="album-image"
+                    alt=""
+                  />
                   <h5 className="album-title">{album.title} </h5>{" "}
                   <label>{album.year}</label>
                   <br />

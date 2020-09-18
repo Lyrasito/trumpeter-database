@@ -2,8 +2,8 @@
   background-image: url("./BG-Image.png");
   background-size: cover;
   background-repeat: no-repeat;
-  width: 1600px;
-  height: 965px;
+  width: 1582px;
+  height: 800px;
   padding-top: 1px;
 }
 
@@ -12,7 +12,6 @@
   width: 926px;
   margin-top: 80px;
   margin-left: 80px;
-  margin-bottom: 80px;
 }
 .searchBar {
   margin-left: 80px;

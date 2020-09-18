@@ -5,13 +5,19 @@
 #shownAlbums {
   display: flex;
   flex-wrap: wrap;
-  width: 1280px;
+  width: 100%;
   background-color: rgba(255, 255, 255, 0.1);
 }
 
 .albumsHeader {
   display: flex;
+  justify-content: space-between;
   height: 60px;
+  width: 100%;
+}
+
+.showHide {
+  display: flex;
 }
 
 .clickButton {
@@ -82,10 +88,12 @@ img {
 
 #genreFilter {
   display: flex;
-  margin-left: 780px;
   height: 40px;
   margin-top: 10px;
   justify-content: space-between;
+}
+label {
+  margin-top: 10px;
 }
 .genreSelect {
   box-sizing: border-box;
@@ -95,6 +103,7 @@ img {
   border-radius: 30px;
   background-color: #ffffff;
   display: block;
+  margin-left: 10px;
 }
 .filterButton {
   height: 40px;

@@ -47,10 +47,8 @@ class Landing extends React.Component {
           <div className="intro">
             <h1 className="title">Jazz Trumpeter Database</h1>
             <p className="intro-paragraph">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat.
+              Search for jazz trumpet players in the 20th and 21st centuries by
+              name, or filter them by year, city, and/or genre.
             </p>
           </div>
           <div className="searchBar">

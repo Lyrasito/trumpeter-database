@@ -1,5 +1,4 @@
 import React from "react";
-import Database from "../../Database";
 import AddPlayer from "./AddPlayer";
 import AddAlbum from "./AddAlbum";
 import "./EditApp.css";

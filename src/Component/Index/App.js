@@ -1,11 +1,6 @@
 import React, { Component } from "react";
 import "./Landing.css";
-import {
-  Link,
-  HashRouter as Router,
-  Route,
-  browserHistory,
-} from "react-router-dom";
+import { HashRouter as Router, Route } from "react-router-dom";
 import EditApp from "../Edit/EditApp";
 
 import Landing from "./Landing";

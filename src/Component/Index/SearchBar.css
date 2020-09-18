@@ -25,6 +25,7 @@
   background-color: #ffffff;
   display: block;
   margin-top: 10px;
+  font-size: 24px;
 }
 
 .search:focus {
@@ -39,6 +40,7 @@
   border-radius: 30px;
   background-color: #ffffff;
   margin-bottom: 20px;
+  font-size: 24px;
 }
 
 #nameSearch:focus {

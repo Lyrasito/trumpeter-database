@@ -8,6 +8,7 @@ class AddAlbum extends React.Component {
     this.state = {
       playerList: [],
       playerId: null,
+      currentPlayer: null,
       title: "",
       year: null,
       genre: "",
@@ -19,9 +20,10 @@ class AddAlbum extends React.Component {
     this.getYear = this.getYear.bind(this);
     this.getGenre = this.getGenre.bind(this);
     this.createAlbum = this.createAlbum.bind(this);
+    this.renderAlbum = this.renderAlbum.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.getAllPlayers();
   }
 
@@ -31,10 +33,10 @@ class AddAlbum extends React.Component {
       playerList: allPlayers,
     });
   }
-  getPlayerId(event) {
+  async getPlayerId(event) {
     const playerId = event.target.value;
-    this.setState({ playerId: playerId });
-    console.log(playerId, this.state.playerId);
+    const response = Database.getPlayerById(playerId);
+    this.setState({ playerId: playerId, currentPlayer: response });
   }
   getTitle(event) {
     this.setState({
@@ -60,6 +62,16 @@ class AddAlbum extends React.Component {
     );
     this.setState({ newAlbum: response });
     console.log(response);
+  }
+  renderAlbum() {
+    if (this.state.newAlbum.title) {
+      return (
+        <p>
+          You have added {this.state.newAlbum.title} to the library of{" "}
+          {this.state.currentPlayer.name}!
+        </p>
+      );
+    }
   }
   render() {
     return (
@@ -107,6 +119,7 @@ class AddAlbum extends React.Component {
           <button type="submit" className="submit" onClick={this.createAlbum}>
             Create
           </button>
+          {this.renderAlbum()}
         </div>
       </div>
     );

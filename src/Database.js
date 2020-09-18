@@ -18,6 +18,13 @@ const Database = {
     return players;
   },
 
+  async getPlayerById(id) {
+    const url = `${baseUrl}/players/${id}`;
+    const response = await fetch(url);
+    const jsonResponse = await response.json();
+    return jsonResponse.player;
+  },
+
   async searchPlayers(city, year, genre) {
     let url = "";
     if (city && !year && !genre) {
@@ -128,11 +135,11 @@ const Database = {
       }),
     });
     const jsonResponse = await response.json();
-    console.log(jsonResponse);
+    return jsonResponse.album;
   },
 };
 
-//Database.getGenreAlbums(1, "cool jazz");
+//Database.getPlayerById(1);
 module.exports = Database;
 
 /*  */
