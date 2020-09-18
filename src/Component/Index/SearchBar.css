@@ -2,7 +2,7 @@
   display: flex;
   justify-content: space-between;
   align-items: left;
-  width: 100%;
+  width: 80%;
   margin-bottom: 20px;
 }
 
@@ -10,23 +10,6 @@
   height: 230px;
   width: 1280px;
   margin-left: 80px;
-}
-
-.submit {
-  height: 60px;
-  width: 162px;
-  border-radius: 30px;
-  background-color: #ffc600;
-  cursor: pointer;
-  color: #000000;
-  font-family: "WorkSans";
-  font-size: 24px;
-  font-weight: 600;
-  letter-spacing: 0;
-  line-height: 35px;
-}
-.submit:hover {
-  background-color: #ffeeb4;
 }
 
 .allPlayers {

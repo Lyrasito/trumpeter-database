@@ -16,6 +16,7 @@ albumsRouter.get("/", (req, res, next) => {
     }
   );
 });
+
 //get all genres from one Player
 albumsRouter.get("/genres", (req, res, next) => {
   db.all(
@@ -35,6 +36,20 @@ albumsRouter.get("/genres", (req, res, next) => {
     }
   );
 });
+
+//get all albums of one genre from one Player
+albumsRouter.get("/genres/albums", (req, res, next) => {
+  const sql = `SELECT * FROM 'Album' WHERE Album.player_id = ${req.player.id} AND GENRE = '${req.query.genre}' ORDER BY year`;
+  console.log(sql);
+  db.all(sql, (err, albums) => {
+    if (err) {
+      next(err);
+    } else {
+      res.send({ albums: albums });
+    }
+  });
+});
+
 //Add an album
 const validateAlbum = (req, res, next) => {
   const newAlbum = req.body.album;

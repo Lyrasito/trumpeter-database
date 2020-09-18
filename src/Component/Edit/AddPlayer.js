@@ -1,5 +1,6 @@
 import React from "react";
 import Database from "../../Database";
+import "./AddPlayer.css";
 
 class AddPlayer extends React.Component {
   constructor(props) {
@@ -39,6 +40,7 @@ class AddPlayer extends React.Component {
       this.state.endYear
     );
     this.setState({ newPlayer: newPlayer });
+    console.log(this.state.newPlayer);
     return newPlayer;
   }
   renderPlayer() {
@@ -49,30 +51,37 @@ class AddPlayer extends React.Component {
   render() {
     return (
       <div>
-        <input
-          id="createName"
-          placeholder="Name"
-          onChange={this.getName}
-        ></input>
-        <input
-          id="createCity"
-          placeholder="City"
-          onChange={this.getCity}
-        ></input>
-        <input
-          id="createStartYear"
-          placeholder="Start Year"
-          onChange={this.getStartYear}
-        ></input>
-        <input
-          id="createEndYear"
-          placeholder="End Year"
-          onChange={this.getEndYear}
-        ></input>
-        <button type="submit" onClick={this.addPlayer}>
-          Add Player
-        </button>
-        {this.renderPlayer()}
+        <h3>Add a player to the database!</h3>
+        <div className="newPlayer">
+          <input
+            className="player-input"
+            id="createName"
+            placeholder="Name"
+            onChange={this.getName}
+          ></input>
+          <input
+            className="player-input"
+            id="createCity"
+            placeholder="City"
+            onChange={this.getCity}
+          ></input>
+          <input
+            className="player-input"
+            id="createStartYear"
+            placeholder="Start Year"
+            onChange={this.getStartYear}
+          ></input>
+          <input
+            className="player-input"
+            id="createEndYear"
+            placeholder="End Year"
+            onChange={this.getEndYear}
+          ></input>
+          <button type="submit" className="submit" onClick={this.addPlayer}>
+            Add Player
+          </button>
+          {this.renderPlayer()}
+        </div>
       </div>
     );
   }

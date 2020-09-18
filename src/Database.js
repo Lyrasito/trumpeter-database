@@ -71,6 +71,7 @@ const Database = {
       id: album.id,
       title: album.title,
       year: album.year,
+      genre: album.genre,
     }));
     return albums;
   },
@@ -80,6 +81,13 @@ const Database = {
     const response = await fetch(url);
     const jsonResponse = await response.json();
     return jsonResponse.genre;
+  },
+
+  async getGenreAlbums(id, genre) {
+    const url = `${baseUrl}/players/${id}/albums/genres/albums?genre=${genre}`;
+    const response = await fetch(url);
+    const jsonResponse = await response.json();
+    return jsonResponse.albums;
   },
 
   async addPlayer(name, city, startYear, endYear) {
@@ -124,6 +132,7 @@ const Database = {
   },
 };
 
+//Database.getGenreAlbums(1, "cool jazz");
 module.exports = Database;
 
 /*  */

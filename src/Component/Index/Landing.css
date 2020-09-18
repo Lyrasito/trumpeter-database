@@ -14,6 +14,9 @@
   margin-left: 80px;
   margin-bottom: 80px;
 }
+.searchBar {
+  margin-left: 80px;
+}
 
 .title {
   letter-spacing: 0;
@@ -45,21 +48,42 @@ footer {
   letter-spacing: 0;
   line-height: 35px;
   margin-top: 100px;
+  margin-bottom: 30px;
   cursor: pointer;
 }
 .add:hover {
   color: white;
   border: 4px solid white;
 }
-.add:hover > svg *,
+.add:hover > svg .addToDatabase,
 .add:hover {
-  fill: black;
   stroke: white;
-}
-#addLogo {
-  stroke: #ffeeb4;
-  color: #ffeeb4;
-}
-#addToDatabase:hover {
   fill: white;
+}
+.addToDatabase {
+  stroke: #ffeeb4;
+  fill: #ffeeb4;
+}
+.addToDatabase:hover {
+  stroke: white;
+  fill: white;
+}
+
+.submit {
+  height: 60px;
+  width: 162px;
+  border-radius: 30px;
+  background-color: #ffc600;
+  cursor: pointer;
+  color: #000000;
+  font-family: "WorkSans";
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 35px;
+  border: 1px solid #ffc600;
+}
+.submit:hover {
+  background-color: #ffeeb4;
+  border: 1px solid #ffeeb4;
 }

@@ -3,7 +3,7 @@
     <title>4B6EAED4-99C0-4DA0-A983-186AD42006B1</title>
     <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
         <g id="0-StyleGuide" transform="translate(-1070.000000, -1608.000000)">
-            <rect fill="#363636" x="0" y="0" width="1440" height="3371"></rect>
+            <rect class="background" fill="#363636" x="0" y="0" width="1440" height="3371"></rect>
             <rect id="Rectangle" stroke="#979797"  x="1023" y="1555" width="200" height="200"></rect>
             <g id="Icon/Caret-Down" transform="translate(1070.000000, 1608.000000)" fill="#FFEEB4">
                 <path d="M0.537438814,3.75334251 L13.3826035,19.2062761 C13.8016063,19.7100683 14.4132089,20 15.056941,20 C15.7006731,20 16.3122757,19.7100683 16.7312785,19.2062761 L29.5764432,3.75334251 C30.8023303,2.27834143 29.7859651,0 27.9021056,0 L2.20810052,0 C0.32424106,0 -0.692124093,2.27834143 0.537438814,3.75334251 Z" id="Path"></path>

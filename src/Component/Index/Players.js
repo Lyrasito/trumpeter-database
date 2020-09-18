@@ -11,8 +11,12 @@ class Players extends React.Component {
     this.state = {
       playerHidden: true,
       clickedPlayer: null,
+      genre: "",
+      albums: null,
     };
     this.handleClick = this.handleClick.bind(this);
+    this.getGenre = this.getGenre.bind(this);
+    this.filterByGenre = this.filterByGenre.bind(this);
   }
 
   async handleClick(player) {
@@ -27,8 +31,21 @@ class Players extends React.Component {
     player.albums = albumResponse;
     this.setState({
       clickedPlayer: player,
+      albums: player.albums,
     });
-    console.log(this.state.clickedPlayer);
+  }
+
+  async filterByGenre() {
+    const albums = await Database.getGenreAlbums(
+      this.state.clickedPlayer.id,
+      this.state.genre
+    );
+    this.setState({ albums: albums });
+  }
+
+  getGenre(event) {
+    const genre = event.target.value;
+    this.setState({ genre: genre });
   }
 
   render() {
@@ -47,7 +64,12 @@ class Players extends React.Component {
           )}
         </div>
         <div id={this.state.playerHidden ? "hiddenPlayer" : "shownPlayer"}>
-          <Player player={this.state.clickedPlayer} />
+          <Player
+            player={this.state.clickedPlayer}
+            albums={this.state.albums}
+            getGenre={this.getGenre}
+            filterByGenre={this.filterByGenre}
+          />
         </div>
       </div>
     );

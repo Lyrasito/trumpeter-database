@@ -5,6 +5,7 @@ import Database from "../../Database";
 import SearchBar from "./SearchBar";
 import PlayerList from "./PlayerList";
 import { ReactComponent as AddLogo } from "../../svg/AddToDatabase.svg";
+import { ReactComponent as SearchLogo } from "../../svg/Search.svg";
 
 class Landing extends React.Component {
   constructor(props) {
@@ -44,7 +45,7 @@ class Landing extends React.Component {
       <div className="all">
         <div className="intro-search-container">
           <div className="intro">
-            <h1 className="title">Jazz Trumpeteer Database</h1>
+            <h1 className="title">Jazz Trumpeter Database</h1>
             <p className="intro-paragraph">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
@@ -52,12 +53,14 @@ class Landing extends React.Component {
               nisi ut aliquip ex ea commodo consequat.
             </p>
           </div>
-          <SearchBar
-            searchResults={this.state.searchResults}
-            searchPlayers={this.searchPlayers}
-            searchByName={this.searchByName}
-            allPlayers={this.allPlayers}
-          />
+          <div className="searchBar">
+            <SearchBar
+              searchResults={this.state.searchResults}
+              searchPlayers={this.searchPlayers}
+              searchByName={this.searchByName}
+              allPlayers={this.allPlayers}
+            />
+          </div>
         </div>
         <PlayerList players={this.state.searchResults} />
         <footer>
@@ -69,6 +72,13 @@ class Landing extends React.Component {
               </button>
             </Link>
           </Router>
+          <br />
+          <a href=".all">
+            <button className="submit">
+              Search
+              <SearchLogo />
+            </button>
+          </a>
         </footer>
       </div>
     );
