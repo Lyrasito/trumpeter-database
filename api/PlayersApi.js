@@ -10,7 +10,7 @@ playerRouter.param("playerId", async (req, res, next, playerId) => {
     req.player = foundPlayer;
     next();
   } else {
-    res.sendStatus(404);
+    res.status(404).send("Please select a player");
   }
 });
 
@@ -25,7 +25,6 @@ playerRouter.get("/", async (req, res, next) => {
 
 //Search players by queries
 playerRouter.get("/search", async (req, res, next) => {
-  console.log(req.query);
   if (req.query.city && !req.query.year && !req.query.genre) {
     const foundPlayers = await Player.findAll({
       where: { city: { [Op.like]: `%${req.query.city}%` } },
@@ -135,7 +134,9 @@ const validatePlayer = (req, res, next) => {
     !newPlayer.startYear ||
     !newPlayer.endYear
   ) {
-    res.sendStatus(400);
+    res.status(400).send("Please fill out all fields");
+  } else if (isNaN(newPlayer.startYear) || isNaN(newPlayer.endYear)) {
+    res.status(400).send("Please enter a number in the Year fields");
   } else {
     next();
   }

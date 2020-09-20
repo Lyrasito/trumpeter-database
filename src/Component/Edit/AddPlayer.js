@@ -11,6 +11,7 @@ class AddPlayer extends React.Component {
       startYear: null,
       endYear: null,
       newPlayer: {},
+      error: null,
     };
     this.getName = this.getName.bind(this);
     this.getCity = this.getCity.bind(this);
@@ -18,6 +19,7 @@ class AddPlayer extends React.Component {
     this.getEndYear = this.getEndYear.bind(this);
     this.addPlayer = this.addPlayer.bind(this);
     this.renderPlayer = this.renderPlayer.bind(this);
+    this.renderError = this.renderError.bind(this);
   }
 
   getName(event) {
@@ -33,21 +35,28 @@ class AddPlayer extends React.Component {
     this.setState({ endYear: event.target.value });
   }
   async addPlayer() {
-    const newPlayer = await Database.addPlayer(
-      this.state.name,
-      this.state.city,
-      this.state.startYear,
-      this.state.endYear
-    );
-    this.setState({ newPlayer: newPlayer });
-    console.log(this.state.newPlayer);
-    return newPlayer;
+    try {
+      const newPlayer = await Database.addPlayer(
+        this.state.name,
+        this.state.city,
+        this.state.startYear,
+        this.state.endYear
+      );
+      this.setState({ newPlayer: newPlayer });
+    } catch (err) {
+      this.setState({ error: err.message });
+    }
   }
   renderPlayer() {
     if (this.state.newPlayer.name) {
       return (
         <h3>You have added {this.state.newPlayer.name} to the database!</h3>
       );
+    }
+  }
+  renderError() {
+    if (this.state.error) {
+      return <h4>{this.state.error}</h4>;
     }
   }
   render() {
@@ -93,6 +102,7 @@ class AddPlayer extends React.Component {
           </button>
         </div>
         {this.renderPlayer()}
+        {this.renderError()}
       </div>
     );
   }

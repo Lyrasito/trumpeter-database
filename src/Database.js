@@ -99,6 +99,7 @@ const Database = {
 
   async addPlayer(name, city, startYear, endYear) {
     const url = `${baseUrl}/players`;
+
     const response = await fetch(url, {
       method: "POST",
       headers: {
@@ -114,8 +115,13 @@ const Database = {
       }),
     });
 
-    const jsonResponse = await response.json();
-    return jsonResponse.player;
+    console.log("test", response);
+    if (response.ok) {
+      const jsonResponse = await response.json();
+      return jsonResponse.player;
+    } else {
+      throw new Error(await response.text());
+    }
   },
 
   async addAlbum(playerId, title, year, genre) {
@@ -134,8 +140,12 @@ const Database = {
         },
       }),
     });
-    const jsonResponse = await response.json();
-    return jsonResponse.album;
+    if (response.ok) {
+      const jsonResponse = await response.json();
+      return jsonResponse.album;
+    } else {
+      throw new Error(await response.text());
+    }
   },
 };
 

@@ -13,6 +13,7 @@ class AddAlbum extends React.Component {
       year: null,
       genre: "",
       newAlbum: {},
+      error: null,
     };
     this.getAllPlayers = this.getAllPlayers.bind(this);
     this.getPlayerId = this.getPlayerId.bind(this);
@@ -21,6 +22,7 @@ class AddAlbum extends React.Component {
     this.getGenre = this.getGenre.bind(this);
     this.createAlbum = this.createAlbum.bind(this);
     this.renderAlbum = this.renderAlbum.bind(this);
+    this.renderError = this.renderError.bind(this);
   }
 
   componentDidMount() {
@@ -60,14 +62,17 @@ class AddAlbum extends React.Component {
     });
   }
   async createAlbum() {
-    const response = await Database.addAlbum(
-      this.state.playerId,
-      this.state.title,
-      this.state.year,
-      this.state.genre
-    );
-    this.setState({ newAlbum: response });
-    console.log(response);
+    try {
+      const response = await Database.addAlbum(
+        this.state.playerId,
+        this.state.title,
+        this.state.year,
+        this.state.genre
+      );
+      this.setState({ newAlbum: response });
+    } catch (err) {
+      this.setState({ error: err.message });
+    }
   }
   renderAlbum() {
     if (this.state.newAlbum.title) {
@@ -77,6 +82,11 @@ class AddAlbum extends React.Component {
           {this.state.currentPlayer.name}!
         </h3>
       );
+    }
+  }
+  renderError() {
+    if (this.state.error) {
+      return <h4>{this.state.error}</h4>;
     }
   }
   render() {
@@ -136,6 +146,7 @@ class AddAlbum extends React.Component {
           </button>
         </div>
         {this.renderAlbum()}
+        {this.renderError()}
       </div>
     );
   }

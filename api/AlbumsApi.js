@@ -41,7 +41,11 @@ albumsRouter.get("/genres/albums", async (req, res, next) => {
 const validateAlbum = (req, res, next) => {
   const newAlbum = req.body.album;
   if (!newAlbum.title || !newAlbum.year || !newAlbum.genre) {
-    res.sendStatus(400);
+    res.status(400).send("Please fill out all fields");
+  } else if (isNaN(newAlbum.year)) {
+    res.status(400).send("Please enter a number in the Year field");
+  } else if (!newAlbum.playerId) {
+    res.status(400).send("Please select a player");
   } else {
     next();
   }
