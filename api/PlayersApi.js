@@ -1,34 +1,8 @@
 const express = require("express");
 const playerRouter = express.Router();
-const { albumsRouter, Album } = require("./AlbumsApi");
-const { Sequelize, DataTypes, Op } = require("sequelize");
-const mySQL = require("mysql");
-
-const sequelize = new Sequelize("trumpeter-database", "Marie", "password", {
-  host: "127.0.0.1",
-  dialect: "mysql",
-});
-
-const Player = sequelize.define(
-  "Player",
-  {
-    id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
-    name: { type: DataTypes.STRING },
-    city: { type: DataTypes.STRING },
-    start_year: { type: DataTypes.INTEGER },
-    end_year: { type: DataTypes.INTEGER },
-    image: { type: DataTypes.STRING },
-  },
-  { tableName: "player", timestamps: false }
-);
-
-const db = mySQL.createConnection({
-  host: "127.0.0.1",
-  port: 3306,
-  user: "Marie",
-  password: "password",
-  database: "trumpeter-database",
-});
+const { albumsRouter } = require("./AlbumsApi");
+const { Op } = require("sequelize");
+const { Player, Album } = require("../Models");
 
 playerRouter.param("playerId", async (req, res, next, playerId) => {
   const foundPlayer = await Player.findByPk(playerId);
@@ -178,4 +152,4 @@ playerRouter.post("/", validatePlayer, async (req, res, next) => {
   res.status(201).send({ player: createdPlayer });
 });
 
-module.exports = { playerRouter, Player };
+module.exports = { playerRouter };

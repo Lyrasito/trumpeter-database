@@ -1,36 +1,6 @@
 const express = require("express");
 const albumsRouter = express.Router({ mergeParams: true });
-const mySQL = require("mysql");
-const { Sequelize, DataTypes, Op } = require("sequelize");
-
-const db = mySQL.createConnection({
-  host: "127.0.0.1",
-  port: 3306,
-  user: "Marie",
-  password: "password",
-  database: "trumpeter-database",
-});
-
-const sequelize = new Sequelize("trumpeter-database", "Marie", "password", {
-  host: "127.0.0.1",
-  dialect: "mysql",
-});
-
-const Album = sequelize.define(
-  "Album",
-  {
-    id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
-    title: { type: DataTypes.STRING },
-    year: { type: DataTypes.INTEGER },
-    genre: { type: DataTypes.STRING },
-    player_id: {
-      type: DataTypes.INTEGER,
-      references: { model: "player", key: "id" },
-    },
-    image: { type: DataTypes.STRING },
-  },
-  { tableName: "album", timestamps: false }
-);
+const { Album } = require("../Models");
 
 //Get all albums by one Player
 albumsRouter.get("/", async (req, res, next) => {
