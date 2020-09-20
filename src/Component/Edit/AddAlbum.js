@@ -77,7 +77,7 @@ class AddAlbum extends React.Component {
   renderAlbum() {
     if (this.state.newAlbum.title) {
       return (
-        <h3>
+        <h3 className="message">
           You have added {this.state.newAlbum.title} to the library of{" "}
           {this.state.currentPlayer.name}!
         </h3>
@@ -86,13 +86,13 @@ class AddAlbum extends React.Component {
   }
   renderError() {
     if (this.state.error) {
-      return <h4>{this.state.error}</h4>;
+      return <h4 className="message">{this.state.error}</h4>;
     }
   }
   render() {
     return (
       <div>
-        <h3>Add an album to a player's library!</h3>
+        <h3 className="message">Add an album to a player's library!</h3>
         <div className="newAlbum">
           <label>
             Select Player

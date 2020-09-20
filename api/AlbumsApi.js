@@ -61,4 +61,4 @@ albumsRouter.post("/", validateAlbum, async (req, res, next) => {
   });
   res.status(201).send({ album: createdAlbum });
 });
-module.exports = { albumsRouter, Album };
+module.exports = { albumsRouter };

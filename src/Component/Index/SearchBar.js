@@ -12,6 +12,7 @@ class SearchBar extends React.Component {
       genre: "",
       name: "",
       searchBy: "name",
+      haveSearched: false,
     };
     this.allPlayersButton = this.allPlayersButton.bind(this);
     this.handleCityChange = this.handleCityChange.bind(this);
@@ -21,11 +22,13 @@ class SearchBar extends React.Component {
     this.search = this.search.bind(this);
     this.nameSearch = this.nameSearch.bind(this);
     this.changeSearch = this.changeSearch.bind(this);
+    this.renderNoResults = this.renderNoResults.bind(this);
   }
   allPlayersButton() {
     this.setState({
       searchResults: this.props.allPlayers,
     });
+    this.setState({ haveSearched: true });
   }
   handleCityChange(event) {
     this.setState({
@@ -57,9 +60,11 @@ class SearchBar extends React.Component {
       this.state.year,
       this.state.genre
     );
+    this.setState({ haveSearched: true });
   }
   nameSearch() {
     this.props.searchByName(this.state.name);
+    this.setState({ haveSearched: true });
   }
   changeSearch() {
     if (this.state.searchBy === "name") {
@@ -70,6 +75,11 @@ class SearchBar extends React.Component {
       this.setState({
         searchBy: "name",
       });
+    }
+  }
+  renderNoResults() {
+    if (this.state.searchResults.length === 0 && this.state.haveSearched) {
+      return <h4>Sorry, your search returned no results.</h4>;
     }
   }
 
@@ -95,6 +105,7 @@ class SearchBar extends React.Component {
           <h5 onClick={this.props.allPlayers} className="allPlayers">
             Or, see all players
           </h5>
+          {this.renderNoResults()}
         </div>
       );
     } else if (this.state.searchBy === "cityGenreYear") {
@@ -142,6 +153,7 @@ class SearchBar extends React.Component {
               Or, see all players
             </h5>
           </div>
+          {this.renderNoResults()}
         </div>
       );
     }

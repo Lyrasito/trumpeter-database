@@ -11,26 +11,13 @@
 
 .newAlbum {
   display: flex;
-  justify-content: space-around;
-  width: 1300px;
+  justify-content: space-between;
+  width: 1200px;
+  margin-left: 80px;
 }
 
-.submit {
-  height: 60px;
-  width: 162px;
-  border-radius: 30px;
-  background-color: #ffc600;
-  cursor: pointer;
-  color: #000000;
-  font-family: "WorkSans";
-  font-size: 24px;
-  font-weight: 600;
-  letter-spacing: 0;
-  line-height: 35px;
-}
-
-@media only screen and (min-width: 1301px) {
+@media only screen and (min-width: 1201px) {
   .newAlbum {
-    width: 90%;
+    width: 85%;
   }
 }

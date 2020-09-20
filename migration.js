@@ -1,6 +1,6 @@
 const mySQL = require("mysql");
-const { Player } = require("./api/PlayersApi");
-const { Album } = require("./api/AlbumsApi");
+const { Player } = require("./Models");
+const { Album } = require("./Models");
 
 Player.sync();
 Album.sync();

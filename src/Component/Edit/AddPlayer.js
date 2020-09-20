@@ -50,19 +50,21 @@ class AddPlayer extends React.Component {
   renderPlayer() {
     if (this.state.newPlayer.name) {
       return (
-        <h3>You have added {this.state.newPlayer.name} to the database!</h3>
+        <h3 className="message">
+          You have added {this.state.newPlayer.name} to the database!
+        </h3>
       );
     }
   }
   renderError() {
     if (this.state.error) {
-      return <h4>{this.state.error}</h4>;
+      return <h4 className="message">{this.state.error}</h4>;
     }
   }
   render() {
     return (
       <div className="newPlayer-container">
-        <h3>Add a player to the database!</h3>
+        <h3 className="message">Add a player to the database!</h3>
         <div className="newPlayer">
           <label>
             Name
