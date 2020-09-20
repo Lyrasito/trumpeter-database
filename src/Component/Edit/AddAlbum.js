@@ -72,10 +72,10 @@ class AddAlbum extends React.Component {
   renderAlbum() {
     if (this.state.newAlbum.title) {
       return (
-        <p>
+        <h3>
           You have added {this.state.newAlbum.title} to the library of{" "}
           {this.state.currentPlayer.name}!
-        </p>
+        </h3>
       );
     }
   }
@@ -84,46 +84,55 @@ class AddAlbum extends React.Component {
       <div>
         <h3>Add an album to a player's library!</h3>
         <div className="newAlbum">
-          <select
-            className="album-input"
-            id="players"
-            onChange={this.getPlayerId}
-            defaultValue="Select Player"
-          >
-            <option value="">Select Player</option>
-            {this.state.playerList.map((player) => {
-              return (
-                <option
-                  value={player.id}
-                  key={player.id}
-                  onSelect={this.getPlayerId}
-                >
-                  {player.name}
-                </option>
-              );
-            })}
-          </select>
+          <label>
+            Select Player
+            <select
+              className="album-input"
+              id="players"
+              onChange={this.getPlayerId}
+              defaultValue="Select Player"
+            >
+              <option value=""></option>
+              {this.state.playerList.map((player) => {
+                return (
+                  <option
+                    value={player.id}
+                    key={player.id}
+                    onSelect={this.getPlayerId}
+                  >
+                    {player.name}
+                  </option>
+                );
+              })}
+            </select>
+          </label>
+          <label>
+            Album title
+            <input
+              className="album-input"
+              id="createTitle"
+              onChange={this.getTitle}
+            ></input>
+          </label>
+          <label>
+            Release year{" "}
+            <input
+              className="album-input"
+              id="createYear"
+              onChange={this.getYear}
+            ></input>
+          </label>
+          <label>
+            Album genre
+            <input
+              className="album-input"
+              id="createGenre"
+              onChange={this.getGenre}
+            ></input>
+          </label>
 
-          <input
-            className="album-input"
-            id="createTitle"
-            placeholder="Title"
-            onChange={this.getTitle}
-          ></input>
-          <input
-            className="album-input"
-            id="createYear"
-            placeholder="Year"
-            onChange={this.getYear}
-          ></input>
-          <input
-            className="album-input"
-            id="createGenre"
-            placeholder="Genre"
-            onChange={this.getGenre}
-          ></input>
           <button type="submit" className="submit" onClick={this.createAlbum}>
-            Create
+            Add Album
           </button>
         </div>
         {this.renderAlbum()}

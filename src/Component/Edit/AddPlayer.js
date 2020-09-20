@@ -45,43 +45,54 @@ class AddPlayer extends React.Component {
   }
   renderPlayer() {
     if (this.state.newPlayer.name) {
-      return <p>You have added {this.state.newPlayer.name} to the database!</p>;
+      return (
+        <h3>You have added {this.state.newPlayer.name} to the database!</h3>
+      );
     }
   }
   render() {
     return (
-      <div>
+      <div className="newPlayer-container">
         <h3>Add a player to the database!</h3>
         <div className="newPlayer">
-          <input
-            className="player-input"
-            id="createName"
-            placeholder="Name"
-            onChange={this.getName}
-          ></input>
-          <input
-            className="player-input"
-            id="createCity"
-            placeholder="City"
-            onChange={this.getCity}
-          ></input>
-          <input
-            className="player-input"
-            id="createStartYear"
-            placeholder="Start Year"
-            onChange={this.getStartYear}
-          ></input>
-          <input
-            className="player-input"
-            id="createEndYear"
-            placeholder="End Year"
-            onChange={this.getEndYear}
-          ></input>
+          <label>
+            Name
+            <input
+              className="player-input"
+              id="createName"
+              onChange={this.getName}
+            ></input>
+          </label>
+          <label>
+            City/Cities
+            <input
+              className="player-input"
+              id="createCity"
+              onChange={this.getCity}
+            ></input>
+          </label>
+          <label>
+            Year career started
+            <input
+              className="player-input"
+              id="createStartYear"
+              onChange={this.getStartYear}
+            ></input>
+          </label>
+          <label>
+            Year career ended
+            <input
+              className="player-input"
+              id="createEndYear"
+              onChange={this.getEndYear}
+            ></input>
+          </label>
+
           <button type="submit" className="submit" onClick={this.addPlayer}>
             Add Player
           </button>
-          {this.renderPlayer()}
         </div>
+        {this.renderPlayer()}
       </div>
     );
   }
