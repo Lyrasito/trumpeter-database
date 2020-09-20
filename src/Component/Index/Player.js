@@ -1,6 +1,7 @@
 import React from "react";
 import "./Player.css";
 import Spotify from "../../Spotify";
+import PlayerPlaceholder from "../../svg/PlayerPlaceholder.svg";
 
 class Player extends React.Component {
   constructor(props) {
@@ -8,6 +9,7 @@ class Player extends React.Component {
     this.state = {
       albumsHidden: true,
       albumLink: [],
+      genre: "",
     };
     this.showAlbums = this.showAlbums.bind(this);
     this.getSpotify = this.getSpotify.bind(this);
@@ -41,10 +43,18 @@ class Player extends React.Component {
   render() {
     if (this.props.player) {
       return (
-        <div>
+        <div className="player-album-container">
           <h1>{this.props.player.name}</h1>
           <div className="player-container">
-            <img src={this.props.player.image} alt="No image" className="img" />
+            <img
+              src={
+                this.props.player.image
+                  ? this.props.player.image
+                  : PlayerPlaceholder
+              }
+              alt=""
+              className="img"
+            />
             <div className="career-span">
               <h5 className="small-title">Career Span:</h5>
               <h3>
@@ -60,18 +70,48 @@ class Player extends React.Component {
             </div>
           </div>
           <div className="albumsHeader">
-            <h5 className="small-title">Albums</h5>
-            <p onClick={this.showAlbums} className="clickButton">
-              Show/Hide
-            </p>
+            <div className="showHide">
+              <p className="small-title" id="album-header">
+                Albums
+              </p>
+              <p onClick={this.showAlbums} className="clickButton">
+                Show/Hide
+              </p>
+            </div>
+            <div id={this.state.albumsHidden ? "hiddenAlbums" : "genreFilter"}>
+              <label>Filter by genre:</label>
+              <select className="genreSelect" onChange={this.props.getGenre}>
+                <option>Select</option>
+                {this.props.player.genres.map((genre, index) => {
+                  return (
+                    <option value={genre} key={index}>
+                      {genre}
+                    </option>
+                  );
+                })}
+              </select>
+              <button
+                type="submit"
+                className="filterButton"
+                onClick={this.props.filterByGenre}
+              >
+                Filter
+              </button>
+            </div>
           </div>
-          <div id={this.state.albumsHidden ? "hidden" : "shown"}>
-            {this.props.player.albums.map((album, index) => {
+          <div id={this.state.albumsHidden ? "hiddenAlbums" : "shownAlbums"}>
+            {this.props.albums.map((album, index) => {
               return (
                 <div key={album.id} className="album">
-                  <img src="./img/album-default.png" className="album-image" />
+                  <img
+                    src="./img/album-default.png"
+                    className="album-image"
+                    alt=""
+                  />
                   <h5 className="album-title">{album.title} </h5>{" "}
                   <label>{album.year}</label>
+                  <br />
+                  <label>Genre: {album.genre}</label>
                   <a
                     href={this.state.albumLink[index]}
                     className="link"
@@ -83,9 +123,6 @@ class Player extends React.Component {
               );
             })}
           </div>
-          <h3 onClick={this.props.hidePlayer} className="clickButton">
-            Hide Player
-          </h3>
         </div>
       );
     } else {

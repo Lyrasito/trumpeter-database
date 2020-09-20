@@ -1,210 +1,151 @@
 const express = require("express");
 const playerRouter = express.Router();
-const sqlite3 = require("sqlite3");
-const db = new sqlite3.Database("./database.sqlite");
-const albumsRouter = require("./AlbumsApi");
+const { albumsRouter, Album } = require("./AlbumsApi");
+const { Sequelize, DataTypes, Op } = require("sequelize");
+const mySQL = require("mysql");
 
-playerRouter.param("playerId", (req, res, next, playerId) => {
-  db.get(`SELECT * FROM 'Player' WHERE id = ${playerId}`, (err, player) => {
-    if (err) {
-      next(err);
-    } else {
-      if (player) {
-        req.player = player;
-        next();
-      } else {
-        res.sendStatus(404);
-      }
-    }
-  });
+const sequelize = new Sequelize("trumpeter-database", "Marie", "password", {
+  host: "127.0.0.1",
+  dialect: "mysql",
+});
+
+const Player = sequelize.define(
+  "Player",
+  {
+    id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
+    name: { type: DataTypes.STRING },
+    city: { type: DataTypes.STRING },
+    start_year: { type: DataTypes.INTEGER },
+    end_year: { type: DataTypes.INTEGER },
+    image: { type: DataTypes.STRING },
+  },
+  { tableName: "player", timestamps: false }
+);
+
+const db = mySQL.createConnection({
+  host: "127.0.0.1",
+  port: 3306,
+  user: "Marie",
+  password: "password",
+  database: "trumpeter-database",
+});
+
+playerRouter.param("playerId", async (req, res, next, playerId) => {
+  const foundPlayer = await Player.findByPk(playerId);
+  if (foundPlayer) {
+    req.player = foundPlayer;
+    next();
+  } else {
+    res.sendStatus(404);
+  }
 });
 
 playerRouter.use("/:playerId/albums", albumsRouter);
 
 //Get all players
-playerRouter.get("/", (req, res, next) => {
-  db.all("SELECT * FROM 'Player' ORDER BY name", (err, players) => {
-    if (err) {
-      next(err);
-    } else {
-      res.send({ players: players });
-    }
-  });
+playerRouter.get("/", async (req, res, next) => {
+  const foundPlayers = await Player.findAll({ order: [["name", "ASC"]] });
+  const playerList = foundPlayers.map((player) => player.toJSON());
+  res.send({ players: playerList });
 });
 
 //Search players by queries
-playerRouter.get("/search", (req, res, next) => {
+playerRouter.get("/search", async (req, res, next) => {
   console.log(req.query);
   if (req.query.city && !req.query.year && !req.query.genre) {
-    db.all(
-      `SELECT * FROM 'Player' WHERE city LIKE '%${req.query.city}%'`,
-      (err, players) => {
-        if (err) {
-          next(err);
-        } else {
-          res.send({ players: players });
-        }
-      }
-    );
+    const foundPlayers = await Player.findAll({
+      where: { city: { [Op.like]: `%${req.query.city}%` } },
+    });
+    const playerList = foundPlayers.map((player) => player.toJSON());
+    res.send({ players: playerList });
   } else if (req.query.year && !req.query.city && !req.query.genre) {
     const numYear = Number(req.query.year);
-    db.all(
-      `SELECT * FROM 'Player' WHERE ${numYear} BETWEEN start_year AND end_year`,
-      (err, players) => {
-        if (err) {
-          next(err);
-        } else {
-          res.send({ players: players });
-        }
-      }
-    );
+    const foundPlayers = await Player.findAll({
+      where: {
+        start_year: { [Op.lte]: numYear },
+        end_year: { [Op.gte]: numYear },
+      },
+    });
+    const playerList = foundPlayers.map((player) => player.toJSON());
+    res.send({ players: playerList });
   } else if (req.query.name) {
-    db.all(
-      `SELECT * FROM 'Player' WHERE name LIKE '%${req.query.name}%'`,
-      (err, players) => {
-        if (err) {
-          next(err);
-        } else {
-          res.send({ players: players });
-        }
-      }
-    );
+    const foundPlayers = await Player.findAll({
+      where: { name: { [Op.like]: `%${req.query.name}%` } },
+    });
+    const playerList = foundPlayers.map((player) => player.toJSON());
+    res.send({ players: playerList });
   } else if (req.query.genre && !req.query.city && !req.query.year) {
-    db.all(
-      `SELECT * FROM Album WHERE genre LIKE '%${req.query.genre}%'`,
-      (err, albums) => {
-        if (err) {
-          next(err);
-        } else {
-          const ids = albums.map((data) => {
-            return Number(data.player_id);
-          });
-          const stringIds = ids.join(",");
-          console.log(typeof stringIds);
-          const sql = `SELECT * FROM Player WHERE Player.id IN (${stringIds})`;
-          db.all(sql, (err, players) => {
-            if (err) {
-              next(err);
-            } else {
-              res.send({ players: players });
-            }
-          });
-        }
-      }
-    );
+    const foundAlbums = await Album.findAll({
+      where: { genre: { [Op.like]: `%${req.query.genre}%` } },
+    });
+    const playerIds = foundAlbums.map((album) => album.player_id);
+    const foundPlayers = await Player.findAll({ where: { id: playerIds } });
+    const playerList = foundPlayers.map((player) => player.toJSON());
+    res.send({ players: playerList });
   } else if (req.query.city && req.query.year && !req.query.genre) {
     const numYear = Number(req.query.year);
-    db.all(
-      `SELECT * FROM 'Player' WHERE city LIKE '%${req.query.city}%' AND ${numYear} BETWEEN start_year AND end_year`,
-      (err, players) => {
-        if (err) {
-          next(err);
-        } else {
-          res.send({ players: players });
-        }
-      }
-    );
+    const foundPlayers = await Player.findAll({
+      where: {
+        city: { [Op.like]: `%${req.query.city}%` },
+        start_year: { [Op.lte]: numYear },
+        end_year: { [Op.gte]: numYear },
+      },
+    });
+    const playerList = foundPlayers.map((player) => player.toJSON());
+    res.send({ players: playerList });
   } else if (req.query.city && req.query.genre && !req.query.year) {
-    db.all(
-      `SELECT * FROM Album WHERE genre LIKE '%${req.query.genre}%'`,
-      (err, albums) => {
-        if (err) {
-          next(err);
-        } else {
-          const ids = albums.map((data) => {
-            return Number(data.player_id);
-          });
-          const stringIds = ids.join(",");
-
-          const sql = `SELECT * FROM Player WHERE Player.id IN (${stringIds}) AND Player.city LIKE '%${req.query.city}%'`;
-
-          db.all(sql, (err, players) => {
-            if (err) {
-              next(err);
-            } else {
-              res.send({ players: players });
-            }
-          });
-        }
-      }
-    );
+    const foundAlbums = await Album.findAll({
+      where: { genre: { [Op.like]: `%${req.query.genre}%` } },
+    });
+    const playerIds = foundAlbums.map((album) => album.player_id);
+    const foundPlayers = await Player.findAll({
+      where: { id: playerIds },
+      city: { [Op.like]: `%${req.query.city}%` },
+    });
+    const playerList = foundPlayers.map((player) => player.toJSON());
+    res.send({ players: playerList });
   } else if (req.query.genre && req.query.year && !req.query.city) {
     const numYear = Number(req.query.year);
-    db.all(
-      `SELECT * FROM Album WHERE genre LIKE '%${req.query.genre}%'`,
-      (err, albums) => {
-        if (err) {
-          next(err);
-        } else {
-          const ids = albums.map((data) => {
-            return Number(data.player_id);
-          });
-          const stringIds = ids.join(",");
-
-          const sql = `SELECT * FROM Player WHERE Player.id IN (${stringIds}) AND ${numYear} BETWEEN start_year AND end_year`;
-
-          db.all(sql, (err, players) => {
-            if (err) {
-              next(err);
-            } else {
-              res.send({ players: players });
-            }
-          });
-        }
-      }
-    );
+    const foundAlbums = await Album.findAll({
+      where: { genre: { [Op.like]: `%${req.query.genre}%` } },
+    });
+    const playerIds = foundAlbums.map((album) => album.player_id);
+    const foundPlayers = await Player.findAll({
+      where: {
+        id: playerIds,
+        start_year: { [Op.lte]: numYear },
+        end_year: { [Op.gte]: numYear },
+      },
+    });
+    const playerList = foundPlayers.map((player) => player.toJSON());
+    res.send({ players: playerList });
   } else if (req.query.genre && req.query.year && req.query.city) {
     const numYear = Number(req.query.year);
-    db.all(
-      `SELECT * FROM Album WHERE genre LIKE '%${req.query.genre}%'`,
-      (err, albums) => {
-        if (err) {
-          next(err);
-        } else {
-          const ids = albums.map((data) => {
-            return Number(data.player_id);
-          });
-          const stringIds = ids.join(",");
-
-          const sql = `SELECT * FROM Player WHERE Player.id IN (${stringIds}) AND ${numYear} BETWEEN start_year AND end_year AND Player.city LIKE '%${req.query.city}%'`;
-
-          db.all(sql, (err, players) => {
-            if (err) {
-              next(err);
-            } else {
-              res.send({ players: players });
-            }
-          });
-        }
-      }
-    );
+    const foundAlbums = await Album.findAll({
+      where: { genre: { [Op.like]: `%${req.query.genre}%` } },
+    });
+    const playerIds = foundAlbums.map((album) => album.player_id);
+    const foundPlayers = await Player.findAll({
+      where: {
+        id: playerIds,
+        start_year: { [Op.lte]: numYear },
+        end_year: { [Op.gte]: numYear },
+        city: { [Op.like]: `%${req.query.city}%` },
+      },
+    });
+    const playerList = foundPlayers.map((player) => player.toJSON());
+    res.send({ players: playerList });
   }
 });
 
-playerRouter.get("/genres", (req, res, next) => {
-  db.all(
-    "SELECT * FROM Album WHERE genre = $genre",
-    { $genre: req.query.genre },
-    (err, albums) => {
-      if (err) {
-        next(err);
-      } else {
-        const ids = albums.map((data) => {
-          return Number(data.player_id);
-        });
-        const stringIds = ids.join(",");
-
-        const sql = `SELECT * FROM Player WHERE Player.id IN (${stringIds})`;
-        db.all(sql, (err, players) => {
-          if (err) {
-            next(err);
-          } else {
-            res.send({ players: players });
-          }
-        });
-      }
-    }
-  );
+playerRouter.get("/genres", async (req, res, next) => {
+  const foundAlbums = await Album.findAll({
+    where: { genre: req.query.genre },
+  });
+  const playerIds = foundAlbums.map((album) => album.player_id);
+  const foundPlayers = await Player.findAll({ where: { id: playerIds } });
+  const playerList = foundPlayers.map((player) => player.toJSON());
+  res.send({ players: playerList });
 });
 
 //Get one player by id
@@ -226,29 +167,15 @@ const validatePlayer = (req, res, next) => {
   }
 };
 
-playerRouter.post("/", validatePlayer, (req, res, next) => {
+playerRouter.post("/", validatePlayer, async (req, res, next) => {
   const newPlayer = req.body.player;
-  db.run(
-    "INSERT INTO 'Player' (name, city, start_year, end_year) VALUES ($name, $city, $startYear, $endYear)",
-    {
-      $name: newPlayer.name,
-      $city: newPlayer.city,
-      $startYear: newPlayer.startYear,
-      $endYear: newPlayer.endYear,
-    },
-    function (err) {
-      if (err) {
-        next(err);
-      } else {
-        db.get(
-          `SELECT * FROM 'Player' WHERE id = ${this.lastID}`,
-          (err, player) => {
-            res.status(201).send({ player: player });
-          }
-        );
-      }
-    }
-  );
+  const createdPlayer = await Player.create({
+    name: newPlayer.name,
+    city: newPlayer.city,
+    start_year: newPlayer.startYear,
+    end_year: newPlayer.endYear,
+  });
+  res.status(201).send({ player: createdPlayer });
 });
 
-module.exports = playerRouter;
+module.exports = { playerRouter, Player };

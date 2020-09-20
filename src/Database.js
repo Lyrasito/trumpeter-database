@@ -18,6 +18,13 @@ const Database = {
     return players;
   },
 
+  async getPlayerById(id) {
+    const url = `${baseUrl}/players/${id}`;
+    const response = await fetch(url);
+    const jsonResponse = await response.json();
+    return jsonResponse.player;
+  },
+
   async searchPlayers(city, year, genre) {
     let url = "";
     if (city && !year && !genre) {
@@ -71,6 +78,7 @@ const Database = {
       id: album.id,
       title: album.title,
       year: album.year,
+      genre: album.genre,
     }));
     return albums;
   },
@@ -80,6 +88,13 @@ const Database = {
     const response = await fetch(url);
     const jsonResponse = await response.json();
     return jsonResponse.genre;
+  },
+
+  async getGenreAlbums(id, genre) {
+    const url = `${baseUrl}/players/${id}/albums/genres/albums?genre=${genre}`;
+    const response = await fetch(url);
+    const jsonResponse = await response.json();
+    return jsonResponse.albums;
   },
 
   async addPlayer(name, city, startYear, endYear) {
@@ -120,10 +135,11 @@ const Database = {
       }),
     });
     const jsonResponse = await response.json();
-    console.log(jsonResponse);
+    return jsonResponse.album;
   },
 };
 
+//Database.getPlayerById(1);
 module.exports = Database;
 
 /*  */

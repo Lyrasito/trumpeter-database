@@ -1,17 +1,32 @@
-#hidden {
+#hiddenAlbums {
   display: none;
 }
 
-#shown {
+#shownAlbums {
   display: flex;
   flex-wrap: wrap;
-  width: 1270px;
+  width: 100%;
   background-color: rgba(255, 255, 255, 0.1);
+}
+
+.albumsHeader {
+  display: flex;
+  justify-content: space-between;
+  height: 60px;
+  width: 100%;
+}
+
+.showHide {
+  display: flex;
 }
 
 .clickButton {
   cursor: pointer;
   text-decoration: underline;
+  margin-left: 40px;
+}
+#album-header {
+  margin-left: 20px;
 }
 
 .img {
@@ -30,6 +45,11 @@ img {
 .player-container {
   display: flex;
   justify-content: space-between;
+  padding-bottom: 40px;
+}
+
+.player-album-container {
+  border-bottom: 4px solid #ffeeb4;
 }
 .career-span {
   margin-right: 80px;
@@ -50,11 +70,6 @@ img {
   color: white;
 }
 
-.albumsHeader {
-  display: flex;
-  justify-content: space-between;
-}
-
 .album {
   width: 240px;
   margin: 38px;
@@ -69,4 +84,37 @@ img {
   font-weight: bold;
   letter-spacing: 0;
   line-height: 35px;
+}
+
+#genreFilter {
+  display: flex;
+  height: 40px;
+  margin-top: 10px;
+  justify-content: space-between;
+}
+label {
+  margin-top: 10px;
+}
+.genreSelect {
+  box-sizing: border-box;
+  height: 40px;
+  width: 100px;
+  border: 3px solid #666666;
+  border-radius: 30px;
+  background-color: #ffffff;
+  display: block;
+  margin-left: 10px;
+}
+.filterButton {
+  height: 40px;
+  width: 100px;
+  border-radius: 30px;
+  background-color: #ffc600;
+  cursor: pointer;
+  color: #000000;
+  font-family: "WorkSans";
+  font-size: 20px;
+  letter-spacing: 0;
+  line-height: 35px;
+  margin-left: 10px;
 }

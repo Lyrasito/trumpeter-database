@@ -1,40 +1,72 @@
 const express = require("express");
 const albumsRouter = express.Router({ mergeParams: true });
-const sqlite3 = require("sqlite3");
-const db = new sqlite3.Database("./database.sqlite");
+const mySQL = require("mysql");
+const { Sequelize, DataTypes, Op } = require("sequelize");
+
+const db = mySQL.createConnection({
+  host: "127.0.0.1",
+  port: 3306,
+  user: "Marie",
+  password: "password",
+  database: "trumpeter-database",
+});
+
+const sequelize = new Sequelize("trumpeter-database", "Marie", "password", {
+  host: "127.0.0.1",
+  dialect: "mysql",
+});
+
+const Album = sequelize.define(
+  "Album",
+  {
+    id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
+    title: { type: DataTypes.STRING },
+    year: { type: DataTypes.INTEGER },
+    genre: { type: DataTypes.STRING },
+    player_id: {
+      type: DataTypes.INTEGER,
+      references: { model: "player", key: "id" },
+    },
+    image: { type: DataTypes.STRING },
+  },
+  { tableName: "album", timestamps: false }
+);
 
 //Get all albums by one Player
-albumsRouter.get("/", (req, res, next) => {
-  db.all(
-    `SELECT * FROM 'Album' WHERE Album.player_id = ${req.player.id} ORDER BY year`,
-    (err, albums) => {
-      if (err) {
-        next(err);
-      } else {
-        res.send({ albums: albums });
-      }
-    }
-  );
+albumsRouter.get("/", async (req, res, next) => {
+  const foundAlbums = await Album.findAll({
+    where: { player_id: req.player.id },
+    order: [["year", "ASC"]],
+  });
+  const albumList = foundAlbums.map((album) => album.toJSON());
+  res.send({ albums: albumList });
 });
+
 //get all genres from one Player
-albumsRouter.get("/genres", (req, res, next) => {
-  db.all(
-    `SELECT * FROM 'Album' WHERE Album.player_id = ${req.player.id}`,
-    (err, albums) => {
-      if (err) {
-        next(err);
-      } else {
-        const genres = albums.map((album) => {
-          return album.genre;
-        });
-        uniqueArray = genres.filter(function (item, pos, self) {
-          return self.indexOf(item) == pos;
-        });
-        res.send({ genre: uniqueArray });
-      }
-    }
-  );
+albumsRouter.get("/genres", async (req, res, next) => {
+  const foundAlbums = await Album.findAll({
+    where: { player_id: req.player.id },
+  });
+  const albumList = foundAlbums.map((album) => album.toJSON());
+  const genreList = albumList.map((album) => {
+    return album.genre;
+  });
+  uniqueArray = genreList.filter(function (item, pos, self) {
+    return self.indexOf(item) == pos;
+  });
+  res.send({ genre: uniqueArray });
 });
+
+//get all albums of one genre from one Player
+albumsRouter.get("/genres/albums", async (req, res, next) => {
+  const foundAlbums = await Album.findAll({
+    where: { player_id: req.player.id, genre: req.query.genre },
+    order: [["year", "ASC"]],
+  });
+  const albumList = foundAlbums.map((album) => album.toJSON());
+  res.send({ albums: albumList });
+});
+
 //Add an album
 const validateAlbum = (req, res, next) => {
   const newAlbum = req.body.album;
@@ -45,21 +77,14 @@ const validateAlbum = (req, res, next) => {
   }
 };
 
-albumsRouter.post("/", validateAlbum, (req, res, next) => {
+albumsRouter.post("/", validateAlbum, async (req, res, next) => {
   const newAlbum = req.body.album;
-  const sql = `INSERT INTO 'Album' (title, year, genre, player_id) VALUES ("${newAlbum.title}", ${newAlbum.year}, "${newAlbum.genre}", ${req.player.id})`;
-  console.log(sql);
-  db.run(sql, function (err) {
-    if (err) {
-      next(err);
-    } else {
-      db.get(
-        `SELECT * FROM 'Album' WHERE Album.id = ${this.lastID}`,
-        (err, album) => {
-          res.status(201).send({ album: album });
-        }
-      );
-    }
+  const createdAlbum = await Album.create({
+    title: newAlbum.title,
+    year: newAlbum.year,
+    genre: newAlbum.genre,
+    player_id: req.player.id,
   });
+  res.status(201).send({ album: createdAlbum });
 });
-module.exports = albumsRouter;
+module.exports = { albumsRouter, Album };

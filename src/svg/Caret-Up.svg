@@ -4,7 +4,7 @@
     <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
         <g id="0-StyleGuide" transform="translate(-1150.000000, -1608.000000)">
             <rect fill="#363636" x="0" y="0" width="1440" height="3371"></rect>
-            <rect id="Rectangle" stroke="#979797" fill="#FFFFFF" x="1023" y="1555" width="200" height="200"></rect>
+            <rect class="background" stroke="#979797" x="1023" y="1555" width="200" height="200"></rect>
             <g id="Icon/Caret-Down" transform="translate(1150.000000, 1608.000000)" fill="#FFEEB4">
                 <path d="M0.554036165,3.75334251 L13.7958892,19.2062761 C14.2278318,19.7100683 14.858322,20 15.5219341,20 C16.1855462,20 16.8160364,19.7100683 17.247979,19.2062761 L30.4898321,3.75334251 C31.7535774,2.27834143 30.7058245,0 28.7637871,0 L2.27629176,0 C0.334254373,0 -0.713498483,2.27834143 0.554036165,3.75334251 Z" id="Path" transform="translate(15.520685, 10.000000) scale(1, -1) translate(-15.520685, -10.000000) "></path>
             </g>

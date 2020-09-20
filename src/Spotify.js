@@ -1,36 +1,7 @@
 const fetch = require("node-fetch");
 const keys = require("./keys.json");
-
 const clientID = keys.clientID;
 const clientSecret = keys.clientSecret;
-const redirectURI = "http://localhost:3000/";
-
-/*async getAccessToken() {
-    console.log("getaccesstoken");
-    var authOptions = {
-      url: "https://accounts.spotify.com/api/token",
-      headers: {
-        Authorization:
-          "Basic " +
-          new Buffer(clientID + ":" + clientSecret).toString("base64"),
-      },
-      form: {
-        grant_type: "client_credentials",
-      },
-      json: true,
-    };
-    return new Promise((resolve, reject) => {
-      console.log("newPromise");
-      request.post(authOptions, function (error, response, body) {
-        if (!error && response.statusCode === 200) {
-          //accessToken = body.access_token;
-          resolve(body.access_token);
-        } else {
-          reject(error);
-        }
-      });
-    });
-  }, */
 
 const Spotify = {
   async getAccessToken() {
@@ -50,20 +21,20 @@ const Spotify = {
 
   async searchAlbum(term) {
     const accessToken = await Spotify.getAccessToken();
-    const response = await fetch(
-      `https://api.spotify.com/v1/search?q=${term}&type=album`,
-      {
-        headers: {
-          Authorization: "Bearer " + accessToken,
-        },
-      }
-    );
-    const jsonResponse = await response.json();
-    if (!jsonResponse.albums.items.id) {
-      return new Error("There is an error");
-    } else {
+    try {
+      const response = await fetch(
+        `https://api.spotify.com/v1/search?q=${term}&type=album`,
+        {
+          headers: {
+            Authorization: "Bearer " + accessToken,
+          },
+        }
+      );
+      const jsonResponse = await response.json();
       const id = jsonResponse.albums.items[0].id;
       return `https://open.spotify.com/album/${id}`;
+    } catch (err) {
+      console.log(err);
     }
   },
 };

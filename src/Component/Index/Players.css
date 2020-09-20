@@ -1,0 +1,31 @@
+#hiddenPlayer {
+  display: none;
+}
+#shownPlayer {
+  display: block;
+}
+
+.container {
+  display: inline;
+}
+.player-line {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 4px solid #ffeeb4;
+  cursor: pointer;
+  margin-top: -19px;
+}
+
+.player-line:hover {
+  background-color: black;
+}
+
+#caret {
+  width: 50px;
+  margin-top: 40px;
+}
+
+.player-line:hover > svg .background,
+.player-line:hover {
+  fill: black;
+}

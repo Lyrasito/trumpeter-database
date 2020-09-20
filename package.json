@@ -13,6 +13,8 @@
     "fetch": "^1.1.0",
     "form-data": "^3.0.0",
     "morgan": "^1.10.0",
+    "mysql": "^2.18.1",
+    "mysql2": "^2.2.2",
     "node-fetch": "^2.6.0",
     "nodemon": "^2.0.4",
     "react": "^16.13.1",
@@ -20,6 +22,7 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
     "request": "^2.88.2",
+    "sequelize": "^6.3.5",
     "sqlite3": "^5.0.0"
   },
   "scripts": {

@@ -1,0 +1,29 @@
+.album-input {
+  box-sizing: border-box;
+  height: 63px;
+  width: 200px;
+  border: 3px solid #666666;
+  border-radius: 30px;
+  background-color: #ffffff;
+  display: block;
+  font-size: 24px;
+}
+
+.newAlbum {
+  display: flex;
+  justify-content: space-around;
+}
+
+.submit {
+  height: 60px;
+  width: 162px;
+  border-radius: 30px;
+  background-color: #ffc600;
+  cursor: pointer;
+  color: #000000;
+  font-family: "WorkSans";
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 35px;
+}
