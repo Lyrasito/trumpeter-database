@@ -1,7 +1,10 @@
 const fetch = require("node-fetch");
-const keys = require("./keys.json");
-const clientID = keys.clientID;
-const clientSecret = keys.clientSecret;
+//const keys = require("./keys.json");
+
+const clientID = "clientId";
+const clientSecret = "clientSecret";
+
+console.log(process.env.REACT_APP_CLIENT_KEY);
 
 const Spotify = {
   async getAccessToken() {
@@ -39,4 +42,4 @@ const Spotify = {
   },
 };
 
-export default Spotify;
+//export default Spotify;
