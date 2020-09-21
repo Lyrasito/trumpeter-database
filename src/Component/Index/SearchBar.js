@@ -28,7 +28,6 @@ class SearchBar extends React.Component {
     this.setState({
       searchResults: this.props.allPlayers,
     });
-    this.setState({ haveSearched: true });
   }
   handleCityChange(event) {
     this.setState({
@@ -60,11 +59,11 @@ class SearchBar extends React.Component {
       this.state.year,
       this.state.genre
     );
-    this.setState({ haveSearched: true });
+    this.setState({ haveSearched: true, city: "", year: "", genre: "" });
   }
   nameSearch() {
     this.props.searchByName(this.state.name);
-    this.setState({ haveSearched: true });
+    this.setState({ haveSearched: true, name: "" });
   }
   changeSearch() {
     if (this.state.searchBy === "name") {
@@ -78,7 +77,7 @@ class SearchBar extends React.Component {
     }
   }
   renderNoResults() {
-    if (this.state.searchResults.length === 0 && this.state.haveSearched) {
+    if (this.props.searchResults.length === 0 && this.state.haveSearched) {
       return <h4>Sorry, your search returned no results.</h4>;
     }
   }
@@ -94,7 +93,11 @@ class SearchBar extends React.Component {
             </h4>
           </div>
           <div className="nameSearch">
-            <input id="nameSearch" onChange={this.handleNameChange}></input>
+            <input
+              id="nameSearch"
+              onChange={this.handleNameChange}
+              value={this.state.name}
+            ></input>
             <br />
             <button className="submit" onClick={this.nameSearch}>
               Search
@@ -124,6 +127,7 @@ class SearchBar extends React.Component {
                 className="search"
                 id="citySearch"
                 onChange={this.handleCityChange}
+                value={this.state.city}
               ></input>
             </label>
             <label>
@@ -132,6 +136,7 @@ class SearchBar extends React.Component {
                 className="search"
                 id="yearSearch"
                 onChange={this.handleYearChange}
+                value={this.state.year}
               ></input>
             </label>
             <label>
@@ -140,6 +145,7 @@ class SearchBar extends React.Component {
                 className="search"
                 id="genreSearch"
                 onChange={this.handleGenreChange}
+                value={this.state.genre}
               ></input>
             </label>
           </div>

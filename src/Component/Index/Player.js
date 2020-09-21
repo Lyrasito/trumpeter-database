@@ -117,7 +117,7 @@ class Player extends React.Component {
                     className="link"
                     target="_blank"
                   >
-                    <p>Search on Spotify</p>
+                    <p>Open with Spotify</p>
                   </a>
                 </div>
               );
