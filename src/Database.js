@@ -150,6 +150,6 @@ const Database = {
 };
 
 //Database.getPlayerById(1);
-module.exports = Database;
+export default Database;
 
 /*  */
