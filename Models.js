@@ -1,9 +1,14 @@
 const { Sequelize, DataTypes } = require("sequelize");
 
-const sequelize = new Sequelize("trumpeter-database", "Marie", "password", {
-  host: "127.0.0.1",
-  dialect: "mysql",
-});
+const sequelize = new Sequelize(
+  "heroku_112e3ed1fa6af0f",
+  "bfb8b9b7f88147",
+  "2ea010c0",
+  {
+    host: "us-cdbr-east-02.cleardb.com",
+    dialect: "mysql",
+  }
+);
 
 const Player = sequelize.define(
   "Player",
