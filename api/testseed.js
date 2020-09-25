@@ -1,11 +1,11 @@
-const { Sequelize, DataTypes } = require("sequelize");
+/*const { Sequelize, DataTypes } = require("sequelize");
 
-const sequelize = new Sequelize("trumpeter-database", "Marie", "password", {
+const testDb = new Sequelize("test-trumpeter-database", "Marie", "password", {
   host: "127.0.0.1",
   dialect: "mysql",
 });
 
-const Player = sequelize.define(
+const TestPlayer = testDb.define(
   "Player",
   {
     id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
@@ -18,7 +18,7 @@ const Player = sequelize.define(
   { tableName: "player", timestamps: false }
 );
 
-const Album = sequelize.define(
+const TestAlbum = testDb.define(
   "Album",
   {
     id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
@@ -34,4 +34,8 @@ const Album = sequelize.define(
   { tableName: "album", timestamps: false }
 );
 
-module.exports = { Album, Player, sequelize };
+TestAlbum.sync();
+TestPlayer.sync();
+
+module.exports = { TestAlbum, TestPlayer, testDb };
+*/

@@ -1,4 +1,3 @@
-const mySQL = require("mysql");
 const { Player } = require("./Models");
 const { Album } = require("./Models");
 

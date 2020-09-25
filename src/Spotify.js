@@ -1,8 +1,8 @@
 const fetch = require("node-fetch");
-//const keys = require("./keys.json");
+const keys = require("./keys.json");
 
-const clientID = "clientId";
-const clientSecret = "clientSecret";
+const clientID = keys.clientID;
+const clientSecret = keys.clientSecret;
 
 console.log(process.env.REACT_APP_CLIENT_KEY);
 

@@ -7,7 +7,7 @@ const findReqPlayer = async (req, res, next, playerId) => {
     req.player = foundPlayer;
     next();
   } else {
-    res.status(404).send("Please select a player");
+    res.status(404).json({ message: "Please select a player" });
   }
 };
 
@@ -20,7 +20,7 @@ const getPlayerIdsFromGenre = async (req, res, next) => {
   next();
 };
 
-const getAllPlayers = async (req, res, next) => {
+const getAllPlayers = async (req, res) => {
   const foundPlayers = await Player.findAll({ order: [["name", "ASC"]] });
   const playerList = foundPlayers.map((player) => player.toJSON());
   res.send({ players: playerList });
