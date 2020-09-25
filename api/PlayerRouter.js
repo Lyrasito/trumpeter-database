@@ -5,7 +5,7 @@ const {
   findReqPlayer,
   getAllPlayers,
   searchByQueries,
-  getPlayersByGenre,
+  //getPlayersByGenre,
   getById,
   validatePlayer,
   postPlayer,
@@ -22,7 +22,7 @@ playerRouter.get("/", getAllPlayers);
 //Search players by queries
 playerRouter.get("/search", getPlayerIdsFromGenre, searchByQueries);
 //Get all players of one genre
-playerRouter.get("/genres", getPlayerIdsFromGenre, getPlayersByGenre);
+//playerRouter.get("/genres", getPlayerIdsFromGenre, getPlayersByGenre);
 //Get one player by id
 playerRouter.get("/:playerId", getById);
 //Post a new player

@@ -23,7 +23,7 @@ const getPlayerIdsFromGenre = async (req, res, next) => {
 const getAllPlayers = async (req, res) => {
   const foundPlayers = await Player.findAll({ order: [["name", "ASC"]] });
   const playerList = foundPlayers.map((player) => player.toJSON());
-  res.send({ players: playerList });
+  res.json({ players: playerList });
 };
 
 const searchByQueries = async (req, res, next) => {
@@ -95,12 +95,13 @@ const searchByQueries = async (req, res, next) => {
   }
 };
 
+/*
 const getPlayersByGenre = async (req, res, next) => {
   const foundPlayers = await Player.findAll({ where: { id: req.playerIds } });
   const playerList = foundPlayers.map((player) => player.toJSON());
   res.send({ players: playerList });
 };
-
+*/
 const getById = (req, res, next) => {
   res.send({ player: req.player });
 };
@@ -136,7 +137,7 @@ module.exports = {
   findReqPlayer,
   getAllPlayers,
   searchByQueries,
-  getPlayersByGenre,
+  //getPlayersByGenre,
   getById,
   validatePlayer,
   postPlayer,
