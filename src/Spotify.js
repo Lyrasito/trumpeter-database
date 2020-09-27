@@ -6,10 +6,11 @@ let clientID, clientSecret;
 if (isHeroku) {
   clientID = process.env.SPOTIFY_ID;
   clientSecret = process.env.SPOTIFY_SECRET;
-} else {
-  clientID = keys.clientID;
-  clientSecret = keys.clientSecret;
 }
+//else {
+// clientID = keys.clientID;
+//clientSecret = keys.clientSecret;
+//}
 console.log(process.env.REACT_APP_CLIENT_KEY);
 
 const Spotify = {
