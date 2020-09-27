@@ -4,8 +4,8 @@ const isHeroku = process.env.NODE_ENV === "production";
 let clientID, clientSecret;
 
 if (isHeroku) {
-  clientID = process.env.SPOTIFY_ID;
-  clientSecret = process.env.SPOTIFY_SECRET;
+  clientID = process.env.REACT_APP_SPOTIFY_ID;
+  clientSecret = process.env.REACT_APP_SPOTIFY_SECRET;
 }
 //else {
 // clientID = keys.clientID;
