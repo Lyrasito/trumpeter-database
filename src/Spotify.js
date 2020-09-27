@@ -1,5 +1,5 @@
 const fetch = require("node-fetch");
-const keys = require("./keys.json");
+//const keys = require("./keys.json");
 const isHeroku = process.env.HEROKU;
 let clientID, clientSecret;
 
