@@ -11,7 +11,7 @@ if (isHeroku) {
 // clientID = keys.clientID;
 //clientSecret = keys.clientSecret;
 //}
-console.log(process.env.REACT_APP_CLIENT_KEY);
+console.log(isHeroku);
 
 const Spotify = {
   async getAccessToken() {
