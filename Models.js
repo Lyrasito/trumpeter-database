@@ -14,6 +14,7 @@ if (isHeroku) {
     process.env.DATABASE_PASSWORD,
     {
       host: process.env.DATABASE_URL,
+      port: 3306,
       dialect: "mysql",
     }
   );
