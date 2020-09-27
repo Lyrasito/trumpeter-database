@@ -8,7 +8,6 @@
     "@testing-library/user-event": "^7.2.1",
     "body-parser": "^1.19.0",
     "chai": "^4.2.0",
-    "chai-as-promised": "^7.1.1",
     "chai-http": "^4.3.0",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
@@ -17,7 +16,6 @@
     "fetch": "^1.1.0",
     "form-data": "^3.0.0",
     "morgan": "^1.10.0",
-    "mysql": "^2.18.1",
     "mysql2": "^2.2.2",
     "node-fetch": "^2.6.0",
     "nodemon": "^2.0.4",
@@ -31,7 +29,6 @@
     "sinon": "^9.0.3",
     "sinon-chai": "^3.5.0",
     "sinon-express-mock": "^2.2.1",
-    "sqlite3": "^5.0.0",
     "supertest": "^4.0.2"
   },
   "scripts": {

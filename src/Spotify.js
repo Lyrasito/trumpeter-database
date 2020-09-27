@@ -1,6 +1,6 @@
 const fetch = require("node-fetch");
 //const keys = require("./keys.json");
-const isHeroku = process.env.HEROKU;
+const isHeroku = process.env.NODE_ENV === "production";
 let clientID, clientSecret;
 
 if (isHeroku) {

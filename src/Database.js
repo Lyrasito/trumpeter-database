@@ -1,5 +1,5 @@
 const fetch = require("node-fetch");
-const isHeroku = process.env.HEROKU;
+const isHeroku = process.env.NODE_ENV === "production";
 let baseUrl;
 if (isHeroku) {
   baseUrl = "/";
