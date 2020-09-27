@@ -1,9 +1,15 @@
 const fetch = require("node-fetch");
-//const keys = require("./keys.json");
+const keys = require("./keys.json");
+const isHeroku = process.env.HEROKU;
+let clientID, clientSecret;
 
-const clientID = ""; //keys.clientID;
-const clientSecret = ""; // keys.clientSecret;
-
+if (isHeroku) {
+  clientID = process.env.SPOTIFY_ID;
+  clientSecret = process.env.SPOTIFY_SECRET;
+} else {
+  clientID = keys.clientID;
+  clientSecret = keys.clientSecret;
+}
 console.log(process.env.REACT_APP_CLIENT_KEY);
 
 const Spotify = {
@@ -38,6 +44,7 @@ const Spotify = {
       return `https://open.spotify.com/album/${id}`;
     } catch (err) {
       console.log(err);
+      console.log(isHeroku);
     }
   },
 };

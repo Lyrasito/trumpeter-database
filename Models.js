@@ -1,6 +1,9 @@
 const { Sequelize, DataTypes } = require("sequelize");
 
 const isHeroku = process.env.HEROKU;
+const isTesting = process.env.TESTING;
+
+require("dotenv").config({ path: isTesting ? ".test.env" : ".env" });
 
 console.log(isHeroku);
 let sequelize;
@@ -8,17 +11,22 @@ if (isHeroku) {
   sequelize = new Sequelize(
     "heroku_112e3ed1fa6af0f",
     "bfb8b9b7f88147",
-    "2ea010c0",
+    process.env.DATABASE_PASSWORD,
     {
-      host: "us-cdbr-east-02.cleardb.com",
+      host: process.env.DATABASE_URL,
       dialect: "mysql",
     }
   );
 } else {
-  sequelize = new Sequelize("trumpeter-database", "Marie", "password", {
-    host: "127.0.0.1",
-    dialect: "mysql",
-  });
+  sequelize = new Sequelize(
+    process.env.DATABASE_DATABASE,
+    process.env.DATABASE_USERNAME,
+    process.env.DATABASE_PASSWORD,
+    {
+      host: "127.0.0.1",
+      dialect: "mysql",
+    }
+  );
 }
 const Player = sequelize.define(
   "Player",

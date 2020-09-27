@@ -1,6 +1,11 @@
 const fetch = require("node-fetch");
-
-const baseUrl = "http://localhost:4000/api";
+const isHeroku = process.env.HEROKU;
+let baseUrl;
+if (isHeroku) {
+  baseUrl = "/";
+} else {
+  baseUrl = "http://localhost:4000/api";
+}
 
 const Database = {
   async getPlayers() {
