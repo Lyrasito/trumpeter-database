@@ -9,8 +9,8 @@ console.log(isHeroku);
 let sequelize;
 if (isHeroku) {
   sequelize = new Sequelize(
-    "heroku_112e3ed1fa6af0f",
-    "bfb8b9b7f88147",
+    process.env.DATABASE_DATABASE,
+    process.env.DATABASE_USERNAME,
     process.env.DATABASE_PASSWORD,
     {
       host: process.env.DATABASE_URL,
