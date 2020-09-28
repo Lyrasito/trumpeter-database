@@ -35,7 +35,7 @@
     "start": "node start",
     "react": "react-scripts start",
     "build": "react-scripts build",
-    "test": "set TESTING=true && mocha api/PlayerService.test.js",
+    "test": "set TESTING=true && mocha test/**/*.js",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

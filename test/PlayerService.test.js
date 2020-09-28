@@ -2,14 +2,23 @@
 const rewire = require("rewire");
 var app = rewire("../server");
 const supertest = require("supertest");
-const { playerRouter } = require("./PlayerRouter");
+const { playerRouter } = require("../api/PlayerRouter");
 const request = supertest(app);
 const chai = require("chai");
 const expect = chai.expect;
 const sinon = require("sinon");
+const sinonChai = require("sinon-chai");
+
 var sandbox = sinon.createSandbox();
+const {
+  findReqPlayer,
+  getPlayerIdsFromGenre,
+} = require("../api/PlayerService");
+const { mockReq, mockRes } = require("sinon-express-mock");
 
 const { Album, Player, sequelize } = require("../Models");
+
+chai.use(sinonChai);
 
 describe("PlayerRouter", () => {
   let newPlayer, newAlbum;
@@ -39,6 +48,7 @@ describe("PlayerRouter", () => {
     await newAlbum.destroy();
     await newPlayer.destroy();
   });
+  after(async () => {});
   context("getAllPlayers", () => {
     it("should get all players", async () => {
       const response = await request.get("/api/players");
@@ -90,6 +100,40 @@ describe("PlayerRouter", () => {
       expect(genreResponse.body).to.have.property("players");
       expect(genreResponse.body.players[0].id).to.equal(newPlayer.id);
     });
+    it("should get a player from a name search", async () => {
+      const nameResponse = await request.get("/api/players/search?name=Fake");
+      expect(nameResponse.status).to.equal(200);
+      expect(nameResponse.body).to.have.property("players");
+      expect(nameResponse.body.players[0])
+        .to.have.property("name")
+        .to.include("Fake");
+    });
+    it("should get a list of players from a city/year/genre search", async () => {
+      const newPlayer2 = await Player.create({
+        name: "Fake Name1",
+        city: "Mock City",
+        start_year: 1234,
+        end_year: 5678,
+      });
+      const newAlbum2 = await Album.create({
+        title: "Fake Album2",
+        year: 1234,
+        genre: "Fake Genre",
+        player_id: newPlayer2.id,
+      });
+      const response = await request.get(
+        "/api/players/search?city=Mock&year=2345&genre=Fake"
+      );
+      expect(response.status).to.equal(200);
+      expect(response.body).to.have.property("players");
+      const searchPlayersArray = response.body.players;
+      searchPlayersArray.forEach((player) => {
+        expect(player).to.have.property("city").to.include("Mock");
+        expect(player).to.have.property("city").to.not.include("Fake");
+      });
+      await newAlbum2.destroy();
+      await newPlayer2.destroy();
+    });
   });
   context("createPlayer", () => {
     it("should create a new player", async () => {
@@ -103,6 +147,52 @@ describe("PlayerRouter", () => {
         },
       });
       expect(newPlayer.status).to.equal(201);
+    });
+    it("should send an error with insufficient input", async () => {
+      const newPlayer = await request
+        .post("/api/players")
+        .send({ player: { name: "Fake" } });
+      expect(newPlayer.status).to.equal(400);
+      expect(newPlayer.error.text).to.equal("Please fill out all fields");
+    });
+    it("should send an error with invalid input", async () => {
+      const newPlayer = await request.post("/api/players").send({
+        player: {
+          name: "Fake Name",
+          city: "Fake City",
+          startYear: "not number",
+          endYear: 5678,
+        },
+      });
+      expect(newPlayer.status).to.equal(400);
+      expect(newPlayer.error.text).to.equal(
+        "Please enter a number in the Year fields"
+      );
+    });
+  });
+
+  context("findReqPlayer", () => {
+    it("should put player on req object", async () => {
+      const req = mockReq();
+      const res = mockRes();
+      await findReqPlayer(req, res, () => {}, newPlayer.id);
+      expect(req).to.have.property("player");
+    });
+    it("should throw error with invalid id", async () => {
+      const res = mockRes();
+      const req = mockReq();
+      await findReqPlayer(req, res, () => {}, 999);
+      expect(res.status).to.be.calledWith(404);
+      expect(res.send).to.be.calledWith("Please select a player");
+    });
+  });
+  context("getPlayerIdsFromGenre", () => {
+    it("should set req.playerIds", async () => {
+      const req = mockReq({ query: { genre: "Fake" } });
+      const res = mockRes();
+      await getPlayerIdsFromGenre(req, res, () => {});
+      expect(req).to.have.property("playerIds");
+      expect(req.playerIds).to.include(newPlayer.id);
     });
   });
 });
