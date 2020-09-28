@@ -1,15 +1,12 @@
-//process.env.PORT = 8081;
 const rewire = require("rewire");
 var app = rewire("../server");
 const supertest = require("supertest");
-const { playerRouter } = require("../api/PlayerRouter");
 const request = supertest(app);
 const chai = require("chai");
 const expect = chai.expect;
 const sinon = require("sinon");
 const sinonChai = require("sinon-chai");
 
-var sandbox = sinon.createSandbox();
 const {
   findReqPlayer,
   getPlayerIdsFromGenre,
@@ -23,9 +20,11 @@ chai.use(sinonChai);
 describe("PlayerRouter", () => {
   let newPlayer, newAlbum;
   before(async () => {
+    // console.log(process.env);
     await sequelize.query("SET FOREIGN_KEY_CHECKS = 0");
     await Album.sync({ force: true });
     await Player.sync({ force: true });
+
     await sequelize.query("SET FOREIGN_KEY_CHECKS = 1");
   });
   beforeEach(async () => {
@@ -44,11 +43,17 @@ describe("PlayerRouter", () => {
       image: "./FakeAlbum.jpg",
     });
   });
+
   afterEach(async () => {
     await newAlbum.destroy();
     await newPlayer.destroy();
   });
-  after(async () => {});
+  /*
+  after(async () => {
+    await Album.drop();
+    await Player.drop();
+  });
+  */
   context("getAllPlayers", () => {
     it("should get all players", async () => {
       const response = await request.get("/api/players");
@@ -76,28 +81,25 @@ describe("PlayerRouter", () => {
       expect(cityResponse.status).to.equal(200);
       expect(cityResponse.body).to.have.property("players");
       const cityPlayersArray = cityResponse.body.players;
-      for (let i = 0; i < cityPlayersArray.length; i++) {
-        expect(cityPlayersArray[i]).to.have.property("city").to.include("Fake");
-      }
+      cityPlayersArray.forEach((player) => {
+        expect(player).to.have.property("city").to.include("Fake");
+      });
     });
     it("should get a list of players from a year search", async () => {
       const yearResponse = await request.get("/api/players/search?year=1940");
       expect(yearResponse.status).to.equal(200);
       expect(yearResponse.body).to.have.property("players");
       const yearPlayersArray = yearResponse.body.players;
-      for (let i = 0; i < yearPlayersArray.length; i++) {
-        expect(yearPlayersArray[i])
-          .to.have.property("start_year")
-          .to.be.below(1940);
-        expect(yearPlayersArray[i])
-          .to.have.property("end_year")
-          .to.be.above(1940);
-      }
+      yearPlayersArray.forEach((player) => {
+        expect(player).to.have.property("start_year").to.be.below(1941);
+        expect(player).to.have.property("end_year").to.be.above(1939);
+      });
     });
     it("should get a list of players from a genre search", async () => {
       const genreResponse = await request.get("/api/players/search?genre=Fake");
       expect(genreResponse.status).to.equal(200);
       expect(genreResponse.body).to.have.property("players");
+
       expect(genreResponse.body.players[0].id).to.equal(newPlayer.id);
     });
     it("should get a player from a name search", async () => {

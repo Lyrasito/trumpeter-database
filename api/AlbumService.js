@@ -34,6 +34,7 @@ const getAlbumsOneGenre = async (req, res, next) => {
 
 const validateAlbum = (req, res, next) => {
   const newAlbum = req.body.album;
+  newAlbum.playerId = req.player.id;
   if (!newAlbum.title || !newAlbum.year || !newAlbum.genre) {
     res.status(400).send("Please fill out all fields");
   } else if (isNaN(newAlbum.year)) {
