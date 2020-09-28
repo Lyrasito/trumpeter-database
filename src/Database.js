@@ -1,6 +1,11 @@
 const fetch = require("node-fetch");
-
-const baseUrl = "http://localhost:4000/api";
+const isHeroku = process.env.NODE_ENV === "production";
+let baseUrl;
+if (isHeroku) {
+  baseUrl = "https://trumpeter-database.herokuapp.com/api";
+} else {
+  baseUrl = "http://localhost:4000/api";
+}
 
 const Database = {
   async getPlayers() {

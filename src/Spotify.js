@@ -1,10 +1,17 @@
 const fetch = require("node-fetch");
-const keys = require("./keys.json");
+//const keys = require("./keys.json");
+const isHeroku = process.env.NODE_ENV === "production";
+let clientID, clientSecret;
 
-const clientID = keys.clientID;
-const clientSecret = keys.clientSecret;
-
-console.log(process.env.REACT_APP_CLIENT_KEY);
+if (isHeroku) {
+  clientID = process.env.REACT_APP_SPOTIFY_ID;
+  clientSecret = process.env.REACT_APP_SPOTIFY_SECRET;
+}
+//else {
+// clientID = keys.clientID;
+//clientSecret = keys.clientSecret;
+//}
+console.log(process.env);
 
 const Spotify = {
   async getAccessToken() {
@@ -38,6 +45,7 @@ const Spotify = {
       return `https://open.spotify.com/album/${id}`;
     } catch (err) {
       console.log(err);
+      console.log(isHeroku);
     }
   },
 };

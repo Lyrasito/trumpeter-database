@@ -7,7 +7,7 @@ const findReqPlayer = async (req, res, next, playerId) => {
     req.player = foundPlayer;
     next();
   } else {
-    res.status(404).json({ message: "Please select a player" });
+    res.status(404).send("Please select a player");
   }
 };
 
@@ -16,6 +16,7 @@ const getPlayerIdsFromGenre = async (req, res, next) => {
   const foundAlbums = await Album.findAll({
     where: { genre: { [Op.like]: `%${req.query.genre}%` } },
   });
+
   req.playerIds = foundAlbums.map((album) => album.player_id);
   //return req.playerIds;
   next();
