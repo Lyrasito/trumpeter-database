@@ -17,6 +17,7 @@ const getPlayerIdsFromGenre = async (req, res, next) => {
     where: { genre: { [Op.like]: `%${req.query.genre}%` } },
   });
   req.playerIds = foundAlbums.map((album) => album.player_id);
+  //return req.playerIds;
   next();
 };
 
@@ -95,13 +96,12 @@ const searchByQueries = async (req, res, next) => {
   }
 };
 
-/*
 const getPlayersByGenre = async (req, res, next) => {
   const foundPlayers = await Player.findAll({ where: { id: req.playerIds } });
   const playerList = foundPlayers.map((player) => player.toJSON());
   res.send({ players: playerList });
 };
-*/
+
 const getById = (req, res, next) => {
   res.send({ player: req.player });
 };
@@ -137,7 +137,7 @@ module.exports = {
   findReqPlayer,
   getAllPlayers,
   searchByQueries,
-  //getPlayersByGenre,
+  getPlayersByGenre,
   getById,
   validatePlayer,
   postPlayer,
