@@ -34,6 +34,7 @@ const searchByQueries = async (req, res, next) => {
   if (req.query.city && !req.query.year && !req.query.genre) {
     const foundPlayers = await Player.findAll({
       where: { city: { [Op.like]: `%${req.query.city}%` } },
+      order: [["name", "ASC"]],
     });
     const playerList = foundPlayers.map((player) => player.toJSON());
     res.send({ players: playerList });
@@ -43,17 +44,22 @@ const searchByQueries = async (req, res, next) => {
         start_year: { [Op.lte]: numYear },
         end_year: { [Op.gte]: numYear },
       },
+      order: [["name", "ASC"]],
     });
     const playerList = foundPlayers.map((player) => player.toJSON());
     res.send({ players: playerList });
   } else if (req.query.name) {
     const foundPlayers = await Player.findAll({
       where: { name: { [Op.like]: `%${req.query.name}%` } },
+      order: [["name", "ASC"]],
     });
     const playerList = foundPlayers.map((player) => player.toJSON());
     res.send({ players: playerList });
   } else if (req.query.genre && !req.query.city && !req.query.year) {
-    const foundPlayers = await Player.findAll({ where: { id: req.playerIds } });
+    const foundPlayers = await Player.findAll({
+      where: { id: req.playerIds },
+      order: [["name", "ASC"]],
+    });
     const playerList = foundPlayers.map((player) => player.toJSON());
     res.send({ players: playerList });
   } else if (req.query.city && req.query.year && !req.query.genre) {
@@ -63,6 +69,7 @@ const searchByQueries = async (req, res, next) => {
         start_year: { [Op.lte]: numYear },
         end_year: { [Op.gte]: numYear },
       },
+      order: [["name", "ASC"]],
     });
     const playerList = foundPlayers.map((player) => player.toJSON());
     res.send({ players: playerList });
@@ -70,6 +77,7 @@ const searchByQueries = async (req, res, next) => {
     const foundPlayers = await Player.findAll({
       where: { id: req.playerIds },
       city: { [Op.like]: `%${req.query.city}%` },
+      order: [["name", "ASC"]],
     });
     const playerList = foundPlayers.map((player) => player.toJSON());
     res.send({ players: playerList });
@@ -80,6 +88,7 @@ const searchByQueries = async (req, res, next) => {
         start_year: { [Op.lte]: numYear },
         end_year: { [Op.gte]: numYear },
       },
+      order: [["name", "ASC"]],
     });
     const playerList = foundPlayers.map((player) => player.toJSON());
     res.send({ players: playerList });
@@ -91,6 +100,7 @@ const searchByQueries = async (req, res, next) => {
         end_year: { [Op.gte]: numYear },
         city: { [Op.like]: `%${req.query.city}%` },
       },
+      order: [["name", "ASC"]],
     });
     const playerList = foundPlayers.map((player) => player.toJSON());
     res.send({ players: playerList });
@@ -98,7 +108,10 @@ const searchByQueries = async (req, res, next) => {
 };
 
 const getPlayersByGenre = async (req, res, next) => {
-  const foundPlayers = await Player.findAll({ where: { id: req.playerIds } });
+  const foundPlayers = await Player.findAll({
+    where: { id: req.playerIds },
+    order: [["name", "ASC"]],
+  });
   const playerList = foundPlayers.map((player) => player.toJSON());
   res.send({ players: playerList });
 };

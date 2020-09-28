@@ -38,13 +38,11 @@ class AddAlbum extends React.Component {
   async getPlayerId(event) {
     const playerId = event.target.value;
     const response = await Database.getPlayerById(playerId);
-    this.setState({ playerId: playerId, currentPlayer: response });
-    console.log(
-      playerId,
-      response,
-      this.state.playerId,
-      this.state.currentPlayer
-    );
+    this.setState({
+      playerId: playerId,
+      currentPlayer: response,
+      newAlbum: {},
+    });
   }
   getTitle(event) {
     this.setState({
@@ -69,9 +67,9 @@ class AddAlbum extends React.Component {
         this.state.year,
         this.state.genre
       );
-      this.setState({ newAlbum: response });
+      this.setState({ newAlbum: response, title: "", year: "", genre: "" });
     } catch (err) {
-      this.setState({ error: err.message });
+      this.setState({ error: err.message, newAlbum: {} });
     }
   }
   renderAlbum() {
@@ -122,6 +120,7 @@ class AddAlbum extends React.Component {
               className="album-input"
               id="createTitle"
               onChange={this.getTitle}
+              value={this.state.title}
             ></input>
           </label>
           <label>
@@ -130,6 +129,7 @@ class AddAlbum extends React.Component {
               className="album-input"
               id="createYear"
               onChange={this.getYear}
+              value={this.state.year}
             ></input>
           </label>
           <label>
@@ -138,6 +138,7 @@ class AddAlbum extends React.Component {
               className="album-input"
               id="createGenre"
               onChange={this.getGenre}
+              value={this.state.genre}
             ></input>
           </label>
 

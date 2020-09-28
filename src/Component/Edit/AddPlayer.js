@@ -42,9 +42,15 @@ class AddPlayer extends React.Component {
         this.state.startYear,
         this.state.endYear
       );
-      this.setState({ newPlayer: newPlayer });
+      this.setState({
+        newPlayer: newPlayer,
+        name: "",
+        city: "",
+        startYear: "",
+        endYear: "",
+      });
     } catch (err) {
-      this.setState({ error: err.message });
+      this.setState({ error: err.message, newPlayer: {} });
     }
   }
   renderPlayer() {
@@ -72,6 +78,7 @@ class AddPlayer extends React.Component {
               className="player-input"
               id="createName"
               onChange={this.getName}
+              value={this.state.name}
             ></input>
           </label>
           <label>
@@ -80,6 +87,7 @@ class AddPlayer extends React.Component {
               className="player-input"
               id="createCity"
               onChange={this.getCity}
+              value={this.state.city}
             ></input>
           </label>
           <label>
@@ -88,6 +96,7 @@ class AddPlayer extends React.Component {
               className="player-input"
               id="createStartYear"
               onChange={this.getStartYear}
+              value={this.state.startYear}
             ></input>
           </label>
           <label>
@@ -96,6 +105,7 @@ class AddPlayer extends React.Component {
               className="player-input"
               id="createEndYear"
               onChange={this.getEndYear}
+              value={this.state.endYear}
             ></input>
           </label>
 
