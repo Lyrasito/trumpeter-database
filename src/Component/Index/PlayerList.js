@@ -20,7 +20,7 @@ class PlayerList extends React.Component {
       <div className="player-list">
         {this.renderHeader()}
         {this.props.players.map((player) => {
-          return <Players player={player} />;
+          return <Players player={player} key={player.id} />;
         })}
       </div>
     );
