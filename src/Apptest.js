@@ -8,9 +8,7 @@ import Player from "./Component/Index/Player";
 import { expect } from "chai";
 import sinon from "sinon";
 var chai = require("chai");
-//var sinon = require("sinon");
 var sinonChai = require("sinon-chai");
-//var expect = chai.expect;
 chai.use(sinonChai);
 const newAlbumArray = [
   {
@@ -36,11 +34,11 @@ const newPlayerArray = [
 ];
 
 describe("Landing", () => {
-  it.only("should render without errors", () => {
+  it("should render without errors", () => {
     shallow(<Landing />);
     console.log(process.env.DATABASE_DATABASE);
   });
-  it.only("should render the title of the webpage and intro paragraph", () => {
+  it("should render the title of the webpage and intro paragraph", () => {
     const wrapper = shallow(<Landing />);
     const title = <h1 className="title">Jazz Trumpeter Database</h1>;
     const intro = (
@@ -51,7 +49,7 @@ describe("Landing", () => {
     );
     expect(wrapper.contains(title, intro)).to.equal(true);
   });
-  it.only("should pass searchResults props to SearchBar", () => {
+  it("should pass searchResults props to SearchBar", () => {
     const wrapper = mount(<SearchBar searchResults={newPlayerArray} />);
     expect(wrapper.props().searchResults).to.equal(newPlayerArray);
     //console.log(wrapper.getElements());
@@ -60,7 +58,7 @@ describe("Landing", () => {
   });
 });
 describe("SearchBar", () => {
-  it.only("should change from nameSearch to search upon click", () => {
+  it("should change from nameSearch to search upon click", () => {
     const wrapper = shallow(<SearchBar searchResults={newPlayerArray} />);
     const nameSearch = wrapper.find(".nameSearch");
     const searchBar = wrapper.find(".searchBar");
@@ -69,7 +67,7 @@ describe("SearchBar", () => {
     expect(wrapper.contains(searchBar.getElements())).to.equal(true);
     expect(wrapper.contains(nameSearch.getElements())).to.equal(false);
   });
-  it.only("should search for a player by name", () => {
+  it("should search for a player by name", () => {
     const wrapper = mount(<PlayerList players={newPlayerArray} />);
     //const SearchWrapper = wrapper.find(SearchBar).first();
     //console.log(SearchWrapper.getElements());
@@ -118,7 +116,9 @@ describe("Player", () => {
     const albumsShown = wrapper.find("#genreFilter");
     const albumsHidden = wrapper.find("#hiddenAlbums");
     const albumTitle = <h5 class="album-title">Fake Album </h5>;
-    expect(wrapper.contains(albumsShown.getElements(), albumTitle));
+    expect(wrapper.contains(albumsShown.getElements(), albumTitle)).to.equal(
+      true
+    );
     expect(wrapper.contains(albumsHidden)).to.equal(false);
   });
 });

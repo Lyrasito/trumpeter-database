@@ -8,8 +8,8 @@ class AddPlayer extends React.Component {
     this.state = {
       name: "",
       city: "",
-      startYear: null,
-      endYear: null,
+      startYear: "",
+      endYear: "",
       newPlayer: {},
       error: null,
     };
