@@ -1,5 +1,4 @@
 import React from "react";
-import { render } from "@testing-library/react";
 import Landing from "./Component/Index/Landing";
 import { shallow, mount } from "enzyme";
 import SearchBar from "./Component/Index/SearchBar";
@@ -7,9 +6,12 @@ import PlayerList from "./Component/Index/PlayerList";
 import Player from "./Component/Index/Player";
 import { expect } from "chai";
 import sinon from "sinon";
+import Spotify from "./Spotify";
 var chai = require("chai");
 var sinonChai = require("sinon-chai");
 chai.use(sinonChai);
+var sandbox = sinon.createSandbox();
+
 const newAlbumArray = [
   {
     id: 1,
@@ -67,7 +69,7 @@ describe("SearchBar", () => {
     expect(wrapper.contains(searchBar.getElements())).to.equal(true);
     expect(wrapper.contains(nameSearch.getElements())).to.equal(false);
   });
-  it("should search for a player by name", () => {
+  it.only("should search for a player and display the player list", () => {
     const wrapper = mount(<PlayerList players={newPlayerArray} />);
     //const SearchWrapper = wrapper.find(SearchBar).first();
     //console.log(SearchWrapper.getElements());
@@ -95,7 +97,7 @@ describe("SearchBar", () => {
 });
 
 describe("Player", () => {
-  it.only("should render info of the player clicked on", () => {
+  it.only("should render info of the player clicked on", (done) => {
     //mount Player component with props of first object in player array, and album array
     const wrapper = mount(
       <Player player={newPlayerArray[0]} albums={newAlbumArray} />
@@ -105,20 +107,27 @@ describe("Player", () => {
     expect(wrapper.contains(playerName)).to.equal(true);
 
     //stub getSpotify to avoid error thrown when Spotify link tries to render
-    let getSpotifyStub = sinon
-      .stub(Player.prototype, "getSpotify")
+    const getSpotifyStub = sinon
+      .stub(Spotify, "searchAlbum")
       .resolves("fakespotifylink.com");
 
     //click the button to show/hide albums
     const clickButton = wrapper.find(".clickButton");
     clickButton.simulate("click");
     //expect the id to change from #hiddenAlbums to #genreFilter after click, and expect the album to render with the title of the Fake Album passed into props
-    const albumsShown = wrapper.find("#genreFilter");
-    const albumsHidden = wrapper.find("#hiddenAlbums");
-    const albumTitle = <h5 class="album-title">Fake Album </h5>;
-    expect(wrapper.contains(albumsShown.getElements(), albumTitle)).to.equal(
-      true
-    );
-    expect(wrapper.contains(albumsHidden)).to.equal(false);
+
+    process.nextTick(() => {
+      wrapper.update();
+      const albumsShown = wrapper.find("#genreFilter");
+      const albumsHidden = wrapper.find("#hiddenAlbums");
+      const albumTitle = <h5 class="album-title">Fake Album </h5>;
+      // console.log(wrapper.html());
+      expect(getSpotifyStub).to.have.been.calledOnce;
+      expect(wrapper.contains(albumsShown.getElements(), albumTitle)).to.equal(
+        true
+      );
+      expect(wrapper.contains(albumsHidden)).to.equal(false);
+      done();
+    });
   });
 });

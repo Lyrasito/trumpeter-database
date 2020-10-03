@@ -1,6 +1,7 @@
 import React from "react";
 import { render } from "@testing-library/react";
 import AddPlayer from "./Component/Edit/AddPlayer";
+import AddAlbum from "./Component/Edit/AddAlbum";
 import Database from "./Database";
 import { shallow, mount } from "enzyme";
 
@@ -9,6 +10,7 @@ import sinon from "sinon";
 var chai = require("chai");
 var sinonChai = require("sinon-chai");
 chai.use(sinonChai);
+var sandbox = sinon.createSandbox();
 
 const newPlayerArray = [
   {
@@ -21,41 +23,114 @@ const newPlayerArray = [
   },
 ];
 
+const newAlbumArray = [
+  {
+    id: 1,
+    title: "Fake Album",
+    year: 1234,
+    genre: "Fake Genre",
+    image: "./FakeAlbum.jpg",
+    playerId: 1,
+  },
+];
+
 describe("AddPlayer", () => {
+  //beforeEach(() => {});
+  afterEach(() => {
+    sandbox.restore();
+    wrapper.unmount();
+  });
   it("should render properly", () => {
     const wrapper = shallow(<AddPlayer />);
     const title = <h3 className="message">Add a player to the database!</h3>;
     expect(wrapper.contains(title));
   });
-  it.only("should render a success message with successful addition", async () => {
+  it("should render a success message with successful addition", (done) => {
     const wrapper = mount(<AddPlayer />);
-    const newPlayerStub = sinon
+    const newPlayerStub = sandbox
       .stub(Database, "addPlayer")
       .resolves(newPlayerArray[0]);
 
-    const setState = sinon.stub(AddPlayer.prototype, "setState");
-    //const component = shallow(<Component />);
+    wrapper.find("button").simulate("click");
 
-    //const setStateStub = sinon
-    // .stub(AddPlayer.prototype, "setState")
-    // .resolves({ newPlayer: newPlayerArray[0] });
+    expect(newPlayerStub).to.have.been.calledOnce;
+    process.nextTick(() => {
+      wrapper.update();
+      console.log(wrapper.html());
+
+      const message = (
+        <h3 className="message">You have added Fake Player to the database!</h3>
+      );
+      expect(wrapper.contains(message)).to.equal(true);
+      done();
+    });
+  });
+  it("should render an error message with insufficient input", (done) => {
+    const wrapper = shallow(<AddPlayer />);
+    const newPlayerStub = sandbox
+      .stub(Database, "addPlayer")
+      .rejects({ name: "error", message: "Please fill out all fields" });
+    wrapper.find("button").simulate("click");
+    expect(newPlayerStub).to.have.been.calledOnce;
+    process.nextTick(() => {
+      wrapper.update();
+      const message = <h4 className="message">Please fill out all fields</h4>;
+      expect(wrapper.contains(message)).to.equal(true);
+      done();
+    });
+  });
+});
+
+describe("AddAlbum", () => {
+  afterEach(() => {
+    sandbox.restore();
+  });
+  it("should render properly", () => {
+    const wrapper = shallow(<AddPlayer />);
+    const title = <h3 className="message">Add a player to the database!</h3>;
+    expect(wrapper.contains(title));
+  });
+  it.only("Should render a success message after adding an album", (done) => {
+    const wrapper = mount(<AddAlbum />);
+
+    const getPlayerIdStub = sandbox
+      .stub(Database, "getPlayerById")
+      .resolves(newPlayerArray[0]);
+
+    const newAlbumStub = sandbox
+      .stub(Database, "addAlbum")
+      .resolves(newAlbumArray[0]);
+
+    wrapper.find("#players").simulate("change");
+    wrapper.find("button").simulate("click");
+
+    expect(getPlayerIdStub).to.have.been.calledOnce;
+    expect(newAlbumStub).to.have.been.calledOnce;
+    process.nextTick(() => {
+      wrapper.update();
+      const message = (
+        <h3 className="message">
+          You have added Fake Album to the library of Fake Player!
+        </h3>
+      );
+      expect(wrapper.contains(message)).to.equal(true);
+      done();
+    });
+  });
+  it.only("should render an error message with insufficient input", (done) => {
+    const wrapper = shallow(<AddAlbum />);
+
+    const newAlbumStub = sandbox
+      .stub(Database, "addAlbum")
+      .rejects({ name: "error", message: "Please fill out all fields" });
 
     wrapper.find("button").simulate("click");
-    await AddPlayer.prototype.addPlayer();
-    //expect(setState).called.to.equal(true);
-    console.log(wrapper.html());
-    const message = (
-      <h3 className="message">You have added Fake Player to the database!</h3>
-    );
-    //expect(wrapper.contains(message)).to.equal(true);
-  });
-  it("should render an error message with insufficient input", () => {
-    const wrapper = shallow(<AddPlayer />);
-    const newPlayerStub = sinon
-      .stub(AddPlayer.prototype, "addPlayer")
-      .throws({ name: "error", message: "Please fill out all fields" });
-    const message = <h4 className="message">Please fill out all fields</h4>;
-    //console.log(wrapper.html());
-    //expect(wrapper.contains(message)).to.equal(true);
+
+    process.nextTick(() => {
+      wrapper.update();
+      const message = <h4 className="message">Please fill out all fields</h4>;
+      expect(wrapper.contains(message)).to.equal(true);
+      done();
+    });
   });
 });
