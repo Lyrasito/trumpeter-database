@@ -1,15 +1,15 @@
 import fetch from "node-fetch";
-import keys from "./keys.js";
+//import keys from "./keys.js";
 const isHeroku = process.env.NODE_ENV === "production";
 let clientID, clientSecret;
 
 if (isHeroku) {
   clientID = process.env.REACT_APP_SPOTIFY_ID;
   clientSecret = process.env.REACT_APP_SPOTIFY_SECRET;
-} else {
+} /*else {
   clientID = keys.clientID;
   clientSecret = keys.clientSecret;
-}
+}*/
 //console.log(process.env);
 
 const Spotify = {
