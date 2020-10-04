@@ -1,4 +1,4 @@
-const { Album } = require("../Models");
+import { Album } from "../Models.js";
 
 const getAllAlbums = async (req, res, next) => {
   const foundAlbums = await Album.findAll({
@@ -17,7 +17,7 @@ const getAllGenres = async (req, res, next) => {
   const genreList = albumList.map((album) => {
     return album.genre;
   });
-  uniqueArray = genreList.filter(function (item, pos, self) {
+  const uniqueArray = genreList.filter(function (item, pos, self) {
     return self.indexOf(item) == pos;
   });
   res.send({ genre: uniqueArray });
@@ -57,7 +57,7 @@ const postAlbum = async (req, res, next) => {
   res.status(201).send({ album: createdAlbum });
 };
 
-module.exports = {
+export {
   getAllAlbums,
   getAllGenres,
   getAlbumsOneGenre,

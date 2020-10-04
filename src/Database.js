@@ -84,6 +84,7 @@ const Database = {
       title: album.title,
       year: album.year,
       genre: album.genre,
+      image: album.image,
     }));
     return albums;
   },

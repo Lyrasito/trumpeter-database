@@ -1,16 +1,15 @@
-const fetch = require("node-fetch");
-//const keys = require("./keys.json");
+import fetch from "node-fetch";
+import keys from "./keys.js";
 const isHeroku = process.env.NODE_ENV === "production";
 let clientID, clientSecret;
 
 if (isHeroku) {
   clientID = process.env.REACT_APP_SPOTIFY_ID;
   clientSecret = process.env.REACT_APP_SPOTIFY_SECRET;
+} else {
+  clientID = keys.clientID;
+  clientSecret = keys.clientSecret;
 }
-//else {
-// clientID = keys.clientID;
-//clientSecret = keys.clientSecret;
-//}
 //console.log(process.env);
 
 const Spotify = {
@@ -46,6 +45,25 @@ const Spotify = {
     } catch (err) {
       console.log(err);
       console.log(isHeroku);
+    }
+  },
+  async getAlbum(term) {
+    const accessToken = await Spotify.getAccessToken();
+    try {
+      const response = await fetch(
+        `https://api.spotify.com/v1/search?q=${term}&type=album`,
+        {
+          headers: {
+            Authorization: "Bearer " + accessToken,
+          },
+        }
+      );
+      const jsonResponse = await response.json();
+      //console.log(jsonResponse);
+      const album = jsonResponse.albums.items[0];
+      return album;
+    } catch (err) {
+      console.log(err);
     }
   },
 };

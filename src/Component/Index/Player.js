@@ -13,6 +13,7 @@ class Player extends React.Component {
     };
     this.showAlbums = this.showAlbums.bind(this);
     this.getSpotify = this.getSpotify.bind(this);
+    //  console.log(props);
   }
   async showAlbums() {
     if (this.state.albumsHidden) {
@@ -104,7 +105,7 @@ class Player extends React.Component {
               return (
                 <div key={album.id} className="album">
                   <img
-                    src="./img/album-default.png"
+                    src={album.image ? album.image : "./img/album-default.png"}
                     className="album-image"
                     alt=""
                   />

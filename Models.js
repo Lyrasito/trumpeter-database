@@ -1,9 +1,11 @@
-const { Sequelize, DataTypes } = require("sequelize");
+import pkg from "sequelize";
+const { Sequelize, DataTypes } = pkg;
 
 const isHeroku = process.env.HEROKU;
 const isTesting = process.env.TESTING;
+import dotenv from "dotenv";
 
-require("dotenv").config({ path: isTesting ? ".test.env" : ".env" });
+dotenv.config({ path: isTesting ? ".test.env" : ".env" });
 
 console.log(isHeroku);
 let sequelize;
@@ -57,4 +59,7 @@ const Album = sequelize.define(
   { tableName: "album", timestamps: false }
 );
 
-module.exports = { Album, Player, sequelize };
+Player.hasMany(Album, { foreignKey: "player_id" });
+Album.belongsTo(Player, { foreignKey: "player_id" });
+
+export { Album, Player, sequelize };

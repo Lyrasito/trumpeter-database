@@ -1,9 +1,9 @@
-const bodyParser = require("body-parser");
-const cors = require("cors");
-const errorhandler = require("errorhandler");
-const express = require("express");
-const morgan = require("morgan");
-const apiRouter = require("./api/api");
+import bodyParser from "body-parser";
+import cors from "cors";
+import errorhandler from "errorhandler";
+import express from "express";
+import morgan from "morgan";
+import apiRouter from "./api/api.js";
 const isHeroku = process.env.HEROKU;
 
 const app = express();
@@ -20,4 +20,4 @@ if (isHeroku) {
   app.use(express.static("public"));
 }
 
-module.exports = app;
+export default app;

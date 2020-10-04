@@ -1,7 +1,7 @@
-const express = require("express");
+import express from "express";
 const apiRouter = express.Router();
-const { playerRouter } = require("./PlayerRouter");
+import { playerRouter } from "./PlayerRouter.js";
 
 apiRouter.use("/players", playerRouter);
 
-module.exports = apiRouter;
+export default apiRouter;
