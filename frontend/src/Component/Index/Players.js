@@ -20,6 +20,7 @@ class Players extends React.Component {
   }
 
   async handleClick(player) {
+    // console.log(player.image);
     if (this.state.playerHidden) {
       this.setState({ playerHidden: false });
     } else {
