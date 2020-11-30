@@ -20,4 +20,4 @@ if (isHeroku) {
   app.use(express.static("public"));
 }
 
-export default app;
+exports.server = app;

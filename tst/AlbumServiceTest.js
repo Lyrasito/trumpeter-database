@@ -1,15 +1,16 @@
 import rewire from "rewire";
-var app = rewire("../server");
-const supertest = require("supertest");
+import path from "path";
+var app = rewire(path.join(process.cwd(), "server.js"));
+import supertest from "supertest";
 const request = supertest(app);
-const chai = require("chai");
+import chai from "chai";
 const expect = chai.expect;
-const sinon = require("sinon");
-const sinonChai = require("sinon-chai");
+//import sinon from "sinon";
+import sinonChai from "sinon-chai";
 
-const { mockReq, mockRes } = require("sinon-express-mock");
+//import { mockReq, mockRes } from "sinon-express-mock";
 
-const { Album, Player, sequelize } = require("../Models");
+import { Album, Player, sequelize } from "../Models.js";
 
 chai.use(sinonChai);
 
