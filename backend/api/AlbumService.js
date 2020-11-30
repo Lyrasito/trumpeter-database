@@ -1,4 +1,4 @@
-import { Album } from "../Models.js";
+const { Album } = require("../Models.js");
 
 const getAllAlbums = async (req, res, next) => {
   const foundAlbums = await Album.findAll({
@@ -57,7 +57,7 @@ const postAlbum = async (req, res, next) => {
   res.status(201).send({ album: createdAlbum });
 };
 
-export {
+module.exports = {
   getAllAlbums,
   getAllGenres,
   getAlbumsOneGenre,

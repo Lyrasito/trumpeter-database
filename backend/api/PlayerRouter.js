@@ -1,7 +1,7 @@
-import express from "express";
+const express = require("express");
 const playerRouter = express.Router();
-import { albumsRouter } from "./AlbumRouter.js";
-import {
+const { albumsRouter } = require("./AlbumRouter.js");
+const {
   findReqPlayer,
   getAllPlayers,
   searchByQueries,
@@ -10,7 +10,7 @@ import {
   validatePlayer,
   postPlayer,
   getPlayerIdsFromGenre,
-} from "./PlayerService.js";
+} = require("./PlayerService.js");
 
 //Set req.player by playerId
 playerRouter.param("playerId", findReqPlayer);
@@ -28,4 +28,4 @@ playerRouter.get("/:playerId", getById);
 //Post a new player
 playerRouter.post("/", validatePlayer, postPlayer);
 
-export { playerRouter };
+module.exports = { playerRouter };

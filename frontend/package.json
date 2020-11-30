@@ -37,7 +37,6 @@
     "start": "node start",
     "react": "react-scripts start",
     "build": "react-scripts build",
-    "test": "set TESTING=true && mocha tst/**/*.js --timeout 10000",
     "reacttest": "set TESTING=true && react-scripts test",
     "eject": "react-scripts eject"
   },

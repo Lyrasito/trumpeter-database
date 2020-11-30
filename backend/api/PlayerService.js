@@ -1,6 +1,6 @@
-import pkg from "sequelize";
+const pkg = require("sequelize");
 const { Op } = pkg;
-import { Player, Album } from "../Models.js";
+const { Player, Album } = require("../Models.js");
 
 const findReqPlayer = async (req, res, next, playerId) => {
   const foundPlayer = await Player.findByPk(playerId);
@@ -148,7 +148,7 @@ const postPlayer = async (req, res, next) => {
   res.status(201).send({ player: createdPlayer });
 };
 
-export {
+module.exports = {
   findReqPlayer,
   getAllPlayers,
   searchByQueries,

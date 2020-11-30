@@ -69,7 +69,7 @@ describe("SearchBar", () => {
     expect(wrapper.contains(searchBar.getElements())).to.equal(true);
     expect(wrapper.contains(nameSearch.getElements())).to.equal(false);
   });
-  it.only("should search for a player and display the player list", () => {
+  it("should search for a player and display the player list", () => {
     const wrapper = mount(<PlayerList players={newPlayerArray} />);
     //const SearchWrapper = wrapper.find(SearchBar).first();
     //console.log(SearchWrapper.getElements());
@@ -97,7 +97,7 @@ describe("SearchBar", () => {
 });
 
 describe("Player", () => {
-  it.only("should render info of the player clicked on", (done) => {
+  it("should render info of the player clicked on", (done) => {
     //mount Player component with props of first object in player array, and album array
     const wrapper = mount(
       <Player player={newPlayerArray[0]} albums={newAlbumArray} />

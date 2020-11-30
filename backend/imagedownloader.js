@@ -1,7 +1,7 @@
-import { Album, Player } from "./Models.js";
-import Spotify from "./src/Spotify.js";
-import request from "request";
-import fs from "fs";
+const { Album, Player } = require("./Models.js");
+const Spotify = require("../frontend/src/Spotify");
+const request = require("request");
+const fs = require("fs");
 
 //written by Kevin
 const getAlbums = async () => {

@@ -1,13 +1,13 @@
-import express from "express";
+const express = require("express");
 const albumsRouter = express.Router({ mergeParams: true });
 
-import {
+const {
   getAllAlbums,
   getAllGenres,
   getAlbumsOneGenre,
   validateAlbum,
   postAlbum,
-} from "./AlbumService.js";
+} = require("./AlbumService.js");
 
 //Get all albums by one Player
 albumsRouter.get("/", getAllAlbums);
@@ -18,4 +18,4 @@ albumsRouter.get("/genres/albums", getAlbumsOneGenre);
 //Add an album
 albumsRouter.post("/", validateAlbum, postAlbum);
 
-export { albumsRouter };
+module.exports = { albumsRouter };

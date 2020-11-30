@@ -1,0 +1,35 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "start.js",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "errorhandler": "^1.5.1",
+    "express": "^4.17.1",
+    "fetch": "^1.1.0",
+    "form-data": "^3.0.0",
+    "morgan": "^1.10.0",
+    "mysql2": "^2.2.2",
+    "node-fetch": "^2.6.0",
+    "node-mocks-http": "^1.9.0",
+    "nodemon": "^2.0.4",
+    "request": "^2.88.2",
+    "rewire": "^5.0.0",
+    "sequelize": "^6.3.5",
+    "sinon": "^9.0.3",
+    "sinon-chai": "^3.5.0",
+    "sinon-express-mock": "^2.2.1",
+    "supertest": "^4.0.2"
+  },
+  "scripts": {
+    "start": "nodemon start.js",
+    "test": "set TESTING=true && mocha tst/**/*.js --timeout 10000"
+  },
+  "author": "",
+  "license": "ISC"
+}
