@@ -16,15 +16,9 @@ class Player extends React.Component {
     //  console.log(props);
   }
   async showAlbums() {
-    if (this.state.albumsHidden) {
-      this.setState({
-        albumsHidden: false,
-      });
-    } else {
-      this.setState({
-        albumsHidden: true,
-      });
-    }
+
+    this.setState({albumsHidden: !this.state.albumsHidden})
+    
     for (let i = 0; i < this.props.player.albums.length; i++) {
       let link = await this.getSpotify(
         `${this.props.player.albums[i].title} ${this.props.player.name}`
@@ -39,6 +33,7 @@ class Player extends React.Component {
   async getSpotify(term) {
     const link = await Spotify.searchAlbum(term);
     return link;
+    
   }
 
   render() {

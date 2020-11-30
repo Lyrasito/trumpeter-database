@@ -38,7 +38,7 @@ const newPlayerArray = [
 describe("Landing", () => {
   it("should render without errors", () => {
     shallow(<Landing />);
-    console.log(process.env.DATABASE_DATABASE);
+    //console.log(process.env.DATABASE_DATABASE);
   });
   it("should render the title of the webpage and intro paragraph", () => {
     const wrapper = shallow(<Landing />);
@@ -69,16 +69,8 @@ describe("SearchBar", () => {
     expect(wrapper.contains(searchBar.getElements())).to.equal(true);
     expect(wrapper.contains(nameSearch.getElements())).to.equal(false);
   });
-  it.only("should search for a player and display the player list", () => {
+  it("should search for a player and display the player list", () => {
     const wrapper = mount(<PlayerList players={newPlayerArray} />);
-    //const SearchWrapper = wrapper.find(SearchBar).first();
-    //console.log(SearchWrapper.getElements());
-    //const nameSearch = SearchWrapper.find("#nameSearch");
-    // nameSearch.simulate("change", { target: { value: "Fake" } });
-    //const submit = SearchWrapper.find(".submit");
-    //submit.simulate("click");
-    //const PlayerListWrapper = wrapper.find(PlayerList);
-    //console.log(wrapper.html());
 
     //Because there's an array of players in the players prop, this header will show up.
     const renderHeader = <h2>Players</h2>;
@@ -97,7 +89,7 @@ describe("SearchBar", () => {
 });
 
 describe("Player", () => {
-  it.only("should render info of the player clicked on", (done) => {
+  it("should render info of the player clicked on", (done) => {
     //mount Player component with props of first object in player array, and album array
     const wrapper = mount(
       <Player player={newPlayerArray[0]} albums={newAlbumArray} />

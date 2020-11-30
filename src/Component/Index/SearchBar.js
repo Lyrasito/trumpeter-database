@@ -6,15 +6,14 @@ class SearchBar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      searchResults: [],
+      
       city: "",
       year: "",
       genre: "",
       name: "",
       searchBy: "name",
       haveSearched: false,
-    };
-    this.allPlayersButton = this.allPlayersButton.bind(this);
+    };    
     this.handleCityChange = this.handleCityChange.bind(this);
     this.handleYearChange = this.handleYearChange.bind(this);
     this.handleGenreChange = this.handleGenreChange.bind(this);
@@ -24,11 +23,7 @@ class SearchBar extends React.Component {
     this.changeSearch = this.changeSearch.bind(this);
     this.renderNoResults = this.renderNoResults.bind(this);
   }
-  allPlayersButton() {
-    this.setState({
-      searchResults: this.props.allPlayers,
-    });
-  }
+  
   handleCityChange(event) {
     this.setState({
       city: event.target.value,

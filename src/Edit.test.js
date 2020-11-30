@@ -38,7 +38,7 @@ describe("AddPlayer", () => {
   //beforeEach(() => {});
   afterEach(() => {
     sandbox.restore();
-    wrapper.unmount();
+    //wrapper.unmount();
   });
   it("should render properly", () => {
     const wrapper = shallow(<AddPlayer />);
@@ -56,7 +56,7 @@ describe("AddPlayer", () => {
     expect(newPlayerStub).to.have.been.calledOnce;
     process.nextTick(() => {
       wrapper.update();
-      console.log(wrapper.html());
+      //console.log(wrapper.html());
 
       const message = (
         <h3 className="message">You have added Fake Player to the database!</h3>
@@ -86,11 +86,13 @@ describe("AddAlbum", () => {
     sandbox.restore();
   });
   it("should render properly", () => {
-    const wrapper = shallow(<AddPlayer />);
-    const title = <h3 className="message">Add a player to the database!</h3>;
+    const wrapper = shallow(<AddAlbum />);
+    const title = (
+      <h3 className="message">Add an album to a player's libary!</h3>
+    );
     expect(wrapper.contains(title));
   });
-  it.only("Should render a success message after adding an album", (done) => {
+  it("Should render a success message after adding an album", (done) => {
     const wrapper = mount(<AddAlbum />);
 
     const getPlayerIdStub = sandbox
@@ -117,7 +119,7 @@ describe("AddAlbum", () => {
       done();
     });
   });
-  it.only("should render an error message with insufficient input", (done) => {
+  it("should render an error message with insufficient input", (done) => {
     const wrapper = shallow(<AddAlbum />);
 
     const newAlbumStub = sandbox

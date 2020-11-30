@@ -34,7 +34,7 @@
     "supertest": "^4.0.2"
   },
   "scripts": {
-    "start": "node start",
+    "start": "nodemon start",
     "react": "react-scripts start",
     "build": "react-scripts build",
     "test": "set TESTING=true && mocha tst/**/*.js --timeout 10000",

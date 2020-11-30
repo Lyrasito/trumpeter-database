@@ -10,7 +10,7 @@ class AddAlbum extends React.Component {
       playerId: null,
       currentPlayer: null,
       title: "",
-      year: null,
+      year: "",
       genre: "",
       newAlbum: {},
       error: null,

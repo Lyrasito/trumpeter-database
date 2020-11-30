@@ -1,4 +1,4 @@
-const rewire = require("rewire");
+import rewire from "rewire";
 var app = rewire("../server");
 const supertest = require("supertest");
 const request = supertest(app);

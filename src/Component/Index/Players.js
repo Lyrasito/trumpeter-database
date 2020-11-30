@@ -20,19 +20,15 @@ class Players extends React.Component {
   }
 
   async handleClick(player) {
-    if (this.state.playerHidden) {
-      this.setState({ playerHidden: false });
-    } else {
-      this.setState({ playerHidden: true });
-    }
-    console.log("first", player);
-    //console.log(this.state.playerHidden);
+
+    this.setState({ playerHidden: !this.state.playerHidden})
+
     try {
       const response = await Database.getPlayerGenres(player);
-      console.log("second", player);
+      //console.log("second", player);
       player.genres = response;
       const albumResponse = await Database.getPlayerAlbums(player);
-      console.log("third", player);
+      //console.log("third", player);
       player.albums = albumResponse;
     } catch (err) {
       console.log(err);
