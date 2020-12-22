@@ -6,78 +6,76 @@ import { ReactComponent as CaretDown } from "../../svg/Caret-Down-2.svg";
 import { ReactComponent as CaretUp } from "../../svg/Caret-Up.svg";
 
 class Players extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      playerHidden: true,
-      clickedPlayer: null,
-      genre: "",
-      albums: null,
-    };
-    this.handleClick = this.handleClick.bind(this);
-    this.getGenre = this.getGenre.bind(this);
-    this.filterByGenre = this.filterByGenre.bind(this);
-  }
+  state = {
+    playerShown: false,
+    clickedPlayer: null,
+    genre: "",
+    albums: null,
+    shownAlbums: null,
+  };
 
-  async handleClick(player) {
-    // console.log(player.image);
-    if (this.state.playerHidden) {
-      this.setState({ playerHidden: false });
-    } else {
-      this.setState({ playerHidden: true });
-    }
-
-    //console.log(this.state.playerHidden);
+  handleClick = async (player) => {
     try {
       const response = await Database.getPlayerGenres(player);
 
       player.genres = response;
       const albumResponse = await Database.getPlayerAlbums(player);
       player.albums = albumResponse;
+      this.setState({
+        clickedPlayer: player,
+        albums: player.albums,
+        shownAlbums: player.albums,
+        playerShown: !this.state.playerShown,
+      });
     } catch (err) {
       console.log(err);
     }
-    this.setState({
-      clickedPlayer: player,
-      albums: player.albums,
-    });
-  }
+  };
 
-  async filterByGenre() {
-    const albums = await Database.getGenreAlbums(
-      this.state.clickedPlayer.id,
-      this.state.genre
-    );
-    this.setState({ albums: albums });
-  }
+  filterByGenre = (genre) => {
+    if (genre === "noFilter") {
+      this.setState({ shownAlbums: this.state.albums });
+    } else {
+      const newAlbums = this.state.albums.filter(
+        (album) => album.genre === genre
+      );
 
-  getGenre(event) {
+      this.setState({ shownAlbums: newAlbums });
+    }
+  };
+
+  getGenre = (event) => {
+    console.log("get Genre");
     const genre = event.target.value;
     this.setState({ genre: genre });
-  }
+  };
 
   render() {
     return (
-      <div className="container">
-        <div
-          key={this.props.player.id}
-          className="player-line"
-          onClick={() => this.handleClick(this.props.player)}
-        >
-          <h5>{this.props.player.name}</h5>
-          {this.state.playerHidden ? (
-            <CaretDown id="caret" />
-          ) : (
-            <CaretUp id="caret" />
-          )}
-        </div>
-        <div id={this.state.playerHidden ? "hiddenPlayer" : "shownPlayer"}>
-          <Player
-            player={this.state.clickedPlayer}
-            albums={this.state.albums}
-            getGenre={this.getGenre}
-            filterByGenre={this.filterByGenre}
-          />
+      <div className="container ">
+        <div className="player-line-container">
+          <div
+            key={this.props.player.id}
+            className="player-line"
+            onClick={() => this.handleClick(this.props.player)}
+          >
+            <h5>{this.props.player.name}</h5>
+            {this.state.playerShown ? (
+              <CaretUp id="caret" />
+            ) : (
+              <CaretDown id="caret" />
+            )}
+          </div>
+          <div id="shownPlayer">
+            {this.state.playerShown && (
+              <Player
+                player={this.state.clickedPlayer}
+                albums={this.state.shownAlbums}
+                getGenre={this.getGenre}
+                filterByGenre={this.filterByGenre}
+              />
+            )}
+          </div>
         </div>
       </div>
     );

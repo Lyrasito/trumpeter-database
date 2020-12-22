@@ -1,0 +1,11 @@
+.albumFilter {
+  display: flex;
+  float: right;
+  padding: 10px;
+}
+
+.albumList {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}

@@ -1,5 +1,9 @@
-.player-list {
+.player-list-container {
   margin-left: 80px;
   width: 80%;
   padding-bottom: 80px;
+}
+
+.player-list {
+  border-top: 4px solid #ffeeb4;
 }
