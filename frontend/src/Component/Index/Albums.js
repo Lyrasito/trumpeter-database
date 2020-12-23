@@ -64,7 +64,11 @@ class Albums extends React.Component {
         </div>
         <div className="albumList">
           {this.props.albums.map((album, index) => (
-            <Album album={album} albumLink={this.state.albumLinks[index]} />
+            <Album
+              album={album}
+              albumLink={this.state.albumLinks[index]}
+              key={album.id}
+            />
           ))}
         </div>
       </div>

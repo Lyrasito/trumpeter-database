@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, HashRouter as Router } from "react-router-dom";
+import { Link, BrowserRouter as Router } from "react-router-dom";
 import "./Landing.css";
 import Database from "../../Database";
 import SearchBar from "./SearchBar";
@@ -8,17 +8,11 @@ import { ReactComponent as AddLogo } from "../../svg/AddToDatabase.svg";
 import { ReactComponent as SearchLogo } from "../../svg/Search.svg";
 
 class Landing extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      searchResults: [],
-    };
-    this.allPlayers = this.allPlayers.bind(this);
-    this.searchPlayers = this.searchPlayers.bind(this);
-    this.searchByName = this.searchByName.bind(this);
-  }
+  state = {
+    searchResults: [],
+  };
 
-  async searchPlayers(city, year, genre) {
+  searchPlayers = async (city, year, genre) => {
     if (!year) {
       year = null;
     } else if (!city) {
@@ -28,17 +22,20 @@ class Landing extends React.Component {
     }
     const response = await Database.searchPlayers(city, year, genre);
     this.setState({ searchResults: response });
-  }
+    window.location.href = "#searchResults";
+  };
 
-  async allPlayers() {
+  allPlayers = async () => {
     const response = await Database.getPlayers();
     this.setState({ searchResults: response });
-  }
+    window.location.href = "#searchResults";
+  };
 
-  async searchByName(name) {
+  searchByName = async (name) => {
     const response = await Database.searchByName(name);
     this.setState({ searchResults: response });
-  }
+    window.location.href = "#searchResults";
+  };
 
   render() {
     return (
@@ -60,7 +57,10 @@ class Landing extends React.Component {
             />
           </div>
         </div>
-        <PlayerList players={this.state.searchResults} />
+        <div id="searchResults">
+          <PlayerList players={this.state.searchResults} />
+        </div>
+
         <footer>
           <Router>
             <Link to="/edit">
@@ -71,7 +71,7 @@ class Landing extends React.Component {
             </Link>
           </Router>
           <br />
-          <a href=".all">
+          <a href="/">
             <button className="submit">
               Search
               <SearchLogo />

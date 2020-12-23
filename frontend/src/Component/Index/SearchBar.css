@@ -53,6 +53,7 @@
 .clicked {
   text-decoration: underline;
   margin-right: 25px;
+  pointer-events: none;
 }
 
 .clickable {
