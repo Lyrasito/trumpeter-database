@@ -84,25 +84,3 @@ class Landing extends React.Component {
 }
 
 export default Landing;
-
-/*{
-  id: 1,
-  name: "Miles Davis",
-  city: "New York",
-  startYear: 1945,
-  endYear: 1991,
-},
-{
-  id: 2,
-  name: "Clifford Brown",
-  city: "New York",
-  startYear: 1949,
-  endYear: 1956,
-},
-{
-  id: 3,
-  name: "Chet Baker",
-  city: "Los Angeles",
-  startYear: 1949,
-  endYear: 1988,
-}, */

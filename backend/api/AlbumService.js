@@ -1,4 +1,5 @@
 const { Album } = require("../Models.js");
+const getSpotifyToken = require("../Spotify");
 
 const getAllAlbums = async (req, res, next) => {
   const foundAlbums = await Album.findAll({
