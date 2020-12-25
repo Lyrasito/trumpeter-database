@@ -37,7 +37,6 @@ const Spotify = {
         }
       );
       const jsonResponse = await response.json();
-      //console.log(jsonResponse);
       const album = jsonResponse.albums.items[0];
       return album;
     } catch (err) {
@@ -64,5 +63,4 @@ const Spotify = {
   },
 };
 
-//Spotify.getPlayer("Clifford Brown");
 export default Spotify;

@@ -3,39 +3,28 @@ import Database from "../../Database";
 import "./AddAlbum.css";
 
 class AddAlbum extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      playerList: [],
-      playerId: null,
-      currentPlayer: null,
-      title: "",
-      year: "",
-      genre: "",
-      newAlbum: {},
-      error: null,
-    };
-    this.getAllPlayers = this.getAllPlayers.bind(this);
-    this.getPlayerId = this.getPlayerId.bind(this);
-    this.getTitle = this.getTitle.bind(this);
-    this.getYear = this.getYear.bind(this);
-    this.getGenre = this.getGenre.bind(this);
-    this.createAlbum = this.createAlbum.bind(this);
-    this.renderAlbum = this.renderAlbum.bind(this);
-    this.renderError = this.renderError.bind(this);
-  }
+  state = {
+    playerList: [],
+    playerId: null,
+    currentPlayer: null,
+    title: "",
+    year: "",
+    genre: "",
+    newAlbum: {},
+    error: null,
+  };
 
   componentDidMount() {
     this.getAllPlayers();
   }
 
-  async getAllPlayers() {
+  getAllPlayers = async () => {
     const allPlayers = await Database.getPlayers();
     this.setState({
       playerList: allPlayers,
     });
-  }
-  async getPlayerId(event) {
+  };
+  getPlayerId = async (event) => {
     const playerId = event.target.value;
     const response = await Database.getPlayerById(playerId);
     this.setState({
@@ -43,23 +32,15 @@ class AddAlbum extends React.Component {
       currentPlayer: response,
       newAlbum: {},
     });
-  }
-  getTitle(event) {
+  };
+  handleChange = (event) => {
+    const { name, value } = event.target;
     this.setState({
-      title: event.target.value,
+      [name]: value,
     });
-  }
-  getYear(event) {
-    this.setState({
-      year: event.target.value,
-    });
-  }
-  getGenre(event) {
-    this.setState({
-      genre: event.target.value,
-    });
-  }
-  async createAlbum() {
+  };
+
+  createAlbum = async () => {
     try {
       const response = await Database.addAlbum(
         this.state.playerId,
@@ -71,8 +52,8 @@ class AddAlbum extends React.Component {
     } catch (err) {
       this.setState({ error: err.message, newAlbum: {} });
     }
-  }
-  renderAlbum() {
+  };
+  renderAlbum = () => {
     if (this.state.newAlbum.title) {
       return (
         <h3 className="message">
@@ -81,12 +62,12 @@ class AddAlbum extends React.Component {
         </h3>
       );
     }
-  }
-  renderError() {
+  };
+  renderError = () => {
     if (this.state.error) {
       return <h4 className="message">{this.state.error}</h4>;
     }
-  }
+  };
   render() {
     return (
       <div>
@@ -119,16 +100,18 @@ class AddAlbum extends React.Component {
             <input
               className="album-input"
               id="createTitle"
-              onChange={this.getTitle}
+              name="title"
+              onChange={this.handleChange}
               value={this.state.title}
             ></input>
           </label>
           <label>
-            Release year{" "}
+            Release year
             <input
               className="album-input"
               id="createYear"
-              onChange={this.getYear}
+              name="year"
+              onChange={this.handleChange}
               value={this.state.year}
             ></input>
           </label>
@@ -137,7 +120,8 @@ class AddAlbum extends React.Component {
             <input
               className="album-input"
               id="createGenre"
-              onChange={this.getGenre}
+              name="genre"
+              onChange={this.handleChange}
               value={this.state.genre}
             ></input>
           </label>

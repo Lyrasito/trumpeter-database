@@ -2,7 +2,7 @@ import React from "react";
 import AddPlayer from "./AddPlayer";
 import AddAlbum from "./AddAlbum";
 import "./EditApp.css";
-import { Link, HashRouter as Router } from "react-router-dom";
+import { Link } from "react-router-dom";
 class EditApp extends React.Component {
   render() {
     return (
@@ -13,11 +13,9 @@ class EditApp extends React.Component {
           </div>
           <AddAlbum />
           <div className="backButton">
-            <Router>
-              <Link to="/">
-                <button className="add">Back</button>
-              </Link>
-            </Router>
+            <Link to="/">
+              <button className="add">Back</button>
+            </Link>
           </div>
         </div>
       </div>

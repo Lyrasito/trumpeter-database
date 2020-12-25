@@ -1,5 +1,6 @@
 import React from "react";
-import { Link, BrowserRouter as Router } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { withRouter } from "react-router";
 import "./Landing.css";
 import Database from "../../Database";
 import SearchBar from "./SearchBar";
@@ -12,6 +13,12 @@ class Landing extends React.Component {
     searchResults: [],
   };
 
+  scrollToResults = () => {
+    const searchResults = document.getElementById("searchResults");
+    const box = searchResults.getBoundingClientRect();
+    window.scrollTo(0, box.top);
+  };
+
   searchPlayers = async (city, year, genre) => {
     if (!year) {
       year = null;
@@ -22,19 +29,19 @@ class Landing extends React.Component {
     }
     const response = await Database.searchPlayers(city, year, genre);
     this.setState({ searchResults: response });
-    window.location.href = "#searchResults";
+    this.scrollToResults();
   };
 
   allPlayers = async () => {
     const response = await Database.getPlayers();
     this.setState({ searchResults: response });
-    window.location.href = "#searchResults";
+    this.scrollToResults();
   };
 
   searchByName = async (name) => {
     const response = await Database.searchByName(name);
     this.setState({ searchResults: response });
-    window.location.href = "#searchResults";
+    this.scrollToResults();
   };
 
   render() {
@@ -62,14 +69,13 @@ class Landing extends React.Component {
         </div>
 
         <footer>
-          <Router>
-            <Link to="/edit">
-              <button className="add">
-                Add to Database
-                <AddLogo id="addLogo" />
-              </button>
-            </Link>
-          </Router>
+          <Link to="/edit">
+            <button className="add">
+              Add to Database
+              <AddLogo id="addLogo" />
+            </button>
+          </Link>
+
           <br />
           <a href="/">
             <button className="submit">

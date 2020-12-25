@@ -3,38 +3,21 @@ import Database from "../../Database";
 import "./AddPlayer.css";
 
 class AddPlayer extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      name: "",
-      city: "",
-      startYear: "",
-      endYear: "",
-      newPlayer: {},
-      error: null,
-    };
-    this.getName = this.getName.bind(this);
-    this.getCity = this.getCity.bind(this);
-    this.getStartYear = this.getStartYear.bind(this);
-    this.getEndYear = this.getEndYear.bind(this);
-    this.addPlayer = this.addPlayer.bind(this);
-    this.renderPlayer = this.renderPlayer.bind(this);
-    this.renderError = this.renderError.bind(this);
-  }
+  state = {
+    name: "",
+    city: "",
+    startYear: "",
+    endYear: "",
+    newPlayer: {},
+    error: null,
+  };
 
-  getName(event) {
-    this.setState({ name: event.target.value });
-  }
-  getCity(event) {
-    this.setState({ city: event.target.value });
-  }
-  getStartYear(event) {
-    this.setState({ startYear: event.target.value });
-  }
-  getEndYear(event) {
-    this.setState({ endYear: event.target.value });
-  }
-  async addPlayer() {
+  handleChange = (event) => {
+    const { value, name } = event.target;
+    this.setState({ [name]: value });
+  };
+
+  addPlayer = async () => {
     try {
       const newPlayer = await Database.addPlayer(
         this.state.name,
@@ -52,8 +35,8 @@ class AddPlayer extends React.Component {
     } catch (err) {
       this.setState({ error: err.message, newPlayer: {} });
     }
-  }
-  renderPlayer() {
+  };
+  renderPlayer = () => {
     if (this.state.newPlayer.name) {
       return (
         <h3 className="message">
@@ -61,12 +44,12 @@ class AddPlayer extends React.Component {
         </h3>
       );
     }
-  }
-  renderError() {
+  };
+  renderError = () => {
     if (this.state.error) {
       return <h4 className="message">{this.state.error}</h4>;
     }
-  }
+  };
   render() {
     return (
       <div className="newPlayer-container">
@@ -77,7 +60,8 @@ class AddPlayer extends React.Component {
             <input
               className="player-input"
               id="createName"
-              onChange={this.getName}
+              name="name"
+              onChange={this.handleChange}
               value={this.state.name}
             ></input>
           </label>
@@ -86,7 +70,8 @@ class AddPlayer extends React.Component {
             <input
               className="player-input"
               id="createCity"
-              onChange={this.getCity}
+              name="city"
+              onChange={this.handleChange}
               value={this.state.city}
             ></input>
           </label>
@@ -95,7 +80,8 @@ class AddPlayer extends React.Component {
             <input
               className="player-input"
               id="createStartYear"
-              onChange={this.getStartYear}
+              name="startYear"
+              onChange={this.handleChange}
               value={this.state.startYear}
             ></input>
           </label>
@@ -104,7 +90,8 @@ class AddPlayer extends React.Component {
             <input
               className="player-input"
               id="createEndYear"
-              onChange={this.getEndYear}
+              name="endYear"
+              onChange={this.handleChange}
               value={this.state.endYear}
             ></input>
           </label>

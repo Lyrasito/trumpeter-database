@@ -96,13 +96,6 @@ const Database = {
     return jsonResponse.genre;
   },
 
-  async getGenreAlbums(id, genre) {
-    const url = `${baseUrl}/players/${id}/albums/genres/albums?genre=${genre}`;
-    const response = await fetch(url);
-    const jsonResponse = await response.json();
-    return jsonResponse.albums;
-  },
-
   async addPlayer(name, city, startYear, endYear) {
     const url = `${baseUrl}/players`;
 
@@ -121,7 +114,6 @@ const Database = {
       }),
     });
 
-    console.log("test", response);
     if (response.ok) {
       const jsonResponse = await response.json();
       return jsonResponse.player;
@@ -155,7 +147,4 @@ const Database = {
   },
 };
 
-//Database.getPlayerById(1);
 export default Database;
-
-/*  */
