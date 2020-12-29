@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Players /> renders properly 1`] = `
+<div
+  className="container "
+>
+  <div
+    className="player-line-container"
+  >
+    <div
+      className="player-line"
+      key="1"
+      onClick={[Function]}
+    >
+      <h5>
+        Fake Player
+      </h5>
+      <ForwardRef(SvgCaretDown2)
+        id="caret"
+      />
+    </div>
+    <div
+      id="shownPlayer"
+    />
+  </div>
+</div>
+`;

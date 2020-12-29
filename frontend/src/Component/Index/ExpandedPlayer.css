@@ -1,0 +1,120 @@
+#hiddenAlbums {
+  display: none;
+}
+
+#shownAlbums {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.albumsHeader {
+  display: flex;
+  justify-content: space-between;
+  height: 60px;
+  width: 100%;
+}
+
+.showHide {
+  display: flex;
+}
+
+.clickButton {
+  cursor: pointer;
+  text-decoration: underline;
+  margin-left: 40px;
+}
+#album-header {
+  margin-left: 20px;
+}
+
+.img {
+  width: 320px;
+  height: 320px;
+  object-fit: cover;
+}
+img {
+  width: 300px;
+  height: auto;
+}
+.album-image {
+  width: 240px;
+  height: 240px;
+}
+.player-container {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 40px;
+}
+
+.player-album-container {
+  border-bottom: 4px solid #ffeeb4;
+}
+.career-span {
+  margin-right: 80px;
+  margin-left: 30px;
+  width: 400px;
+  padding-top: 0px;
+  vertical-align: super;
+  margin-top: -40px;
+}
+.city-genres {
+  margin-top: -40px;
+}
+.small-title {
+  color: #ffeeb4;
+}
+
+.link {
+  color: white;
+}
+
+.album {
+  width: 240px;
+  margin: 38px;
+}
+
+.album-title {
+  width: 240px;
+  color: #ffffff;
+  font-family: "Work Sans";
+  font-size: 24px;
+  font-weight: bold;
+  letter-spacing: 0;
+  line-height: 35px;
+}
+
+#genreFilter {
+  display: flex;
+  height: 40px;
+  margin-top: 10px;
+  justify-content: space-between;
+}
+label {
+  margin-top: 10px;
+}
+.genreSelect {
+  box-sizing: border-box;
+  height: 40px;
+  width: 100px;
+  border: 3px solid #666666;
+  border-radius: 30px;
+  background-color: #ffffff;
+  display: block;
+  margin-left: 10px;
+}
+.filterButton {
+  height: 40px;
+  width: 100px;
+  border-radius: 30px;
+  background-color: #ffc600;
+  cursor: pointer;
+  color: #000000;
+  font-family: "WorkSans";
+  font-size: 20px;
+  letter-spacing: 0;
+  line-height: 35px;
+  margin-left: 10px;
+}
+
+.albums-container {
+  display: block;
+}

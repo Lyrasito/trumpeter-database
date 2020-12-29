@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<SearchByCityYearGenre /> renders properly 1`] = `
+<div>
+  <div
+    className="searchbar"
+  >
+    <label>
+      City
+      <input
+        className="search"
+        id="citySearch"
+        name="city"
+        onChange={[Function]}
+        value=""
+      />
+    </label>
+    <label>
+      Year
+      <input
+        className="search"
+        id="yearSearch"
+        name="year"
+        onChange={[Function]}
+        value=""
+      />
+    </label>
+    <label>
+      Genre
+      <input
+        className="search"
+        id="genreSearch"
+        name="genre"
+        onChange={[Function]}
+        value=""
+      />
+    </label>
+  </div>
+  <button
+    className="submit"
+    onClick={[Function]}
+  >
+    Search
+    <ForwardRef(SvgSearch) />
+  </button>
+</div>
+`;

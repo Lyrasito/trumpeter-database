@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<SearchByName /> renders properly 1`] = `
+<div
+  className="nameSearch"
+>
+  <input
+    id="nameSearch"
+    name="name"
+    onChange={[Function]}
+    value=""
+  />
+  <br />
+  <button
+    className="submit"
+    onClick={[Function]}
+  >
+    Search
+    <ForwardRef(SvgSearch) />
+  </button>
+  <br />
+</div>
+`;

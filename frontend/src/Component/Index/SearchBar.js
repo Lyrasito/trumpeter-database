@@ -7,7 +7,7 @@ class SearchBar extends React.Component {
   state = {
     searchResults: [],
     searchByName: true,
-    SearchByCityYearGenre: false,
+    searchByCityYearGenre: false,
     haveSearched: false,
   };
 
@@ -38,14 +38,16 @@ class SearchBar extends React.Component {
       <div className="container">
         <div className="click-container">
           <h4
+            data-test="searchByName"
             className={this.state.searchByName ? "clicked" : "clickable"}
             onClick={this.changeSearch}
           >
             Search by name
           </h4>
           <h4
+            data-test="searchByCityYearGenre"
             className={
-              this.state.SearchByCityYearGenre ? "clicked" : "clickable"
+              this.state.searchByCityYearGenre ? "clicked" : "clickable"
             }
             onClick={this.changeSearch}
           >

@@ -3,7 +3,7 @@ import React from "react";
 import { shallow } from "enzyme";
 
 describe("<Landing/>", () => {
-  it.only("renders properly", () => {
+  it("renders properly", () => {
     const wrapper = shallow(<Landing />);
 
     const title = wrapper.find(".title");
