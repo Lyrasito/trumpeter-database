@@ -1,0 +1,90 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Albums /> renders properly 1`] = `
+<div
+  id="shownAlbums"
+>
+  <div
+    className="albumFilter"
+  >
+    <label>
+      Filter by genre:
+    </label>
+    <select
+      className="genreSelect"
+      onChange={[Function]}
+    >
+      <option
+        value="noFilter"
+      >
+        No filter
+      </option>
+      <option
+        key="0"
+        value="fakeGenre1"
+      >
+        fakeGenre1
+      </option>
+      <option
+        key="1"
+        value="fakeGenre2"
+      >
+        fakeGenre2
+      </option>
+    </select>
+    <button
+      className="filterButton"
+      onClick={[Function]}
+      type="submit"
+    >
+      Filter
+    </button>
+  </div>
+  <div
+    className="albumList"
+  >
+    <Album
+      album={
+        Object {
+          "genre": "fakeGenre1",
+          "id": 1,
+          "player_id": 1,
+          "title": "Fake Album 1",
+          "year": 1234,
+        }
+      }
+      key="1"
+      player={
+        Object {
+          "city": "Fake City",
+          "endYear": 5678,
+          "id": 1,
+          "name": "Fake Player",
+          "startYear": 1234,
+        }
+      }
+    />
+    <Album
+      album={
+        Object {
+          "genre": "fakeGenre2",
+          "id": 2,
+          "player_id": 1,
+          "title": "Fake Album 2",
+          "year": 1234,
+        }
+      }
+      key="2"
+      player={
+        Object {
+          "city": "Fake City",
+          "endYear": 5678,
+          "id": 1,
+          "name": "Fake Player",
+          "startYear": 1234,
+        }
+      }
+    />
+  </div>
+</div>
+`;

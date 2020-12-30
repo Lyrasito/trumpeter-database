@@ -1,0 +1,70 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<AddAlbum /> renders properly 1`] = `
+<div>
+  <h3
+    className="message"
+  >
+    Add an album to a player's library!
+  </h3>
+  <div
+    className="newAlbum"
+  >
+    <label>
+      Select Player
+      <select
+        className="album-input"
+        data-test="playerId"
+        defaultValue="Select Player"
+        id="players"
+        onChange={[Function]}
+      >
+        <option
+          value=""
+        />
+      </select>
+    </label>
+    <label>
+      Album title
+      <input
+        className="album-input"
+        data-test="title"
+        id="createTitle"
+        name="title"
+        onChange={[Function]}
+        value=""
+      />
+    </label>
+    <label>
+      Release year
+      <input
+        className="album-input"
+        data-test="year"
+        id="createYear"
+        name="year"
+        onChange={[Function]}
+        type="number"
+        value=""
+      />
+    </label>
+    <label>
+      Album genre
+      <input
+        className="album-input"
+        data-test="genre"
+        id="createGenre"
+        name="genre"
+        onChange={[Function]}
+        value=""
+      />
+    </label>
+    <button
+      className="submit"
+      onClick={[Function]}
+      type="submit"
+    >
+      Add Album
+    </button>
+  </div>
+</div>
+`;

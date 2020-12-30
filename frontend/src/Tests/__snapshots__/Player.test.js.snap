@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<Players /> renders properly 1`] = `
+exports[`<Player /> renders properly 1`] = `
 <div
   className="container "
 >

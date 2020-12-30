@@ -1,6 +1,5 @@
 import "./Player.css";
 import React from "react";
-import Database from "../../Database";
 import ExpandedPlayer from "./ExpandedPlayer";
 import { ReactComponent as CaretDown } from "../../svg/Caret-Down-2.svg";
 import { ReactComponent as CaretUp } from "../../svg/Caret-Up.svg";
@@ -23,7 +22,7 @@ class Player extends React.Component {
           <div
             key={this.props.player.id}
             className="player-line"
-            onClick={() => this.handleClick(this.props.player)}
+            onClick={this.handleClick}
           >
             <h5>{this.props.player.name}</h5>
             {this.state.playerShown ? (

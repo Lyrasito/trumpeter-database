@@ -1,7 +1,7 @@
 import SearchByName from "../Component/Index/SearchByName";
 import React from "react";
 import toJSON from "enzyme-to-json";
-import { shallow, mount } from "enzyme";
+import { shallow } from "enzyme";
 
 describe("<SearchByName />", () => {
   it("renders properly", () => {

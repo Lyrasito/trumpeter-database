@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Album /> renders properly 1`] = `
+<div
+  className="album"
+  key="1"
+>
+  <img
+    alt="Fake Album 1"
+    className="album-image"
+    src="./img/album-default.png"
+  />
+  <h5
+    className="album-title"
+  >
+    Fake Album 1
+     
+  </h5>
+   
+  <label>
+    1234
+  </label>
+  <br />
+  <label>
+    Genre: 
+    fakeGenre1
+  </label>
+  <a
+    className="link"
+    href="fakespotifylink.com"
+    rel="noopener noreferrer"
+    target="_blank"
+  >
+    <p>
+      Open with Spotify
+    </p>
+  </a>
+</div>
+`;

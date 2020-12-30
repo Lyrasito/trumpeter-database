@@ -1,0 +1,66 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<AddPlayer /> renders properly 1`] = `
+<div
+  className="newPlayer-container"
+>
+  <h3
+    className="message"
+  >
+    Add a player to the database!
+  </h3>
+  <div
+    className="newPlayer"
+  >
+    <label>
+      Name
+      <input
+        className="player-input"
+        data-test="name"
+        name="name"
+        onChange={[Function]}
+        value=""
+      />
+    </label>
+    <label>
+      City/Cities
+      <input
+        className="player-input"
+        data-test="city"
+        name="city"
+        onChange={[Function]}
+        value=""
+      />
+    </label>
+    <label>
+      Year career started
+      <input
+        className="player-input"
+        data-test="startYear"
+        name="startYear"
+        onChange={[Function]}
+        type="number"
+        value=""
+      />
+    </label>
+    <label>
+      Year career ended
+      <input
+        className="player-input"
+        data-test="endYear"
+        name="endYear"
+        onChange={[Function]}
+        type="number"
+        value=""
+      />
+    </label>
+    <button
+      className="submit"
+      onClick={[Function]}
+      type="submit"
+    >
+      Add Player
+    </button>
+  </div>
+</div>
+`;

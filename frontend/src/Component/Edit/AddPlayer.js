@@ -13,8 +13,9 @@ class AddPlayer extends React.Component {
   };
 
   handleChange = (event) => {
-    const { value, name } = event.target;
-    this.setState({ [name]: value });
+    const { name, type, value } = event.target;
+    const val = type === "number" ? parseFloat(value) : value;
+    this.setState({ [name]: val });
   };
 
   addPlayer = async () => {
@@ -39,7 +40,7 @@ class AddPlayer extends React.Component {
   renderPlayer = () => {
     if (this.state.newPlayer.name) {
       return (
-        <h3 className="message">
+        <h3 className="message" data-test="success-message">
           You have added {this.state.newPlayer.name} to the database!
         </h3>
       );
@@ -47,7 +48,11 @@ class AddPlayer extends React.Component {
   };
   renderError = () => {
     if (this.state.error) {
-      return <h4 className="message">{this.state.error}</h4>;
+      return (
+        <h4 className="message" data-test="error-message">
+          {this.state.error}
+        </h4>
+      );
     }
   };
   render() {
@@ -59,8 +64,8 @@ class AddPlayer extends React.Component {
             Name
             <input
               className="player-input"
-              id="createName"
               name="name"
+              data-test="name"
               onChange={this.handleChange}
               value={this.state.name}
             ></input>
@@ -69,8 +74,8 @@ class AddPlayer extends React.Component {
             City/Cities
             <input
               className="player-input"
-              id="createCity"
               name="city"
+              data-test="city"
               onChange={this.handleChange}
               value={this.state.city}
             ></input>
@@ -79,8 +84,9 @@ class AddPlayer extends React.Component {
             Year career started
             <input
               className="player-input"
-              id="createStartYear"
               name="startYear"
+              data-test="startYear"
+              type="number"
               onChange={this.handleChange}
               value={this.state.startYear}
             ></input>
@@ -89,8 +95,9 @@ class AddPlayer extends React.Component {
             Year career ended
             <input
               className="player-input"
-              id="createEndYear"
               name="endYear"
+              data-test="endYear"
+              type="number"
               onChange={this.handleChange}
               value={this.state.endYear}
             ></input>

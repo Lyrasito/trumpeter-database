@@ -2,23 +2,9 @@ import SearchBar from "../Component/Index/SearchBar";
 import React from "react";
 import toJSON from "enzyme-to-json";
 import { shallow, mount } from "enzyme";
+import { fakePlayers } from "../testUtils";
 
-const fakeResults = [
-  {
-    id: 1,
-    name: "Fake Player",
-    city: "Fake City",
-    startYear: 1234,
-    endYear: 5678,
-    albums: [
-      {
-        title: "Fake Album",
-        genre: "Fake Genre",
-        year: 1234,
-      },
-    ],
-  },
-];
+const fakeResults = fakePlayers();
 
 describe("<SearchBar />", () => {
   it("renders and matches snapshot", () => {
@@ -37,5 +23,10 @@ describe("<SearchBar />", () => {
     searchByCityYearGenre.simulate("click");
     expect(wrapper.find("SearchByName")).toHaveLength(0);
     expect(wrapper.find("SearchByCityYearGenre")).toHaveLength(1);
+  });
+  it("renders no results if the search returned nothing", () => {
+    const wrapper = shallow(<SearchBar searchResults={[]} />);
+    wrapper.setState({ haveSearched: true });
+    expect(wrapper.text()).toContain("Sorry, your search returned no results");
   });
 });

@@ -34,9 +34,10 @@ class AddAlbum extends React.Component {
     });
   };
   handleChange = (event) => {
-    const { name, value } = event.target;
+    const { name, value, type } = event.target;
+    const val = type === "number" ? parseFloat(value) : value;
     this.setState({
-      [name]: value,
+      [name]: val,
     });
   };
 
@@ -56,7 +57,7 @@ class AddAlbum extends React.Component {
   renderAlbum = () => {
     if (this.state.newAlbum.title) {
       return (
-        <h3 className="message">
+        <h3 className="message" data-test="success-message">
           You have added {this.state.newAlbum.title} to the library of{" "}
           {this.state.currentPlayer.name}!
         </h3>
@@ -65,7 +66,11 @@ class AddAlbum extends React.Component {
   };
   renderError = () => {
     if (this.state.error) {
-      return <h4 className="message">{this.state.error}</h4>;
+      return (
+        <h4 className="message" data-test="error-message">
+          {this.state.error}
+        </h4>
+      );
     }
   };
   render() {
@@ -78,6 +83,7 @@ class AddAlbum extends React.Component {
             <select
               className="album-input"
               id="players"
+              data-test="playerId"
               onChange={this.getPlayerId}
               defaultValue="Select Player"
             >
@@ -101,6 +107,7 @@ class AddAlbum extends React.Component {
               className="album-input"
               id="createTitle"
               name="title"
+              data-test="title"
               onChange={this.handleChange}
               value={this.state.title}
             ></input>
@@ -111,6 +118,8 @@ class AddAlbum extends React.Component {
               className="album-input"
               id="createYear"
               name="year"
+              data-test="year"
+              type="number"
               onChange={this.handleChange}
               value={this.state.year}
             ></input>
@@ -121,6 +130,7 @@ class AddAlbum extends React.Component {
               className="album-input"
               id="createGenre"
               name="genre"
+              data-test="genre"
               onChange={this.handleChange}
               value={this.state.genre}
             ></input>
