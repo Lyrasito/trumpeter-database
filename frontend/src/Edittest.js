@@ -39,7 +39,7 @@ describe("AddPlayer", () => {
   //beforeEach(() => {});
   afterEach(() => {
     sandbox.restore();
-    wrapper.unmount();
+    //wrapper.unmount();
   });
   it("should render properly", () => {
     wrapper = shallow(<AddPlayer />);
@@ -57,6 +57,10 @@ describe("AddPlayer", () => {
     expect(newPlayerStub).to.have.been.calledOnce;
     process.nextTick(() => {
       wrapper.update();
+<<<<<<< HEAD:frontend/src/Edittest.js
+=======
+      //console.log(wrapper.html());
+>>>>>>> a953ade86d58d8ef9bab9863012f9db09fa17b87:src/Edit.test.js
 
       const message = (
         <h3 className="message">You have added Fake Player to the database!</h3>
@@ -87,12 +91,23 @@ describe("AddAlbum", () => {
     sandbox.restore();
   });
   it("should render properly", () => {
+<<<<<<< HEAD:frontend/src/Edittest.js
     wrapper = shallow(<AddPlayer />);
     const title = <h3 className="message">Add a player to the database!</h3>;
     expect(wrapper.contains(title));
   });
   it("Should render a success message after adding an album", (done) => {
     wrapper = mount(<AddAlbum />);
+=======
+    const wrapper = shallow(<AddAlbum />);
+    const title = (
+      <h3 className="message">Add an album to a player's libary!</h3>
+    );
+    expect(wrapper.contains(title));
+  });
+  it("Should render a success message after adding an album", (done) => {
+    const wrapper = mount(<AddAlbum />);
+>>>>>>> a953ade86d58d8ef9bab9863012f9db09fa17b87:src/Edit.test.js
 
     const getPlayerIdStub = sandbox
       .stub(Database, "getPlayerById")
@@ -119,7 +134,11 @@ describe("AddAlbum", () => {
     });
   });
   it("should render an error message with insufficient input", (done) => {
+<<<<<<< HEAD:frontend/src/Edittest.js
     wrapper = shallow(<AddAlbum />);
+=======
+    const wrapper = shallow(<AddAlbum />);
+>>>>>>> a953ade86d58d8ef9bab9863012f9db09fa17b87:src/Edit.test.js
 
     const newAlbumStub = sandbox
       .stub(Database, "addAlbum")

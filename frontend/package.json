@@ -39,7 +39,7 @@
     "waait": "^1.0.5"
   },
   "scripts": {
-    "start": "node start",
+    "start": "nodemon start",
     "react": "react-scripts start",
     "build": "react-scripts build",
     "reacttest": "set TESTING=true && react-scripts test",
