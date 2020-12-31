@@ -19,7 +19,7 @@ const getSpotifyToken = async () => {
   return jsonResponse.access_token;
 };
 
-const getAlbum = (term) => {
+const getAlbum = async (term) => {
   const accessToken = await getSpotifyToken();
   try {
     const response = await fetch(
@@ -36,7 +36,7 @@ const getAlbum = (term) => {
   } catch (err) {
     console.log(err);
   }
-}
+};
 const getPlayer = async (name) => {
   const accessToken = await getSpotifyToken();
   try {
@@ -54,6 +54,6 @@ const getPlayer = async (name) => {
   } catch (err) {
     console.log(err);
   }
-}
+};
 
-module.exports = {getSpotifyToken, getAlbum, getPlayer};
+module.exports = { getSpotifyToken, getAlbum, getPlayer };

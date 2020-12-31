@@ -1,6 +1,6 @@
 const pkg = require("./Models.js");
 const { Album, Player } = pkg;
-const { getAlbum, getPlayer } = require("./Spotify");
+const { getAlbum, getPlayer } = require("./Spotify.js");
 const request = require("request");
 const fs = require("fs");
 
