@@ -20,12 +20,7 @@ chai.use(sinonChai);
 describe("PlayerRouter", () => {
   let newPlayer, newAlbum;
   before(async () => {
-    // console.log(process.env);
-    await sequelize.query("SET FOREIGN_KEY_CHECKS = 0");
-    await Album.sync({ force: true });
-    await Player.sync({ force: true });
-
-    await sequelize.query("SET FOREIGN_KEY_CHECKS = 1");
+    //console.log("Player Router Test", process.env);
   });
   beforeEach(async () => {
     newPlayer = await Player.create({

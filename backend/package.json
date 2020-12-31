@@ -28,7 +28,7 @@
   },
   "scripts": {
     "start": "nodemon start.js",
-    "test": "set TESTING=true && mocha tst/**/*.js --timeout 10000"
+    "test": "set TESTING=true && mocha test/**/*.js --timeout 10000"
   },
   "author": "",
   "license": "ISC"

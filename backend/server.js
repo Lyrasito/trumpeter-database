@@ -20,8 +20,4 @@ if (isHeroku) {
   app.use(express.static("public"));
 }
 
-<<<<<<< HEAD:backend/server.js
 module.exports = app;
-=======
-exports.server = app;
->>>>>>> a953ade86d58d8ef9bab9863012f9db09fa17b87:server.js

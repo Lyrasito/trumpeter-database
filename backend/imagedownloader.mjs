@@ -1,8 +1,8 @@
-import pkg from "./Models.js";
+const pkg = require("./Models.js");
 const { Album, Player } = pkg;
-import Spotify from "../frontend/src/Spotify.js";
-import request from "request";
-import fs from "fs";
+const { getAlbum, getPlayer } = require("./Spotify");
+const request = require("request");
+const fs = require("fs");
 
 //written by Kevin
 const getAlbums = async () => {
@@ -12,7 +12,7 @@ const getAlbums = async () => {
     await wait(1000);
 
     try {
-      const spotifyAlbum = await Spotify.getAlbum(
+      const spotifyAlbum = await getAlbum(
         album.title + " " + album.Player.name
       );
       const imageUrl = spotifyAlbum.images[0].url;
@@ -39,7 +39,7 @@ const getPlayers = async () => {
     console.log("processing", player.name);
     await wait(1000);
     try {
-      const spotifyPlayer = await Spotify.getPlayer(player.name);
+      const spotifyPlayer = await getPlayer(player.name);
       const imageUrl = spotifyPlayer.images[0].url;
       await downloadAndSave(
         imageUrl,

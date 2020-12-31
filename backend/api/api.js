@@ -1,7 +1,7 @@
 const express = require("express");
 const apiRouter = express.Router();
 const { playerRouter } = require("./PlayerRouter.js");
-const getSpotifyToken = require("../Spotify");
+const { getSpotifyToken } = require("../Spotify");
 
 apiRouter.use("/players", playerRouter);
 

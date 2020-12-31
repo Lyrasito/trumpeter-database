@@ -1,26 +1,29 @@
-import rewire from "rewire";
-import path from "path";
+const rewire = require("rewire");
+const path = require("path");
 var app = rewire(path.join(process.cwd(), "server.js"));
-import supertest from "supertest";
+const supertest = require("supertest");
 const request = supertest(app);
-import chai from "chai";
+const chai = require("chai");
 const expect = chai.expect;
-//import sinon from "sinon";
-import sinonChai from "sinon-chai";
+//const sinon = require "sinon";
+const sinonChai = require("sinon-chai");
 
-//import { mockReq, mockRes } from "sinon-express-mock";
+//const { mockReq, mockRes } = require "sinon-express-mock";
 
-import { Album, Player, sequelize } from "../Models.js";
+const { Album, Player, sequelize } = require("../Models.js");
 
 chai.use(sinonChai);
 
 describe("AlbumRouter", () => {
+  let newPlayer, newAlbum;
+
   before(async () => {
     await sequelize.query("SET FOREIGN_KEY_CHECKS = 0");
     await Player.sync({ force: true });
     await Album.sync({ force: true });
     await sequelize.query("SET FOREIGN_KEY_CHECKS = 1");
   });
+
   beforeEach(async () => {
     newPlayer = await Player.create({
       name: "Fake Player",
