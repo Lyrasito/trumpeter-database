@@ -21,10 +21,11 @@
     "react-router-hash-link": "^2.3.1",
     "react-scripts": "3.4.3",
     "request": "^2.88.2",
+    "serve": "^11.3.2",
     "waait": "^1.0.5"
   },
   "scripts": {
-    "start": "serve -s build -p $PORT",
+    "start": "./node_modules/.bin/serve -s build -p $PORT",
     "build": "react-scripts build",
     "reacttest": "set TESTING=true && react-scripts test",
     "eject": "react-scripts eject"
