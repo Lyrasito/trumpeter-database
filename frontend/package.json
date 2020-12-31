@@ -24,7 +24,7 @@
     "waait": "^1.0.5"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "react-scripts start -p $PORT",
     "build": "react-scripts build",
     "reacttest": "set TESTING=true && react-scripts test",
     "eject": "react-scripts eject"
