@@ -1,5 +1,7 @@
 import fetch from "node-fetch";
 
+const isHeroku = process.env.NODE_ENV === "production";
+
 let baseUrl;
 if (isHeroku) {
   baseUrl = "https://trumpeter-database-backend.herokuapp.com/api";
