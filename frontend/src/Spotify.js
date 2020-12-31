@@ -1,5 +1,6 @@
 import fetch from "node-fetch";
 
+let baseUrl;
 if (isHeroku) {
   baseUrl = "https://trumpeter-database-backend.herokuapp.com/api";
 } else {
