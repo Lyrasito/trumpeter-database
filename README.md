@@ -4,6 +4,14 @@ The JTD is an app where users can browse a database of famous jazz trumpeters fr
 
 ## Installation
 
+/backend
+
+```
+npm install
+```
+
+/frontend
+
 ```
 npm install
 ```
@@ -12,18 +20,32 @@ npm install
 
 Start the database:
 
+/backend
+
 ```
 npm start
 ```
 
 Start the react app:
 
+/frontend
+
 ```
-npm run react
+npm start
+```
+
+Test the database:
+
+/backend
+
+```
+npm test
 ```
 
 Test the react app:
 
+/frontend
+
 ```
-npm run reacttest
+npm test
 ```
