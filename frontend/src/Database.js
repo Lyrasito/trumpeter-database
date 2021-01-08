@@ -2,7 +2,7 @@ const fetch = require("node-fetch");
 const isHeroku = process.env.NODE_ENV === "production";
 let baseUrl;
 if (isHeroku) {
-  baseUrl = "https://trumpeter-database.herokuapp.com/api";
+  baseUrl = "https://trumpeter-database-backend.herokuapp.com/api";
 } else {
   baseUrl = "http://localhost:4000/api";
 }

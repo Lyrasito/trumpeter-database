@@ -1,8 +1,17 @@
 import fetch from "node-fetch";
 
+const isHeroku = process.env.NODE_ENV === "production";
+
+let baseUrl;
+if (isHeroku) {
+  baseUrl = "https://trumpeter-database-backend.herokuapp.com/api";
+} else {
+  baseUrl = "http://localhost:4000/api";
+}
+
 const Spotify = {
   async getAccessToken() {
-    const response = await fetch("http://localhost:4000/api/token");
+    const response = await fetch(`${baseUrl}/token`);
     const jsonResponse = await response.json();
     return jsonResponse.token;
   },
